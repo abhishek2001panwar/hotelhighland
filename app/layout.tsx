@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const ttRamillas = localFont({
+  src: "../public/fonts/TT_Ramillas_Regular.ttf", // Adjust path to where you placed the file
+  variable: "--font-ramillas",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// 2. Inter Medium (Clean UI / Navigation / Buttons)
+const inter = localFont({
+  src: "../public/fonts/Inter18pt-Medium.ttf",
+  variable: "--font-inter",
+  display: "swap",
+});
+
+// 3. Karla Light (Body copy / Paragraphs / Subtext)
+const karla = localFont({
+  src: "../public/fonts/Karla-Light.ttf",
+  variable: "--font-karla",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${ttRamillas.variable} ${inter.variable} ${karla.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
