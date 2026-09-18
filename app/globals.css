@@ -13,26 +13,28 @@
   --font-serif: var(--font-ramillas), serif;
   --font-sans: var(--font-inter), sans-serif;
   --font-body: var(--font-karla), sans-serif;
+  --font-test: var(--font-test), sans-serif;
+  --font-test1: var(--font-test1), sans-serif;
 }
 
 /* Base Body (Karla Light default) */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-karla), sans-serif;
+  font-family: var(--font-test1), sans-serif;
   font-weight: 300;
 }
 
 /* Headings (TT Ramillas Regular) */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-ramillas), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-family: var(--font-test1);
+  font-weight: 300;
+  letter-spacing: 0.01em;
 }
 
 /* Paragraphs, lists, and spans (Karla Light) */
 p, span, li {
-  font-family: var(--font-karla), sans-serif;
+  font-family: var(--font-test), sans-serif;
   font-weight: 300;
 }
 
@@ -42,6 +44,77 @@ nav,
 input,
 select,
 label {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-test);
   font-weight: 500;
+}
+/* ===================================================
+   1. LENIS CORE ENGINE RULES
+   =================================================== */
+/* Force disable native browser smooth-scrolling so it doesn't fight Lenis */
+html,
+body {
+  scroll-behavior: auto !important;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ===================================================
+   FLOATING SCROLLER PILL ONLY (NO BACKGROUND STRIP)
+   =================================================== */
+
+/* Allow the scrollbar to float directly over content without reserving a rail */
+html {
+  overflow-y: overlay;
+}
+
+/* Dimensions of the floating indicator */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Completely remove the background track strip */
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent !important;
+}
+
+/* Floating grey capsule thumb */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(168, 162, 158, 0.55); /* Elegant warm grey */
+  border-radius: 9999px;
+  transition: background-color 0.25s ease;
+}
+
+/* Hover state */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(120, 113, 108, 0.85); /* Slightly darker when hovered */
+}
+
+/* Firefox rules (thumb color followed by transparent background) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 162, 158, 0.55) transparent;
+}
+
+*:hover {
+  scrollbar-color: rgba(120, 113, 108, 0.85) transparent;
 }

@@ -1,50 +1,72 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
+// Full high-resolution 1536x1024 master assets (no pixelation or blur)
 const banquetSlides = [
   {
     id: 1,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/90-768x512.jpg",
-    alt: "Utsava Banquet Hall Setup",
+    image: "https://highlandhotel.in/wp-content/uploads/2024/09/90-1536x1024.jpg",
+    alt: "Utsava Banquet Grand Interior & Stage Setup",
   },
   {
     id: 2,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/91-768x512.jpg",
-    alt: "Banquet Hall Interior and Seating",
+    image: "https://highlandhotel.in/wp-content/uploads/2024/09/91-1536x1024.jpg",
+    alt: "Banquet Hall Interior, Seating and Table Arrangements",
   },
   {
     id: 3,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/86-768x512.jpg",
-    alt: "Celebratory Evening Lighting and Stage",
-  },
-  {
-    id: 4,
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=1600&auto=format&fit=crop",
-    alt: "Social Dining and Banquet Gathering",
+    image: "https://highlandhotel.in/wp-content/uploads/2024/09/86-1536x1024.jpg",
+    alt: "Celebratory Evening Lighting and Dining Ambiance",
   },
 ];
 
 export default function Banquet() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banquetSlides.length);
-    }, 5500);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
+  // In-view scroll trigger
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative w-full bg-[#f8f7f4] text-stone-900 py-16 sm:py-24 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden">
-      {/* Constrain layout to max-w-5xl so the image doesn't stretch across huge screens */}
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-[#f8f7f4] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden"
+    >
       <div className="max-w-5xl mx-auto">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 transition-all duration-1000 ease-out ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-3.5 h-3.5 text-orange-500" />
@@ -62,59 +84,76 @@ export default function Banquet() {
           </p>
         </div>
 
-        {/* Compact Media Container: capped at 420px height with max-width matching natural image resolution */}
-        <div className="relative w-full max-w-4xl mx-auto h-[280px] sm:h-[380px] md:h-[430px] rounded-xl overflow-hidden border border-stone-300/80 shadow-lg bg-stone-900">
-          {banquetSlides.map((slide, idx) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                idx === currentSlide
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-102 pointer-events-none"
-              }`}
-            >
-              {/* Blurred atmospheric backdrop to prevent empty margins */}
+        {/* Media Canvas: 1536px source rendering into a crisp 1024px container */}
+        <div
+          className={`relative w-full max-w-4xl mx-auto aspect-[16/10] sm:aspect-[16/9] max-h-[460px] rounded-xl overflow-hidden border border-stone-300/80 shadow-xl bg-stone-950 transition-all duration-1000 delay-200 ease-out ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          {banquetSlides.map((slide, idx) => {
+            const isActive = idx === currentSlide;
+            return (
               <div
-                className="absolute inset-0 bg-cover bg-center scale-110 blur-xl opacity-40 -z-10"
-                style={{ backgroundImage: `url(${slide.image})` }}
-              />
-
-              {/* Main Crisp Image */}
-              <Image
-                src={slide.image}
-                alt={slide.alt}
-                fill
-                priority={idx === 0}
-                className="object-contain sm:object-cover object-center"
-                sizes="(max-width: 896px) 100vw, 896px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            </div>
-          ))}
-
-          {/* Minimal Dash Progress Indicators */}
-          <div className="absolute bottom-5 right-5 flex items-center gap-2 z-10">
-            {banquetSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`Slide ${index + 1}`}
-                className="py-2 cursor-pointer focus:outline-none"
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  isActive
+                    ? "opacity-100 z-10"
+                    : "opacity-0 z-0 pointer-events-none"
+                }`}
               >
-                <span
-                  className={`block h-[2.5px] rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? "w-8 bg-orange-500"
-                      : "w-4 bg-white/50 hover:bg-white/80"
+                <div
+                  className={`w-full h-full transform transition-transform duration-[7000ms] ease-out will-change-transform ${
+                    isActive ? "scale-105" : "scale-100"
                   }`}
-                />
-              </button>
-            ))}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.alt}
+                    fill
+                    priority={idx === 0}
+                    quality={95}
+                    className="object-cover object-center"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1024px"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+              </div>
+            );
+          })}
+
+          {/* Dash Progress Indicators & Counter */}
+          <div className="absolute bottom-5 right-5 flex items-center gap-3 z-20">
+            <span className="font-mono text-[10px] text-white/70 tracking-widest">
+              0{currentSlide + 1} / 0{banquetSlides.length}
+            </span>
+
+            <div className="flex items-center gap-1.5">
+              {banquetSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  aria-label={`Slide ${index + 1}`}
+                  className="py-2 cursor-pointer focus:outline-none"
+                >
+                  <span
+                    className={`block h-[2px] rounded-full transition-all duration-500 ${
+                      index === currentSlide
+                        ? "w-7 bg-orange-500"
+                        : "w-3 bg-white/50 hover:bg-white/80"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Compact Action Strip */}
-        <div className="max-w-4xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between gap-5 bg-white p-5 sm:p-7 rounded-xl border border-stone-200/90 shadow-sm">
+        {/* Action Strip */}
+        <div
+          className={`max-w-4xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between gap-5 bg-white p-5 sm:p-7 rounded-xl border border-stone-200/90 shadow-sm transition-all duration-1000 delay-300 ease-out ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <div className="text-left">
             <h3 className="font-serif text-lg sm:text-xl text-stone-900 mb-0.5">
               Planning an Event?
@@ -127,15 +166,15 @@ export default function Banquet() {
           <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
             <Link
               href="/banquet"
-              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-sans text-xs uppercase tracking-[0.16em] font-semibold px-5 py-3 rounded shadow-sm transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-sans text-xs uppercase tracking-[0.16em] font-semibold px-5 py-3 rounded shadow-sm transition-all duration-200 active:scale-[0.98]"
             >
               <span>Explore Utsava</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
             <Link
               href="/contact-us?inquiry=banquet"
-              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-stone-100 border border-stone-300 text-stone-800 font-sans text-xs uppercase tracking-[0.16em] font-medium px-5 py-3 rounded transition-colors duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-stone-100 border border-stone-300 text-stone-800 font-sans text-xs uppercase tracking-[0.16em] font-medium px-5 py-3 rounded transition-colors duration-200 active:scale-[0.98]"
             >
               <span>Enquire Now</span>
             </Link>

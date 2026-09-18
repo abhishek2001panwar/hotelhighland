@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
-// The 2 authentic Hotel Highland images
 const slides = [
   {
     id: 1,
@@ -21,106 +20,152 @@ const slides = [
   },
 ];
 
+const DURATION = 7500;
+
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-advance between the 2 slides every 6 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, DURATION);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-[680px] flex flex-col justify-end overflow-hidden px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 text-white">
+    <section className="relative w-full h-[100dvh] min-h-[620px] sm:min-h-[700px] max-h-[1200px] flex flex-col justify-end overflow-hidden px-6 sm:px-12 lg:px-16 pt-28 sm:pt-32 pb-10 sm:pb-14 lg:pb-16 text-white bg-[#0a0a0a]">
       
-      {/* Background Image Carousel (2 Images) */}
-      <div className="absolute inset-0 w-full h-full -z-20">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
-            } transition-transform duration-[7000ms]`}
-          >
-            <Image
-              src={slide.src}
-              alt={slide.alt}
-              fill
-              priority={index === 0}
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-          </div>
-        ))}
+      {/* Background Slides Container */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        {slides.map((slide, index) => {
+          const isActive = index === currentSlide;
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+              }`}
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={index <= 1}
+                unoptimized={true} // Bypasses Next.js re-compression to prevent blurring
+                sizes="100vw"
+                className={`object-cover object-center transition-transform duration-[9000ms] ease-out will-change-transform ${
+                  isActive ? "scale-[1.02]" : "scale-100"
+                }`}
+                style={{
+                  imageRendering: "-webkit-optimize-contrast",
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
 
-      {/* Cinematic Vignette Overlay (Darker towards bottom-left for contrast) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent -z-10" />
-      <div className="absolute inset-y-0 left-0 w-full sm:w-1/2 bg-gradient-to-r from-black/60 to-transparent -z-10" />
+      {/* Cinematic Vignette Layers */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/25 sm:to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-1/2 bg-gradient-to-r from-black/80 sm:from-black/60 to-transparent z-10 pointer-events-none" />
 
-      {/* Bottom Layout Row */}
-      <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 z-10">
+      {/* Main Content Area */}
+      <div className="relative w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 z-20">
         
-        {/* Left: Compact Content Block */}
-        <div className="max-w-2xl text-left">
-          {/* Tagline / Kicker */}
-          <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-orange-400 font-medium mb-2.5 transition-all duration-300">
-            {slides[currentSlide].tagline}
-          </p>
+        {/* Left: Re-keyed Editorial Content Block */}
+        <div key={currentSlide} className="w-full max-w-2xl text-left">
+          
+          {/* Tagline Badge */}
+          <div className="overflow-hidden mb-3">
+            <div className="inline-flex items-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
+              <Sparkles className="w-3 h-3 text-orange-400" />
+              <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-orange-400 font-medium">
+                {slides[currentSlide].tagline}
+              </p>
+            </div>
+          </div>
 
-          {/* Clean 2-Line Headline */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-normal leading-[1.14] tracking-tight mb-3.5 drop-shadow-md">
-            Where Tranquility Meets <br />
-            Hospitality Excellence
-          </h1>
+          {/* Editorial Headline */}
+          <div className="overflow-hidden mb-3.5 sm:mb-4">
+            <h1 className="font-serif text-[2rem] leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-normal sm:leading-[1.1] tracking-tight drop-shadow-md animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
+              Where Tranquility Meets <br className="hidden md:inline" />
+              <span className="italic font-light">Hospitality Excellence</span>
+            </h1>
+          </div>
 
-          {/* Compact Paragraph */}
-          <p className="text-stone-300 text-xs sm:text-sm font-light max-w-sm mb-6 leading-relaxed">
-            A refined stay, dining, events and wellness experience in North Bangalore.
-          </p>
+          {/* Supporting Copy */}
+          <div className="overflow-hidden mb-7 sm:mb-8">
+            <p className="text-stone-300/90 text-xs sm:text-sm font-light max-w-xs sm:max-w-md leading-relaxed animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
+              A refined stay, dining, events and wellness sanctuary crafted in the green serenity of North Bangalore.
+            </p>
+          </div>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5">
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
             <Link
               href="/booking"
-              className="group inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md text-xs uppercase tracking-[0.18em] font-semibold transition-all duration-200 shadow-lg"
+              className="group relative inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-7 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-semibold transition-all duration-300 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 active:scale-[0.98] cursor-pointer overflow-hidden"
             >
-              <span>Book Your Stay</span>
-              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span className="relative z-10">Book Your Stay</span>
+              <ArrowUpRight className="relative z-10 w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
             </Link>
 
             <Link
               href="/about-us"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-md text-xs uppercase tracking-[0.18em] font-medium transition-colors duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/25 hover:border-white/40 backdrop-blur-sm text-white px-7 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 active:scale-[0.98] cursor-pointer"
             >
-              Explore Highland
+              <span>Explore Highland</span>
             </Link>
           </div>
         </div>
 
-        {/* Right: Functional 2-Slide Indicators */}
-        <div className="flex items-center gap-2 pb-1">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              aria-label={`Slide ${index + 1}`}
-              className="py-2 cursor-pointer focus:outline-none"
-            >
-              <span
-                className={`block h-[2.5px] rounded-full transition-all duration-500 ${
-                  index === currentSlide
-                    ? "w-10 bg-orange-500"
-                    : "w-6 bg-white/40 hover:bg-white/70"
-                }`}
-              />
-            </button>
-          ))}
+        {/* Right: Progress Indicators */}
+        <div className="flex items-center gap-2.5">
+          {slides.map((_, index) => {
+            const isActive = index === currentSlide;
+            return (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className="py-3 px-1 cursor-pointer focus:outline-none group"
+              >
+                <div className="relative h-[2.5px] w-10 sm:w-12 bg-white/20 rounded-full overflow-hidden">
+                  {isActive ? (
+                    <div
+                      key={currentSlide}
+                      className="absolute inset-0 bg-orange-500 rounded-full animate-progress"
+                      style={{
+                        animationDuration: `${DURATION}ms`,
+                        animationTimingFunction: "linear",
+                      }}
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-white/20 group-hover:bg-white/40 transition-colors" />
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
 
       </div>
+
+      <style jsx global>{`
+        @keyframes heroProgress {
+          from {
+            transform: translateX(-100%);
+          }
+          to {
+            transform: translateX(0%);
+          }
+        }
+        .animate-progress {
+          animation-name: heroProgress;
+          animation-fill-mode: forwards;
+        }
+      `}</style>
     </section>
   );
 }

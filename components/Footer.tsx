@@ -113,7 +113,7 @@ export default function Footer() {
               <p className="text-stone-400 pt-1">
                 #4 &amp; 5, MM Heights, Opposite Sapthagiri NPS University,<br />
                 Sidedahalli Chikkasandra, Hesaraghatta Main Road,<br />
-                Bangalore &mdash; 560073, Karnataka, India.
+                Bangalore - 560073, Karnataka, India.
               </p>
               <p className="text-stone-500 text-[11px] pt-1">
                 GST / VAT: 29AAECS1234F1Z5

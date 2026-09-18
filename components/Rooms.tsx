@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
 interface RoomItem {
   id: string;
@@ -23,7 +23,7 @@ const roomsData: RoomItem[] = [
     number: "01",
     title: "Executive Suite",
     tagline:
-      "Comfortable accommodation designed for relaxed business and leisure stays.",
+      "Comfortable accommodation designed for relaxed business, corporate, and leisure stays in North Bangalore.",
     amenities: [
       "King Bed",
       "High-Speed Wi-Fi",
@@ -31,17 +31,17 @@ const roomsData: RoomItem[] = [
       "Smart TV",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/53-1536x1024.jpg",
+      "https://highlandhotel.in/wp-content/uploads/2024/09/53.jpg",
     size: "Executive Suite",
     price: "Contact for Rates",
-    href: "/rooms/executive-suite",
+    href: "/contact-us?inquiry=executive-suite",
   },
   {
     id: "executive-twin-suite",
     number: "02",
     title: "Executive Twin Suite",
     tagline:
-      "Spacious accommodation with twin bedding, suited for families and shared stays.",
+      "Spacious accommodation with twin bedding, ideally suited for colleagues, families, and shared travel.",
     amenities: [
       "Twin Beds",
       "High-Speed Wi-Fi",
@@ -49,66 +49,112 @@ const roomsData: RoomItem[] = [
       "Work Desk",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/59-1536x1024.jpg",
+      "https://highlandhotel.in/wp-content/uploads/2024/09/59.jpg",
     size: "Executive Twin Suite",
     price: "Contact for Rates",
-    href: "/rooms/executive-twin-suite",
+    href: "/contact-us?inquiry=executive-twin-suite",
   },
   {
     id: "wellness",
     number: "03",
-    title: "Wellness Experiences",
+    title: "Ayurveda & Spa Retreat",
     tagline:
-      "Complement your stay with Highland's Ayurveda, Naturopathy, Yoga and Acupuncture experiences.",
+      "Complement your stay with authentic Ayurvedic therapies, Naturopathy, restorative Yoga, and Acupuncture.",
     amenities: [
       "Ayurveda",
       "Naturopathy",
-      "Yoga",
+      "Yoga Therapy",
       "Acupuncture",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/55-1536x1024.jpg",
-    size: "Wellness",
-    price: "Enquire",
-    href: "/wellness",
+      "https://highlandhotel.in/wp-content/uploads/2024/09/128.jpg",
+    size: "Holistic Wellness",
+    price: "Consultation on Request",
+    href: "/ayurveda",
   },
 ];
 
 export default function Rooms() {
   const [activeRoomIndex, setActiveRoomIndex] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const activeRoom = roomsData[activeRoomIndex];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative w-full bg-[#f8f7f4] text-stone-900 py-24 sm:py-32 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80">
+    <section
+      ref={sectionRef}
+      className="relative w-full bg-[#f8f7f4] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden selection:bg-orange-500/20"
+    >
       <div className="max-w-7xl mx-auto">
         
-        {/* Section Header */}
+        {/* Editorial Section Header: Mask-Reveal Transitions */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-xl">
-            <p className="font-sans text-[11px] tracking-[0.28em] uppercase text-stone-500 font-medium mb-3">
-              Accommodation
-            </p>
+            {/* Tagline Mask */}
+            <div className="overflow-hidden mb-3">
+              <div
+                className={`flex items-center gap-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+                <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
+                  Sanctuary &bull; Accommodations
+                </p>
+              </div>
+            </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal tracking-tight text-stone-900 leading-[1.15]">
-              Stay Your Way
-            </h2>
+            {/* Headline Mask */}
+            <div className="overflow-hidden">
+              <h2
+                className={`font-serif text-3xl sm:text-5xl font-normal tracking-tight text-stone-900 leading-[1.12] transition-all duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                }`}
+              >
+                Stay Your Way
+              </h2>
+            </div>
           </div>
 
-          <p className="font-sans text-stone-600 text-sm sm:text-base font-light max-w-md leading-relaxed">
-            Thoughtfully designed accommodations in North Bangalore, combining
-            comfort, convenience and a welcoming stay experience.
-          </p>
+          {/* Supporting Copy Mask */}
+          <div className="overflow-hidden max-w-md">
+            <p
+              className={`font-sans text-stone-600 text-xs sm:text-sm md:text-[15px] font-light leading-relaxed transition-all duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
+            >
+              Thoughtfully crafted suites in North Bangalore, combining quiet residential serenity, luxury amenities, and gracious service.
+            </p>
+          </div>
         </div>
 
-        {/* Main Interactive Stage */}
+        {/* 2-Column Interactive Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
           
-          {/* Left Column: Vertical Room Navigation */}
+          {/* Left Column: Interactive Nav Cards with Cascading Delay */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
             
             <div className="space-y-3">
               {roomsData.map((room, index) => {
                 const isActive = index === activeRoomIndex;
+                const delays = ["delay-150", "delay-300", "delay-450"];
 
                 return (
                   <button
@@ -116,30 +162,40 @@ export default function Rooms() {
                     type="button"
                     onClick={() => setActiveRoomIndex(index)}
                     aria-pressed={isActive}
-                    className={`w-full text-left p-6 rounded-lg transition-all duration-300 cursor-pointer border ${
+                    className={`group relative w-full text-left p-6 rounded-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border ${
+                      delays[index]
+                    } ${
+                      isInView ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+                    } ${
                       isActive
-                        ? "bg-white border-stone-300 shadow-lg"
-                        : "bg-transparent border-transparent hover:bg-stone-200/40 text-stone-600"
+                        ? "bg-white border-stone-300 shadow-md shadow-stone-200/60"
+                        : "bg-white/40 border-stone-200/60 hover:bg-white hover:border-stone-300 text-stone-600"
                     }`}
                   >
+                    {/* Active Left Pill Accent */}
+                    <div
+                      className={`absolute left-0 top-0 bottom-0 w-1 bg-orange-500 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isActive ? "scale-y-100" : "scale-y-0"
+                      }`}
+                    />
+
                     <div className="flex items-center justify-between">
-                      
                       <div className="flex items-baseline gap-4">
                         <span
-                          className={`font-serif text-sm tracking-wider ${
+                          className={`font-mono text-xs tracking-widest transition-colors duration-300 ${
                             isActive
-                              ? "text-orange-500 font-semibold"
-                              : "text-stone-400"
+                              ? "text-orange-600 font-semibold"
+                              : "text-stone-400 group-hover:text-stone-700"
                           }`}
                         >
                           {room.number}
                         </span>
 
                         <h3
-                          className={`font-serif text-xl sm:text-2xl transition-colors ${
+                          className={`font-serif text-xl sm:text-2xl transition-colors duration-300 ${
                             isActive
                               ? "text-stone-900 font-medium"
-                              : "text-stone-600"
+                              : "text-stone-700 group-hover:text-stone-900"
                           }`}
                         >
                           {room.title}
@@ -147,30 +203,34 @@ export default function Rooms() {
                       </div>
 
                       <span
-                        className={`text-xs font-sans tracking-wider uppercase transition-opacity ${
+                        className={`text-[10px] font-sans tracking-[0.2em] uppercase transition-all duration-300 ${
                           isActive
-                            ? "text-orange-600 opacity-100 font-medium"
-                            : "opacity-0"
+                            ? "text-orange-600 opacity-100 font-medium translate-x-0"
+                            : "opacity-0 -translate-x-2 pointer-events-none"
                         }`}
                       >
-                        Selected
+                        Viewing
                       </span>
                     </div>
 
-                    {/* Expandable Details */}
+                    {/* Animated Detail Container */}
                     {isActive && (
-                      <div className="mt-4 pt-4 border-t border-stone-100 transition-all duration-300">
-                        <p className="font-sans text-xs sm:text-sm text-stone-600 font-light mb-3">
+                      <div
+                        key={room.id}
+                        className="mt-4 pt-4 border-t border-stone-100 animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both"
+                      >
+                        <p className="font-sans text-xs sm:text-[13px] text-stone-600 font-light mb-3.5 leading-relaxed">
                           {room.tagline}
                         </p>
 
-                        <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-sans text-stone-500 uppercase tracking-wider">
-                          {room.amenities.map((item) => (
+                        <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[10px] font-sans text-stone-500 uppercase tracking-[0.16em]">
+                          {room.amenities.map((item, i) => (
                             <span
                               key={item}
-                              className="flex items-center gap-1"
+                              style={{ animationDelay: `${i * 60}ms` }}
+                              className="flex items-center gap-1.5 animate-in fade-in slide-in-from-bottom-1 duration-400 fill-mode-both"
                             >
-                              <span className="w-1 h-1 rounded-full bg-orange-400" />
+                              <span className="w-1 h-1 rounded-full bg-orange-500" />
                               {item}
                             </span>
                           ))}
@@ -182,66 +242,94 @@ export default function Rooms() {
               })}
             </div>
 
-            {/* Bottom Card Footer */}
-            <div className="pt-6 border-t border-stone-200/80 flex items-center justify-between mt-auto">
-              
+            {/* Bottom Dynamic Action Strip */}
+            <div
+              key={`footer-${activeRoom.id}`}
+              className={`pt-6 border-t border-stone-300/80 flex items-center justify-between mt-auto transition-all duration-1000 delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                isInView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+              }`}
+            >
               <div>
-                <span className="text-[11px] font-sans uppercase tracking-[0.2em] text-stone-400 block">
-                  {activeRoom.price === "Enquire"
-                    ? "Availability"
-                    : "Rates"}
+                <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-stone-400 block mb-0.5">
+                  {activeRoom.id === "wellness" ? "Therapy Sessions" : "Reservations"}
                 </span>
 
-                <span className="font-serif text-xl font-medium text-stone-900">
+                <span className="font-serif text-lg sm:text-xl font-medium text-stone-900">
                   {activeRoom.price}
                 </span>
               </div>
 
-              {/* Primary CTA */}
+              {/* High-End Primary Button */}
               <Link
                 href={activeRoom.href}
-                className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-sans text-xs uppercase tracking-[0.2em] font-semibold px-6 py-3.5 rounded shadow-md transition-all duration-200 hover:shadow-lg"
+                className="group inline-flex items-center gap-2 bg-stone-900 hover:bg-black text-white font-sans text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-md shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] cursor-pointer"
               >
                 <span>
-                  {activeRoom.id === "wellness"
-                    ? "Explore Wellness"
-                    : "Explore Room"}
+                  {activeRoom.id === "wellness" ? "Explore Spa" : "Reserve Suite"}
                 </span>
-
-                <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-400" />
               </Link>
             </div>
+
           </div>
 
-          {/* Right Column: Dynamic Image Showcase */}
-          <div className="lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] rounded-lg overflow-hidden border border-stone-200 shadow-xl bg-stone-200">
-            
-            {roomsData.map((room, index) => (
-              <div
-                key={room.id}
-                className={`absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${
-                  index === activeRoomIndex
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-105 pointer-events-none"
-                }`}
-              >
-                <Image
-                  src={room.image}
-                  alt={`${room.title} at Highland Hotel`}
-                  fill
-                  priority={index === 0}
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 60vw"
-                />
+          {/* Right Column: Layered Canvas Settle Entrance */}
+          <div
+            className={`lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] rounded-2xl overflow-hidden border border-stone-200/90 shadow-xl bg-stone-950 transition-all duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isInView ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-[0.98]"
+            }`}
+          >
+            {roomsData.map((room, index) => {
+              const isCurrent = index === activeRoomIndex;
 
-                {/* Subtle Specification Badge */}
-                <div className="absolute top-6 right-6 bg-stone-950/70 backdrop-blur-md text-white text-[11px] font-sans uppercase tracking-widest px-3.5 py-1.5 rounded">
-                  {room.size}
+              return (
+                <div
+                  key={room.id}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                    isCurrent
+                      ? "opacity-100 z-10"
+                      : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <div
+                    className={`relative w-full h-full transform transition-transform duration-[7000ms] ease-out will-change-transform ${
+                      isCurrent ? "scale-105" : "scale-100"
+                    }`}
+                  >
+                    <Image
+                      src={room.image}
+                      alt={`${room.title} at Highland Hotel Bengaluru`}
+                      fill
+                      quality={90}
+                      priority={index === 0}
+                      className="object-cover object-center"
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                    />
+                  </div>
+
+                  {/* Gradient Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
+
+                  {/* Specification Corner Badges */}
+                  <div className="absolute top-6 right-6 z-20">
+                   
+                  </div>
+
+                  <div className="absolute bottom-6 left-6 z-20 text-white">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-orange-400 block mb-1">
+                      Highland Sanctuary
+                    </span>
+                    <p className="font-serif text-xl sm:text-2xl font-light">
+                      {room.title}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
         </div>
+
       </div>
     </section>
   );
