@@ -193,7 +193,7 @@ export default function ContactPage() {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2.5 bg-orange-500 hover:bg-orange-600 text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-8 py-3.5 rounded-md transition-all duration-200 cursor-pointer shadow-sm group"
+                    className="inline-flex items-center justify-center gap-2.5 bg-black text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-8 py-3.5 rounded-md transition-all duration-200 cursor-pointer shadow-sm group"
                   >
                     <span>Submit Inquiry</span>
                     <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

@@ -35,7 +35,7 @@ export default function FinalCTA() {
         {/* Minimal Pill CTAs */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/contact-us"
+            href="/contact"
             className="group inline-flex items-center gap-2 bg-black hover:bg-stone-800 text-white font-sans text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-8 py-3.5 rounded-full transition-all duration-200 shadow-sm"
           >
             <span>Get In Touch</span>
@@ -43,7 +43,7 @@ export default function FinalCTA() {
           </Link>
 
           <Link
-            href="/booking"
+            href="https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517"
             className="inline-flex items-center gap-2 bg-transparent hover:bg-stone-200/50 border border-stone-300 text-stone-800 font-sans text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-8 py-3.5 rounded-full transition-colors duration-200"
           >
             <span>Book Your Stay</span>

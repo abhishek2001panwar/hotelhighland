@@ -179,7 +179,7 @@ export default function About() {
             }`}
           >
             <Link
-              href="/about-us"
+              href="/about"
               className="group inline-flex w-fit items-center gap-2 border-b border-stone-900/30 pb-1 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-stone-900 transition-colors duration-300 hover:border-orange-500 hover:text-orange-600 cursor-pointer"
             >
               <span>Discover Highland</span>

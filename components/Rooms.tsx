@@ -34,7 +34,7 @@ const roomsData: RoomItem[] = [
       "https://highlandhotel.in/wp-content/uploads/2024/09/53.jpg",
     size: "Executive Suite",
     price: "Contact for Rates",
-    href: "/contact-us?inquiry=executive-suite",
+    href: "/contact",
   },
   {
     id: "executive-twin-suite",
@@ -52,7 +52,7 @@ const roomsData: RoomItem[] = [
       "https://highlandhotel.in/wp-content/uploads/2024/09/59.jpg",
     size: "Executive Twin Suite",
     price: "Contact for Rates",
-    href: "/contact-us?inquiry=executive-twin-suite",
+    href: "/contact",
   },
   {
     id: "wellness",
@@ -114,7 +114,7 @@ export default function Rooms() {
                   isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+             
                 <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
                   Sanctuary &bull; Accommodations
                 </p>

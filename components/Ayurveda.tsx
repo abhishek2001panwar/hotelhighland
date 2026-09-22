@@ -34,7 +34,7 @@ const pillars: WellnessPillar[] = [
     title: "Yoga & Breath",
     subtitle: "Movement, Pranayama & Stillness",
     description:
-      "Our yoga sanctuary brings together authentic classical disciplines—asanas for vitality, pranayama breathwork for mental clarity, and guided dhyana meditation to anchor serene balance throughout your stay.",
+      "Our yoga sanctuary brings together authentic classical disciplines-asanas for vitality, pranayama breathwork for mental clarity, and guided dhyana meditation to anchor serene balance throughout your stay.",
     highlights: [
       "Sunrise & Sunset Asana Flows",
       "Pranayama Breath Alignment",
@@ -105,7 +105,7 @@ export default function Wellness() {
           }`}
         >
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-orange-600" />
+          
             <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
               Sanctuary of Healing
             </p>
@@ -245,7 +245,7 @@ export default function Wellness() {
                 href="/ayurveda"
                 className="group inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] font-semibold text-stone-900 border-b border-stone-900 pb-1 hover:text-orange-600 hover:border-orange-600 transition-colors"
               >
-                <span>Explore Therapies</span>
+                <span>Explore </span>
                 <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>

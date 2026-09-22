@@ -69,7 +69,7 @@ export default function Banquet() {
         >
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+
               <p className="font-sans text-[11px] tracking-[0.28em] uppercase text-stone-500 font-medium">
                 Utsava Banquet &amp; Events
               </p>
@@ -138,7 +138,7 @@ export default function Banquet() {
                   <span
                     className={`block h-[2px] rounded-full transition-all duration-500 ${
                       index === currentSlide
-                        ? "w-7 bg-orange-500"
+                        ? "w-7 "
                         : "w-3 bg-white/50 hover:bg-white/80"
                     }`}
                   />
@@ -166,14 +166,14 @@ export default function Banquet() {
           <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
             <Link
               href="/banquet"
-              className="group inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-sans text-xs uppercase tracking-[0.16em] font-semibold px-5 py-3 rounded shadow-sm transition-all duration-200 active:scale-[0.98]"
+              className="group inline-flex items-center justify-center gap-2 text-black border-px font-sans text-xs uppercase tracking-[0.16em] font-semibold px-5 py-3 rounded shadow-sm transition-all duration-200 active:scale-[0.98]"
             >
               <span>Explore Utsava</span>
               <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
             <Link
-              href="/contact-us?inquiry=banquet"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-stone-100 border border-stone-300 text-stone-800 font-sans text-xs uppercase tracking-[0.16em] font-medium px-5 py-3 rounded transition-colors duration-200 active:scale-[0.98]"
             >
               <span>Enquire Now</span>

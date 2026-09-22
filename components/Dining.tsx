@@ -146,7 +146,7 @@ export default function Dining() {
                   isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+            
                 <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
                   Cinnamon Restaurant
                 </p>
@@ -249,7 +249,7 @@ export default function Dining() {
               </div>
 
               <Link
-                href="/dining"
+                href="/menu"
                 className="inline-flex items-center gap-2 bg-stone-900 hover:bg-black text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-full shadow-sm transition-all duration-300 active:scale-[0.98] group cursor-pointer"
               >
                 <span>View Menu</span>

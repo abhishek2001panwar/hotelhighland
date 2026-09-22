@@ -90,7 +90,7 @@ export default function Reviews() {
         >
           <div className="max-w-xl text-left">
             <div className="flex items-center gap-2 mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+           
               <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
                 Guest Impressions
               </p>

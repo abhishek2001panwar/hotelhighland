@@ -21,6 +21,8 @@ const slides = [
 ];
 
 const DURATION = 7500;
+const BOOK_NOW_URL =
+  "https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,7 +35,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-[100dvh] min-h-[620px] sm:min-h-[700px] max-h-[1200px] flex flex-col justify-end overflow-hidden px-6 sm:px-12 lg:px-16 pt-28 sm:pt-32 pb-10 sm:pb-14 lg:pb-16 text-white bg-[#0a0a0a]">
+    <section className="relative w-full h-[100dvh] min-h-[640px] sm:min-h-[720px] max-h-[1200px] flex flex-col justify-end overflow-hidden px-6 sm:px-12 lg:px-16 pt-28 sm:pt-32 pb-10 sm:pb-14 lg:pb-16 text-white bg-black">
       
       {/* Background Slides Container */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
@@ -51,7 +53,7 @@ export default function Hero() {
                 alt={slide.alt}
                 fill
                 priority={index <= 1}
-                unoptimized={true} // Bypasses Next.js re-compression to prevent blurring
+                unoptimized={true}
                 sizes="100vw"
                 className={`object-cover object-center transition-transform duration-[9000ms] ease-out will-change-transform ${
                   isActive ? "scale-[1.02]" : "scale-100"
@@ -65,9 +67,35 @@ export default function Hero() {
         })}
       </div>
 
-      {/* Cinematic Vignette Layers */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/25 sm:to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 left-0 w-full md:w-3/4 lg:w-1/2 bg-gradient-to-r from-black/80 sm:from-black/60 to-transparent z-10 pointer-events-none" />
+      {/* =========================================================
+          SEAMLESS GRADIENTS (NO HARD EDGES OR BLACK MARKS)
+      ========================================================== */}
+      {/* 1. Ultra-Smooth Top Bar Scrim (Seamless Feather for Navbar Legibility) */}
+      <div 
+        className="absolute top-0 inset-x-0 h-44 sm:h-52 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.18) 70%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+
+      {/* 2. Seamless Bottom & Left Editorial Vignette */}
+      <div 
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 25%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0) 80%)",
+        }}
+      />
+
+      {/* 3. Subtle Left Readability Scrim (Fades cleanly without line boundaries) */}
+      <div 
+        className="absolute inset-y-0 left-0 w-full md:w-3/5 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%)",
+        }}
+      />
 
       {/* Main Content Area */}
       <div className="relative w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 z-20">
@@ -75,11 +103,11 @@ export default function Hero() {
         {/* Left: Re-keyed Editorial Content Block */}
         <div key={currentSlide} className="w-full max-w-2xl text-left">
           
-          {/* Tagline Badge */}
+          {/* Tagline Badge (Orange Accent Restored) */}
           <div className="overflow-hidden mb-3">
             <div className="inline-flex items-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
-              <Sparkles className="w-3 h-3 text-orange-400" />
-              <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-orange-400 font-medium">
+            
+              <p className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-orange-400 font-semibold">
                 {slides[currentSlide].tagline}
               </p>
             </div>
@@ -87,9 +115,9 @@ export default function Hero() {
 
           {/* Editorial Headline */}
           <div className="overflow-hidden mb-3.5 sm:mb-4">
-            <h1 className="font-serif text-[2rem] leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.35rem] font-normal sm:leading-[1.1] tracking-tight drop-shadow-md animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
+            <h1 className="font-serif text-[2.1rem] leading-[1.08] sm:text-4xl md:text-5xl lg:text-[3.5rem] font-normal sm:leading-[1.08] tracking-tight drop-shadow-md animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
               Where Tranquility Meets <br className="hidden md:inline" />
-              <span className="italic font-light">Hospitality Excellence</span>
+              <span className="italic font-light text-stone-200">Hospitality Excellence</span>
             </h1>
           </div>
 
@@ -100,20 +128,23 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Action CTAs */}
+          {/* Luxury Action CTAs */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] fill-mode-both">
-            <Link
-              href="/booking"
-              className="group relative inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-7 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-semibold transition-all duration-300 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 active:scale-[0.98] cursor-pointer overflow-hidden"
+            {/* Primary CTA: Premium Ivory Button */}
+            <a
+              href={BOOK_NOW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center gap-2 bg-[#FDFBF7] text-[#1B1917] hover:bg-stone-200 px-7 py-3.5 rounded-xs text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300 shadow-md hover:shadow-xl active:scale-[0.98] cursor-pointer"
             >
-              <span className="relative z-10">Book Your Stay</span>
-              <ArrowUpRight className="relative z-10 w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-            </Link>
+              <span>Book Your Stay</span>
+              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
 
+            {/* Secondary CTA: Translucent Outline */}
             <Link
-              href="/about-us"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/25 hover:border-white/40 backdrop-blur-sm text-white px-7 py-3.5 rounded-md text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 active:scale-[0.98] cursor-pointer"
+              href="/about"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/35 hover:border-white text-white backdrop-blur-xs px-7 py-3.5 rounded-xs text-xs tracking-[0.2em] uppercase font-medium transition-all duration-300 active:scale-[0.98] cursor-pointer"
             >
               <span>Explore Highland</span>
             </Link>
@@ -131,18 +162,18 @@ export default function Hero() {
                 aria-label={`Go to slide ${index + 1}`}
                 className="py-3 px-1 cursor-pointer focus:outline-none group"
               >
-                <div className="relative h-[2.5px] w-10 sm:w-12 bg-white/20 rounded-full overflow-hidden">
+                <div className="relative h-[2px] w-10 sm:w-14 bg-white/25 rounded-full overflow-hidden">
                   {isActive ? (
                     <div
                       key={currentSlide}
-                      className="absolute inset-0 bg-orange-500 rounded-full animate-progress"
+                      className="absolute inset-0 bg-white rounded-full animate-progress"
                       style={{
                         animationDuration: `${DURATION}ms`,
                         animationTimingFunction: "linear",
                       }}
                     />
                   ) : (
-                    <div className="h-full w-full bg-white/20 group-hover:bg-white/40 transition-colors" />
+                    <div className="h-full w-full bg-white/20 group-hover:bg-white/50 transition-colors" />
                   )}
                 </div>
               </button>
