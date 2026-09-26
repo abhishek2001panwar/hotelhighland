@@ -31,7 +31,7 @@ const roomsData: RoomItem[] = [
       "Smart TV",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/53.jpg",
+      "/room1.webp",
     size: "Executive Suite",
     price: "Contact for Rates",
     href: "/contact",
@@ -49,7 +49,7 @@ const roomsData: RoomItem[] = [
       "Work Desk",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/59.jpg",
+      "/room2.webp",
     size: "Executive Twin Suite",
     price: "Contact for Rates",
     href: "/contact",
@@ -67,7 +67,7 @@ const roomsData: RoomItem[] = [
       "Acupuncture",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/128.jpg",
+      "/room3.webp",
     size: "Holistic Wellness",
     price: "Consultation on Request",
     href: "/ayurveda",

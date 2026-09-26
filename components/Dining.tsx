@@ -26,7 +26,7 @@ const cuisinePreviews: Record<CuisineType, CuisineSection> = {
   indian: {
     label: "Indian Heritage",
     subtitle: "Aromatic spice compositions & regional recipes",
-    heroImage: "https://highlandhotel.in/wp-content/uploads/2024/09/150.jpg",
+    heroImage: "/restaurant.webp",
     items: [
       {
         id: "01",

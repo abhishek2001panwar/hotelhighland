@@ -19,18 +19,18 @@ import Navbar from "@/components/Navbar";
 
 // Official Highland Hotel Assets
 const heroBg =
-  "https://highlandhotel.in/wp-content/uploads/2025/04/Untitled-design-2025-04-15T132306.479.png";
+  "/combos/hero.webp";
 
 const tariffPages = [
   {
     id: 1,
     title: "Tariff & Package Details - Page 1",
-    src: "https://highlandhotel.in/wp-content/uploads/2025/04/Highland-Hotel_Tariff-Chart-A4_v2_page-0001.jpg",
+    src: "/combos/1.webp",
   },
   {
     id: 2,
     title: "Tariff & Package Details - Page 2",
-    src: "https://highlandhotel.in/wp-content/uploads/2025/04/Highland-Hotel_Tariff-Chart-A4_v2_page-0002.jpg",
+    src: "/combos/2.webp",
   },
 ];
 
@@ -144,12 +144,7 @@ export default function ComboPackagesPage() {
           02 - DUAL PORTRAIT TARIFF SPREAD (CLEAN CENTERED VIEWPORT)
       ========================================================== */}
       <section id="tariff-sheets" className="py-20 sm:py-28 px-4 sm:px-8 max-w-[1300px] mx-auto select-none">
-        
-        {/* Top Header Label */}
-        <div className="flex items-center justify-between max-w-4xl mx-auto mb-10 px-2 text-[#7A6E58] text-xs font-mono uppercase tracking-widest border-b border-[#E5E0D5] pb-4">
-          <span>Official Tariff &amp; Inclusions</span>
-          <span>A4 Folio &bull; 02 Pages</span>
-        </div>
+    
 
         {/* 2 Portrait Sheets Side-by-Side (Controlled Gap, No Borders) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px] sm:gap-[32px] md:gap-[40px] w-full max-w-4xl mx-auto justify-center items-center">

@@ -17,34 +17,34 @@ import Navbar from "@/components/Navbar";
 
 // Official Highland Hotel High-Res Hero Image
 const heroBg =
-  "https://highlandhotel.in/wp-content/uploads/2024/09/149-scaled.jpg";
+  "/menu/hero.webp";
 
 // The 10 Menu Sheet Images
 const menuImages = [
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0001.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0002.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0003.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0004.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0005.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0006.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0007.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0008.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0009.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0010.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0011.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0012.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0013.jpg",
-  "https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0014.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0015.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0016.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0017.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0018.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0019.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0020.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0021.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0022.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0023.jpg",
-"https://highlandhotel.in/wp-content/uploads/2026/08/Cinnamon-Restaurant-Food-Menu_pages-to-jpg-0024.jpg"
+  "/menu/1.webp",
+  "/menu/2.webp",
+  "/menu/3.webp",
+  "/menu/4.webp",
+  "/menu/5.webp",
+  "/menu/6.webp",
+  "/menu/7.webp",
+  "/menu/8.webp",
+  "/menu/9.webp",
+  "/menu/10.webp",
+  "/menu/11.webp",
+  "/menu/12.webp",
+  "/menu/13.webp",
+  "/menu/14.webp",
+  "/menu/15.webp",
+  "/menu/16.webp",
+  "/menu/17.webp",
+  "/menu/18.webp",
+  "/menu/19.webp",
+  "/menu/20.webp",
+  "/menu/21.webp",
+  "/menu/22.webp",
+  "/menu/23.webp",
+  "/menu/24.webp"
 ];
 
 export default function RestaurantMenuPage() {

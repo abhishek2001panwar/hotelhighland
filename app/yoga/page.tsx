@@ -20,13 +20,13 @@ import {
 import Navbar from "@/components/Navbar";
 
 const heroBg =
-  "https://highlandhotel.in/wp-content/uploads/2025/05/Untitled-design-2025-05-29T143913.542.png";
+  "/yoga/hero.webp";
 
 const naturopathyImg =
-  "https://highlandhotel.in/wp-content/uploads/2024/05/2-2.png";
+  "/yoga/1.webp";
 
 const yogaImg =
-  "https://highlandhotel.in/wp-content/uploads/2024/05/2-3.png";
+  "/yoga/2.webp";
 
 const servicesList = [
   "Personalized Naturopathic Consultations",

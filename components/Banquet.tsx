@@ -9,17 +9,17 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 const banquetSlides = [
   {
     id: 1,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/90-1536x1024.jpg",
+    image: "/utsava.webp",
     alt: "Utsava Banquet Grand Interior & Stage Setup",
   },
   {
     id: 2,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/91-1536x1024.jpg",
+    image: "/utsava2.webp",
     alt: "Banquet Hall Interior, Seating and Table Arrangements",
   },
   {
     id: 3,
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/86-1536x1024.jpg",
+    image: "/utsava3.webp",
     alt: "Celebratory Evening Lighting and Dining Ambiance",
   },
 ];

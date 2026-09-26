@@ -70,7 +70,7 @@ export default function About() {
           {/* Main Image */}
           <div className="relative h-[420px] w-full overflow-hidden rounded-lg border border-stone-200 bg-stone-100 shadow-xl sm:h-[540px] sm:w-[84%]">
             <Image
-              src="https://highlandhotel.in/wp-content/uploads/2024/09/64.jpg"
+              src="/about1.webp"
               alt="Highland Hotel exterior and property"
               fill
               priority
@@ -84,7 +84,7 @@ export default function About() {
           {/* Secondary Inset Image */}
           <div className="absolute -bottom-8 right-0 z-10 hidden h-[280px] w-[230px] overflow-hidden rounded-lg border-4 border-[#f8f7f4] bg-stone-200 shadow-2xl sm:block lg:-right-4">
             <Image
-              src="https://highlandhotel.in/wp-content/uploads/2024/09/90.jpg"
+              src="/about2.webp"
               alt="Highland Hotel suite room interior"
               fill
               quality={90}

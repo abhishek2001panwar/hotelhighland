@@ -27,7 +27,7 @@ export const blogsList: BlogItem[] = [
     excerpt:
       "These are the 5 basic rules and regulations that one should follow in order to lead a healthy life. These are the pillars of a healthy lifestyle. These principles are scientifically addressed and proven to be effective in modifying the lifestyle thereby preventing lifestyle-related disorders.",
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/08/2-1-890x480.png",
+      "/blog1.webp",
   },
   {
     slug: "taste-the-world",
@@ -39,7 +39,7 @@ export const blogsList: BlogItem[] = [
     excerpt:
       "Hotel Highland is the location where Cinnamon Restaurant is found, hence its elegance and sophistication. It’s a culinary treasure situated within the confines of Hotel Highland, which allows guests to try out a mix of cuisines like no other place.",
     image:
-      "https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-95-890x480.png",
+      "/blog2.webp",
   },
   {
     slug: "hair-fall",
@@ -51,7 +51,7 @@ export const blogsList: BlogItem[] = [
     excerpt:
       "Hair fall is also called as alopecia or baldness. In which loss of hair will be there either from head or the body. It is normal for a person to lose 50-100 hairs per day. Discover the primary causes and ancient Ayurvedic treatments.",
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/08/3-890x480.png",
+      "/blog3.webp",
   },
 ];
 

@@ -18,7 +18,7 @@ import Navbar from "@/components/Navbar";
 
 // Official Assets
 const heroImg =
-  "https://highlandhotel.in/wp-content/uploads/2026/03/Untitled-design-63.png";
+  "/sangam/hero.webp";
 
 const goshalaVideo =
   "https://highlandhotel.in/wp-content/uploads/2026/03/IMG_4071-1.mp4";
@@ -27,37 +27,37 @@ const goshalaVideo =
 const goshalaGallery = [
   {
     id: "01",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/2-600x450.png",
+    src: "/sangam/1.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
     id: "02",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/1-600x450.png",
+    src: "/sangam/2.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
     id: "03",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/5-600x450.png",
+    src: "/sangam/3.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
     id: "04",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/6-600x450.png",
+    src: "/sangam/4.webp",
     span: "md:col-span-6 aspect-[16/10]",
   },
   {
     id: "05",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/3-600x450.png",
+    src: "/sangam/5.webp",
     span: "md:col-span-6 aspect-[16/10]",
   },
   {
     id: "06",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/6-600x450.png",
+    src: "/sangam/6.webp",
     span: "md:col-span-5 aspect-[4/3]",
   },
   {
     id: "07",
-    src: "https://highlandhotel.in/wp-content/uploads/2026/02/Untitled-design-30-2048x1479.png",
+    src: "/sangam/7.webp",
     span: "md:col-span-7 aspect-[16/10]",
   },
 ];

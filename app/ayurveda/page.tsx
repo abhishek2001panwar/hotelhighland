@@ -19,17 +19,17 @@ import {
 import Navbar from "@/components/Navbar";
 
 const heroBg =
-  "https://highlandhotel.in/wp-content/uploads/2025/05/Untitled-design-2025-05-29T143431.566.png";
+  "/ayurveda/hero.webp";
 
 const traditionImg =
-  "https://highlandhotel.in/wp-content/uploads/2024/06/Untitled-design-53.png";
+  "/ayurveda/1.webp";
 
 const acupunctureImg =
-  "https://highlandhotel.in/wp-content/uploads/2024/05/1-3.png";
+  "/ayurveda/2.webp";
 
 const doctorCards = [
-  "https://highlandhotel.in/wp-content/uploads/2025/07/1.png",
-  "https://highlandhotel.in/wp-content/uploads/2025/07/2.png",
+  "/ayurveda/3.webp",
+  "/ayurveda/4.webp",
 ];
 
 const allTestimonials = [

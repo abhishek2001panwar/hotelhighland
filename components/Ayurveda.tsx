@@ -27,7 +27,7 @@ const pillars: WellnessPillar[] = [
       "Herbal & Dietary Regimens",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/20-1536x1024.jpg",
+      "/ayurveda.webp",
   },
   {
     id: "yoga",
@@ -41,7 +41,7 @@ const pillars: WellnessPillar[] = [
       "Guided Dhyana Meditation",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/107-1536x1024.jpg",
+      "/yoga.webp",
   },
   {
     id: "naturopathy",
@@ -55,7 +55,7 @@ const pillars: WellnessPillar[] = [
       "Whole-Food Nutritional Therapy",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/112-1536x1024.jpg",
+      "/naturapathy.webp",
   },
   {
     id: "acupuncture",
@@ -69,7 +69,7 @@ const pillars: WellnessPillar[] = [
       "Holistic Stress & Pain Relief",
     ],
     image:
-      "https://highlandhotel.in/wp-content/uploads/2024/09/109-1536x1024.jpg",
+      "/acupunture.webp",
   },
 ];
 

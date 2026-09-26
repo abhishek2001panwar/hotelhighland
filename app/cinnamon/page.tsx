@@ -16,10 +16,10 @@ import Navbar from "@/components/Navbar";
 
 // Crisp High-Resolution Hero Photograph (Original Full-Scale Photo)
 const heroBg =
-  "https://highlandhotel.in/wp-content/uploads/2024/09/149-scaled.jpg";
+  "/cinnamon/hero.webp";
 
 const diningAmbianceImg =
-  "https://highlandhotel.in/wp-content/uploads/2024/08/WhatsApp-Image-2024-09-30-at-10.33.42-AM.jpeg";
+  "/cinnamon/dinning.webp";
 
 const abroadCuisines = [
   {
@@ -27,53 +27,53 @@ const abroadCuisines = [
     subtitle: "Authentic Coastal & Island Flavors",
     description:
       "A tribute to aromatic island curries, fragrant tempered spices, coconut sambols, and time-honored Ceylon heritage recipes prepared fresh by our specialty chefs.",
-    src: "https://highlandhotel.in/wp-content/uploads/2024/05/1-5.png",
+    src: "/cinnamon/srilanka.webp",
   },
   {
     title: "Thailand Cuisine",
     subtitle: "Vibrant Asian Aromas",
     description:
       "Harmonizing the quintessential Thai balance of sweet, sour, salty, and spicy with authentic kaffir lime, galangal, lemongrass, and rich coconut broths.",
-    src: "https://highlandhotel.in/wp-content/uploads/2024/05/2-5.png",
+    src: "/cinnamon/thailand.webp",
   },
 ];
 
 // Clean Full-Resolution Assets (Thumbnails -300x300 & -300x240 removed)
 const culinaryGallery = [
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-12-at-3.50.13-PM.jpeg",
+    src: "/cinnamon/1.webp",
     span: "md:col-span-4 aspect-square",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-12-at-3.50.12-PM.jpeg",
+    src: "/cinnamon/2.webp",
     span: "md:col-span-4 aspect-square",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-12-at-3.50.12-PM-1.jpeg",
+    src: "/cinnamon/3.webp",
     span: "md:col-span-4 aspect-square",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2023/08/15-2.png",
+    src: "/cinnamon/4.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2023/08/18-2.png",
+    src: "/cinnamon/5.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2023/08/17-2.png",
+    src: "/cinnamon/6.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2024/05/1-7.png",
+    src: "/cinnamon/7.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2024/05/2-6.png",
+    src: "/cinnamon/8.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
   {
-    src: "https://highlandhotel.in/wp-content/uploads/2023/08/2-9.png",
+    src: "/cinnamon/9.webp",
     span: "md:col-span-4 aspect-[4/3]",
   },
 ];

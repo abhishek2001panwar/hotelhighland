@@ -19,7 +19,7 @@ const reviews: Review[] = [
     author: "Aarav",
     source: "Guest Review",
     context: "Family Celebration & Banquet",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/87-1536x1024.jpg",
+    image: "/test1.webp",
   },
   {
     quote:
@@ -27,7 +27,7 @@ const reviews: Review[] = [
     author: "Mahesh",
     source: "Guest Review",
     context: "Executive Leisure Stay",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/90-1536x1024.jpg",
+    image: "/test2.webp",
   },
   {
     quote:
@@ -35,7 +35,7 @@ const reviews: Review[] = [
     author: "Sandeep Grover",
     source: "Guest Review",
     context: "Weekend Getaway & Dining",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/53-1536x1024.jpg",
+    image: "/test3.webp",
   },
   {
     quote:
@@ -43,7 +43,7 @@ const reviews: Review[] = [
     author: "Nikhil Pradhan",
     source: "Guest Review",
     context: "Culinary & Suite Experience",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/09/150-1536x1024.jpg",
+    image: "/test4.webp",
   },
 ];
 

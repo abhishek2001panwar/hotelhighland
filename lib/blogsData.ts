@@ -27,7 +27,7 @@ export const blogsData: Record<string, BlogPost> = {
     category: "Ayurveda",
     readTime: "4 min read",
     title: "Panchatantra",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/08/2-1-890x480.png",
+    image: "/blog1.webp",
     excerpt:
       "These are the 5 basic rules and regulations that one should follow in order to lead a healthy life. These are the pillars of a healthy lifestyle.",
     author: "Highland Wellness Team",
@@ -103,7 +103,7 @@ export const blogsData: Record<string, BlogPost> = {
     category: "Dining",
     readTime: "5 min read",
     title: "Taste the World: A Multi-Cuisine Adventure at Cinnamon Restaurant",
-    image: "https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-95-890x480.png",
+    image: "/blog2.webp",
     excerpt:
       "Hotel Highland is the location where Cinnamon Restaurant is found, hence its elegance and sophistication. A culinary treasure that allows guests to try out a mix of global cuisines like no other place.",
     author: "Cinnamon Culinary Team",
@@ -139,7 +139,7 @@ export const blogsData: Record<string, BlogPost> = {
     category: "Ayurveda",
     readTime: "6 min read",
     title: "Hair fall",
-    image: "https://highlandhotel.in/wp-content/uploads/2024/08/3-890x480.png",
+    image: "/blog3.webp",
     excerpt:
       "Hair fall is also called as alopecia or baldness. It is normal to lose 50-100 hairs per day, but stress, nutrition, and hormonal imbalances can affect growth. Discover holistic Ayurvedic remedies.",
     author: "KEVA Ayurveda Clinic",

@@ -93,7 +93,7 @@ export default function About() {
           className="absolute inset-x-0 -top-[12%] h-[124%] w-full will-change-transform pointer-events-none transform-gpu"
         >
           <Image
-            src="https://highlandhotel.in/wp-content/uploads/2024/09/174-2048x1365.jpg"
+            src="/about/1.webp"
             alt="Highland Hotel Bengaluru Exterior and Grounds"
             fill
             priority
@@ -216,7 +216,7 @@ export default function About() {
             {/* Left: Architectural Frame */}
             <div className="lg:col-span-5 relative aspect-[4/5] rounded-2xl overflow-hidden border border-[#E5E0D5] shadow-xs bg-stone-200">
               <Image
-                src="https://highlandhotel.in/wp-content/uploads/2024/09/20-1536x1024.jpg"
+                src="/about/2.webp"
                 alt="Ayurvedic Wellness Experience"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -332,7 +332,7 @@ export default function About() {
 
           <div className="lg:col-span-6 relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden border border-[#E5E0D5] shadow-xs bg-stone-200 order-1 lg:order-2">
             <Image
-              src="https://highlandhotel.in/wp-content/uploads/2024/09/53-2048x1365.jpg"
+              src="/about/3.webp"
               alt="Executive Suite at Highland Hotel Bengaluru"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -365,7 +365,7 @@ export default function About() {
             <div className="bg-white rounded-2xl overflow-hidden border border-[#E5E0D5] shadow-xs flex flex-col justify-between">
               <div className="relative h-64 sm:h-72 w-full">
                 <Image
-                  src="https://highlandhotel.in/wp-content/uploads/2024/09/155-2048x1365.jpg"
+                  src="/about/4.webp"
                   alt="Cinnamon Multicuisine Restaurant"
                   fill
                   className="object-cover"
@@ -395,7 +395,7 @@ export default function About() {
             <div className="bg-white rounded-2xl overflow-hidden border border-[#E5E0D5] shadow-xs flex flex-col justify-between">
               <div className="relative h-64 sm:h-72 w-full">
                 <Image
-                  src="https://highlandhotel.in/wp-content/uploads/2024/09/87-2048x1365.jpg"
+                  src="/about/5.webp"
                   alt="Utsava Banquet Hall Celebrations"
                   fill
                   className="object-cover"
