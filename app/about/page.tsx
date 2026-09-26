@@ -93,7 +93,7 @@ export default function About() {
           className="absolute inset-x-0 -top-[12%] h-[124%] w-full will-change-transform pointer-events-none transform-gpu"
         >
           <Image
-            src="/about/1.webp"
+            src="/06.jpg"
             alt="Highland Hotel Bengaluru Exterior and Grounds"
             fill
             priority

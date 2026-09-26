@@ -19,7 +19,7 @@ import {
 import Navbar from "@/components/Navbar";
 
 const heroBg =
-  "/banquet/hero.webp"; // Full high-resolution 1920x1280 hero image for Utsava Banquet Hall
+  "/banquet.jpg"; // Full high-resolution 1920x1280 hero image for Utsava Banquet Hall
 
 const hallImages = [
   "/banquet/1.webp",

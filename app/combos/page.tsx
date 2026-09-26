@@ -19,7 +19,7 @@ import Navbar from "@/components/Navbar";
 
 // Official Highland Hotel Assets
 const heroBg =
-  "/combos/hero.webp";
+  "/65.jpg";
 
 const tariffPages = [
   {
