@@ -193,7 +193,7 @@ export default function Gallery() {
                 onClick={() => openLightbox(index)}
                 data-scroll
                 data-scroll-speed={item.speed > 0 ? "1" : "-1"}
-                className={`relative group cursor-pointer overflow-hidden rounded-xl border border-stone-200 shadow-sm bg-stone-900 h-[320px] sm:h-[400px] text-left transition-all duration-700 ${
+                className={`relative group cursor-pointer overflow-hidden  border border-stone-200 shadow-sm bg-stone-900 h-[320px] sm:h-[400px] text-left transition-all duration-700 ${
                   isWide
                     ? "md:col-span-7 lg:col-span-8"
                     : "md:col-span-5 lg:col-span-4"
