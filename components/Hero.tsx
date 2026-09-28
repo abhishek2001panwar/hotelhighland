@@ -9,7 +9,7 @@ const slides = [
   {
     id: 1,
     tagline: "NORTH BANGALORE • HESARAGHATTA ROAD",
-    src: "/hero.avif",
+    src: "/test1.JPG",
     alt: "Highland Hotel Exterior & Lawns",
   },
   {
@@ -17,7 +17,7 @@ const slides = [
     tagline: "AYURVEDIC WELLNESS & SPA",
     src: "/hero2.avif",
     alt: "Ayurveda Wellness & Rejuvenation Center",
-  },
+  }
 ];
 
 const DURATION = 7500;
@@ -52,7 +52,7 @@ export default function Hero() {
                 alt={slide.alt}
                 fill
                 priority={index === 0}
-                quality={95}
+                quality={105}
                 sizes="100vw"
                 className={`object-cover object-center transition-transform duration-[7500ms] ease-out will-change-transform ${
                   isActive ? "scale-105" : "scale-100"

@@ -3,32 +3,33 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-// Full high-resolution 1536x1024 master assets (no pixelation or blur)
 const banquetSlides = [
   {
     id: 1,
-    image: "/utsava.webp",
+    image: "/90.jpg",
     alt: "Utsava Banquet Grand Interior & Stage Setup",
   },
   {
     id: 2,
-    image: "/utsava2.webp",
+    image: "/91.jpg",
     alt: "Banquet Hall Interior, Seating and Table Arrangements",
   },
   {
     id: 3,
-    image: "/utsava3.webp",
+    image: "/92.jpg",
     alt: "Celebratory Evening Lighting and Dining Ambiance",
   },
 ];
 
 export default function Banquet() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isInView, setIsInView] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const rafId = useRef<number | null>(null);
 
+  // Auto-play slideshow timer
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banquetSlides.length);
@@ -36,148 +37,157 @@ export default function Banquet() {
     return () => clearInterval(timer);
   }, []);
 
-  // In-view scroll trigger
+  // Snappy, faster scroll parallax (multiplier boosted to 0.35)
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
+    const handleScroll = () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+
+      rafId.current = requestAnimationFrame(() => {
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        // Active whenever section intersects viewport
+        if (rect.top <= viewportHeight && rect.bottom >= 0) {
+          // Centered faster parallax offset
+          const relativePos = (viewportHeight / 2 - (rect.top + rect.height / 2)) * 0.35;
+          setScrollY(relativePos);
         }
-      },
-      { threshold: 0.15 }
-    );
+      });
+    };
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#f8f7f4] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden"
+      className="relative w-full h-[88dvh] sm:h-[82dvh] min-h-[560px] max-h-[820px] bg-[#f8f7f4] flex flex-col justify-center items-center overflow-hidden "
     >
-      <div className="max-w-5xl mx-auto">
+      {/* Full canvas container with 2xl rounded corners */}
+      <div className="relative w-full h-full  overflow-hidden shadow-2xl border border-stone-200/50 bg-stone-950 flex flex-col justify-between p-6 sm:p-10 lg:p-12">
         
-        {/* Section Header */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 transition-all duration-1000 ease-out ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-2">
-
-              <p className="font-sans text-[11px] tracking-[0.28em] uppercase text-stone-500 font-medium">
-                Utsava Banquet &amp; Events
-              </p>
-            </div>
-            <h2 className="font-serif text-2xl sm:text-4xl font-normal tracking-tight text-stone-900 leading-[1.15]">
-              Celebrate Something Extraordinary
-            </h2>
-          </div>
-
-          <p className="font-sans text-stone-600 text-xs sm:text-sm font-light max-w-sm leading-relaxed">
-            A celebration venue in North Bangalore crafted for weddings, gatherings, conferences, and milestone occasions.
-          </p>
-        </div>
-
-        {/* Media Canvas: 1536px source rendering into a crisp 1024px container */}
-        <div
-          className={`relative w-full max-w-4xl mx-auto aspect-[16/10] sm:aspect-[16/9] max-h-[460px] rounded-xl overflow-hidden border border-stone-300/80 shadow-xl bg-stone-950 transition-all duration-1000 delay-200 ease-out ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
+        {/* Background Slides */}
+        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
           {banquetSlides.map((slide, idx) => {
             const isActive = idx === currentSlide;
             return (
               <div
                 key={slide.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  isActive
-                    ? "opacity-100 z-10"
-                    : "opacity-0 z-0 pointer-events-none"
+                className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                  isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                 }`}
               >
+                {/* Parallax wrapper: faster translation with minimal delay */}
                 <div
-                  className={`w-full h-full transform transition-transform duration-[7000ms] ease-out will-change-transform ${
-                    isActive ? "scale-105" : "scale-100"
-                  }`}
+                  className="w-full h-[120%] -top-[10%] absolute will-change-transform"
+                  style={{
+                    transform: `translate3d(0, ${scrollY}px, 0)`,
+                    transition: "transform 20ms linear",
+                  }}
                 >
-                  <Image
-                    src={slide.image}
-                    alt={slide.alt}
-                    fill
-                    priority={idx === 0}
-                    quality={95}
-                    className="object-cover object-center"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1024px"
-                  />
+                  {/* Ken Burns Zoom */}
+                  <div
+                    className={`w-full h-full transform transition-transform duration-[7000ms] ease-out ${
+                      isActive ? "scale-115" : "scale-105"
+                    }`}
+                  >
+                    <Image
+                      src={slide.image}
+                      alt={slide.alt}
+                      fill
+                      priority={idx === 0}
+                      quality={95}
+                      className="object-cover object-center"
+                      sizes="100vw"
+                    />
+                  </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
               </div>
             );
           })}
 
-          {/* Dash Progress Indicators & Counter */}
-          <div className="absolute bottom-5 right-5 flex items-center gap-3 z-20">
-            <span className="font-mono text-[10px] text-white/70 tracking-widest">
-              0{currentSlide + 1} / 0{banquetSlides.length}
-            </span>
+          {/* Scrims */}
+          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/65 via-black/20 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none" />
+        </div>
 
-            <div className="flex items-center gap-1.5">
+        {/* Top Header / Eyebrow Badge */}
+        <div className="relative z-20 flex items-center justify-between">
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 shadow-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+            <p className="font-sans text-[10px] sm:text-xs tracking-[0.25em] uppercase text-stone-200 font-medium">
+              Utsava Banquet &amp; Events
+            </p>
+          </div>
+
+          {/* Slide Counters */}
+         
+        </div>
+
+        {/* Bottom Content Area: Title, Details & CTA Strip */}
+        <div className="relative z-20 flex flex-col lg:flex-row lg:items-end justify-between gap-6 pt-6">
+          
+          {/* Left: Heading & Description */}
+          <div className="max-w-xl text-left">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-[1.1] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
+              Celebrate Something <br className="hidden sm:inline" />
+              <span className="italic font-light text-stone-200">Extraordinary</span>
+            </h2>
+
+            <p className="font-sans text-stone-300 text-xs sm:text-sm font-light max-w-md leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
+              A celebration venue in North Bangalore crafted for weddings, grand gatherings, 
+              conferences, and milestone occasions.
+            </p>
+          </div>
+
+          {/* Right: Controls & Interactive Buttons */}
+          <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-4">
+            
+            {/* Progress Indicators */}
+            <div className="flex items-center gap-2">
               {banquetSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   aria-label={`Slide ${index + 1}`}
-                  className="py-2 cursor-pointer focus:outline-none"
+                  className="md:py-1.5 cursor-pointer focus:outline-none group"
                 >
                   <span
-                    className={`block h-[2px] rounded-full transition-all duration-500 ${
+                    className={`block h-[2.5px] rounded-full transition-all duration-500 ${
                       index === currentSlide
-                        ? "w-7 "
-                        : "w-3 bg-white/50 hover:bg-white/80"
+                        ? "w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)]"
+                        : "w-3 bg-white/35 group-hover:bg-white/70"
                     }`}
                   />
                 </button>
               ))}
             </div>
-          </div>
-        </div>
 
-        {/* Action Strip */}
-        <div
-          className={`max-w-4xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between gap-5 bg-white p-5 sm:p-7 rounded-xl border border-stone-200/90 shadow-sm transition-all duration-1000 delay-300 ease-out ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <div className="text-left">
-            <h3 className="font-serif text-lg sm:text-xl text-stone-900 mb-0.5">
-              Planning an Event?
-            </h3>
-            <p className="font-sans text-stone-600 text-xs font-light">
-              Connect with our team for seating arrangements, audio-visual equipment, and catering.
-            </p>
-          </div>
+            {/* CTA Buttons */}
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <Link
+                href="/banquet"
+                className="group relative inline-flex items-center justify-center gap-2 bg-[#FDFBF7] hover:bg-stone-100 text-[#1B1917] font-sans text-xs uppercase tracking-[0.18em] font-semibold px-5 sm:px-6 py-3 rounded-sm shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-all duration-300 hover:shadow-[0_6px_28px_rgba(255,255,255,0.2)] active:scale-[0.98]"
+              >
+                <span>Explore Utsava</span>
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
-            <Link
-              href="/banquet"
-              className="group inline-flex items-center justify-center gap-2 text-black border-px font-sans text-xs uppercase tracking-[0.16em] font-semibold px-5 py-3 rounded shadow-sm transition-all duration-200 active:scale-[0.98]"
-            >
-              <span>Explore Utsava</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/50 text-white backdrop-blur-md font-sans text-xs uppercase tracking-[0.18em] font-medium px-5 sm:px-6 py-3 rounded-sm transition-all duration-300 active:scale-[0.98] shadow-lg"
+              >
+                <span>Enquire Now</span>
+              </Link>
+            </div>
 
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-stone-100 border border-stone-300 text-stone-800 font-sans text-xs uppercase tracking-[0.16em] font-medium px-5 py-3 rounded transition-colors duration-200 active:scale-[0.98]"
-            >
-              <span>Enquire Now</span>
-            </Link>
           </div>
         </div>
 
