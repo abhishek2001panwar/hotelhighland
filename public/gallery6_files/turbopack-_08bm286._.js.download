@@ -816,7 +816,7 @@ browserContextPrototype.L = loadChunkByUrl;
 function loadChunkByUrlInternal(sourceType, sourceData, chunkEntry) {
     if (SUPPORT_COMPONENT_CHUNKS) {
         // A merged chunk arrives as a `[url, componentChunkPaths, componentChunkSizes]` array. Register
-        // the components so a by-URL load of this merged chunk — now or from a later navigation — can
+        // the components so a by-URL load of this merged chunk - now or from a later navigation - can
         // be split, and so `registerChunk` can mark them available when the whole chunk loads.
         let chunkUrl;
         let components;
@@ -844,8 +844,8 @@ function loadChunkByUrlInternal(sourceType, sourceData, chunkEntry) {
             }
             return promise;
         }
-        // This is a non-merged chunk. If its modules were already loaded — e.g. this chunk is a
-        // component of a merged chunk fetched on a previous navigation — reuse that load instead of
+        // This is a non-merged chunk. If its modules were already loaded - e.g. this chunk is a
+        // component of a merged chunk fetched on a previous navigation - reuse that load instead of
         // re-downloading.
         const existing = availableModuleChunks.get(chunkPath);
         if (existing !== undefined) {
@@ -1182,7 +1182,7 @@ function formatDependencyChain(dependencyChain) {
                 outdatedDependencies.get(parentId).add(moduleId);
                 continue;
             }
-            // Neither accepted nor declined — propagate to parent
+            // Neither accepted nor declined - propagate to parent
             queue.push({
                 moduleId: parentId,
                 dependencyChain: [

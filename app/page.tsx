@@ -6,6 +6,8 @@ import Dining from '@/components/Dining'
 import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
 import Gallery from '@/components/Gallery'
+import CarouselSection from '@/components/Hall'
+import BanquetHallPage from '@/components/Hall'
 import Hero from '@/components/Hero'
 import Location from '@/components/Location'
 import Navbar from '@/components/Navbar'
@@ -26,6 +28,7 @@ function page() {
       <Dining />
       <Ayurveda />
       <Banquet />
+      <CarouselSection />
       {/* <VirtualTour /> */}
       <Gallery />
       <Reviews />

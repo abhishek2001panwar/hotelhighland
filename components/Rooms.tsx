@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Check } from "lucide-react";
 
 interface RoomItem {
   id: string;
   number: string;
   title: string;
+  subtitle: string;
   tagline: string;
   amenities: string[];
-  image: string;
-  size: string;
+  images: {
+    src: string;
+    caption: string;
+  }[];
   price: string;
   href: string;
 }
@@ -22,17 +26,17 @@ const roomsData: RoomItem[] = [
     id: "executive-suite",
     number: "01",
     title: "Executive Suite",
+    subtitle: "King Bed & Lounge",
     tagline:
-      "Comfortable accommodation designed for relaxed business, corporate, and leisure stays in North Bangalore.",
-    amenities: [
-      "King Bed",
-      "High-Speed Wi-Fi",
-      "Air Conditioning",
-      "Smart TV",
+      "Generously proportioned suite with dedicated lounge quarters, expansive glazing, and panoramic views of North Bangalore.",
+    amenities: ["King Bed", "High-Speed Wi-Fi", "Climate Control", "Smart TV"],
+    images: [
+      { src: "/rooms/1.webp", caption: "Master Bedroom Suite" },
+      { src: "/rooms/2.webp", caption: "Living & Seating Lounge" },
+      { src: "/rooms/3.webp", caption: "Executive Work Enclave" },
+      { src: "/rooms/4.webp", caption: "En-suite & Vanity" },
+      { src: "/rooms/5.webp", caption: "Balcony Vista" },
     ],
-    image:
-      "/room1.webp",
-    size: "Executive Suite",
     price: "Contact for Rates",
     href: "/contact",
   },
@@ -40,35 +44,35 @@ const roomsData: RoomItem[] = [
     id: "executive-twin-suite",
     number: "02",
     title: "Executive Twin Suite",
+    subtitle: "Twin Bedding Arrangement",
     tagline:
-      "Spacious accommodation with twin bedding, ideally suited for colleagues, families, and shared travel.",
-    amenities: [
-      "Twin Beds",
-      "High-Speed Wi-Fi",
-      "Air Conditioning",
-      "Work Desk",
+      "Flexible, light-filled accommodation tailored for executive colleagues, delegates, and companions traveling together.",
+    amenities: ["Twin Beds", "Ergonomic Desk", "High-Speed Wi-Fi", "Climate Control"],
+    images: [
+      { src: "/rooms/6.webp", caption: "Twin Bedroom Layout" },
+      { src: "/rooms/7.webp", caption: "Vanity & Dressing Space" },
+      { src: "/rooms/8.webp", caption: "Work Station Setup" },
+      { src: "/rooms/9.webp", caption: "Ambient Evening Lighting" },
+      { src: "/rooms/10.webp", caption: "Wardrobe & Entry" },
     ],
-    image:
-      "/room2.webp",
-    size: "Executive Twin Suite",
     price: "Contact for Rates",
     href: "/contact",
   },
   {
     id: "wellness",
     number: "03",
-    title: "Ayurveda & Spa Retreat",
+    title: "Ayurveda Retreat",
+    subtitle: "Holistic Health Sanctuary",
     tagline:
-      "Complement your stay with authentic Ayurvedic therapies, Naturopathy, restorative Yoga, and Acupuncture.",
-    amenities: [
-      "Ayurveda",
-      "Naturopathy",
-      "Yoga Therapy",
-      "Acupuncture",
+      "Signature traditional therapies, bespoke herbal steam treatments, and restorative retreats curated by KEVA Ayurveda.",
+    amenities: ["Herbal Steam", "Naturopathy", "Yoga Therapy", "Doctor Consultation"],
+    images: [
+      { src: "/rooms/11.webp", caption: "Therapy Sanctuary" },
+      { src: "/rooms/12.webp", caption: "Ayurvedic Steam Cabin" },
+      { src: "/rooms/13.webp", caption: "Consultation Enclave" },
+      { src: "/rooms/14.webp", caption: "Relaxation Lounge" },
+      { src: "/rooms/15.webp", caption: "Herbal Oil Treatment Bed" },
     ],
-    image:
-      "/room3.webp",
-    size: "Holistic Wellness",
     price: "Consultation on Request",
     href: "/ayurveda",
   },
@@ -76,256 +80,185 @@ const roomsData: RoomItem[] = [
 
 export default function Rooms() {
   const [activeRoomIndex, setActiveRoomIndex] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
+
   const activeRoom = roomsData[activeRoomIndex];
+  const activePhoto = activeRoom.images[activePhotoIndex] || activeRoom.images[0];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const handleRoomChange = (index: number) => {
+    setActiveRoomIndex(index);
+    setActivePhotoIndex(0);
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full bg-[#f8f7f4] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden selection:bg-orange-500/20"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full max-w-full bg-[#FDFBF7] text-[#1B1917] py-14 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-14 border-t border-stone-200/80 overflow-hidden box-border">
+      <div className="max-w-7xl mx-auto w-full">
         
-        {/* Editorial Section Header: Mask-Reveal Transitions */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-xl">
-            {/* Tagline Mask */}
-            <div className="overflow-hidden mb-3">
-              <div
-                className={`flex items-center gap-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-              >
-             
-                <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
-                  Sanctuary &bull; Accommodations
-                </p>
-              </div>
+        {/* ================= HEADER ================= */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 pb-6 sm:pb-8 border-b border-stone-200/90 gap-4 sm:gap-6">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#8C6D3B] font-semibold">
+                Highland Sanctuary &bull; Accommodations
+              </p>
             </div>
-
-            {/* Headline Mask */}
-            <div className="overflow-hidden">
-              <h2
-                className={`font-serif text-3xl sm:text-5xl font-normal tracking-tight text-stone-900 leading-[1.12] transition-all duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-              >
-                Stay Your Way
-              </h2>
-            </div>
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl text-[#1B1917] font-normal tracking-tight leading-[1.15]">
+              Suites &amp; Restorative Living
+            </h2>
           </div>
 
-          {/* Supporting Copy Mask */}
-          <div className="overflow-hidden max-w-md">
-            <p
-              className={`font-sans text-stone-600 text-xs sm:text-sm md:text-[15px] font-light leading-relaxed transition-all duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-              }`}
-            >
-              Thoughtfully crafted suites in North Bangalore, combining quiet residential serenity, luxury amenities, and gracious service.
-            </p>
-          </div>
+          <p className="font-sans text-stone-600 text-xs sm:text-sm font-light max-w-md leading-relaxed">
+            42 thoughtfully appointed suites combining quiet residential seclusion with attentive hospitality in North Bangalore.
+          </p>
         </div>
 
-        {/* 2-Column Interactive Stage */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
-          
-          {/* Left Column: Interactive Nav Cards with Cascading Delay */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
-            
-            <div className="space-y-3">
-              {roomsData.map((room, index) => {
-                const isActive = index === activeRoomIndex;
-                const delays = ["delay-150", "delay-300", "delay-450"];
+        {/* ================= ROOM SELECTOR TABS (NO HORIZONTAL OVERFLOW SCROLL) ================= */}
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 mb-6 sm:mb-8 w-full">
+          {roomsData.map((room, index) => {
+            const isActive = index === activeRoomIndex;
+            return (
+              <button
+                key={room.id}
+                onClick={() => handleRoomChange(index)}
+                className={`relative px-3.5 sm:px-5 py-2 sm:py-3 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 border flex-1 sm:flex-none ${
+                  isActive
+                    ? "bg-[#1B1917] text-white border-[#1B1917] shadow-sm"
+                    : "bg-[#F4EFE6] text-stone-700 border-stone-300/80 hover:bg-white hover:border-stone-400"
+                }`}
+              >
+                <span className={`font-mono text-[10px] ${isActive ? "text-amber-300" : "text-stone-400"}`}>
+                  {room.number}
+                </span>
+                <span className="font-medium text-[10px] sm:text-xs whitespace-nowrap">{room.title}</span>
+              </button>
+            );
+          })}
+        </div>
 
+        {/* ================= MAIN TWO-COLUMN STAGE ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start w-full">
+          
+          {/* LEFT: Dominant Image Canvas with Thumbnails */}
+          <div className="lg:col-span-8 flex flex-col gap-3 w-full">
+            
+            {/* Main Stage */}
+            <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10] rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl border border-stone-300/60 bg-stone-100">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeRoom.id}-${activePhotoIndex}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={activePhoto.src}
+                    alt={`${activeRoom.title} - ${activePhoto.caption}`}
+                    fill
+                    priority
+                    quality={95}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 65vw"
+                    className="object-cover object-center"
+                  />
+
+                  {/* Soft bottom scrim */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 sm:h-28 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+
+                  {/* Bottom Caption Pill */}
+                  <div className="absolute bottom-5 left-6 sm:bottom-6 sm:left-7 z-10 text-white pointer-events-none" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Subdued Minimal Thumbnails */}
+            <div className="flex items-center gap-2 pt-1 w-full overflow-hidden">
+              {activeRoom.images.map((img, idx) => {
+                const isCurrentThumb = idx === activePhotoIndex;
                 return (
                   <button
-                    key={room.id}
+                    key={idx}
                     type="button"
-                    onClick={() => setActiveRoomIndex(index)}
-                    aria-pressed={isActive}
-                    className={`group relative w-full text-left p-6 rounded-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border ${
-                      delays[index]
-                    } ${
-                      isInView ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-                    } ${
-                      isActive
-                        ? "bg-white border-stone-300 shadow-md shadow-stone-200/60"
-                        : "bg-white/40 border-stone-200/60 hover:bg-white hover:border-stone-300 text-stone-600"
+                    onClick={() => setActivePhotoIndex(idx)}
+                    aria-label={`View photo ${idx + 1}`}
+                    className={`relative flex-1 aspect-[4/3] max-w-[64px] sm:max-w-[70px] rounded-md overflow-hidden cursor-pointer transition-all duration-300 border ${
+                      isCurrentThumb
+                        ? "ring-2 ring-stone-900 ring-offset-2 ring-offset-[#FDFBF7] opacity-100 border-transparent shadow-sm scale-105"
+                        : "opacity-40 hover:opacity-80 border-stone-300/70"
                     }`}
                   >
-                    {/* Active Left Pill Accent */}
-                    <div
-                      className={`absolute left-0 top-0 bottom-0 w-1 bg-orange-500 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        isActive ? "scale-y-100" : "scale-y-0"
-                      }`}
+                    <Image
+                      src={img.src}
+                      alt={img.caption}
+                      fill
+                      sizes="70px"
+                      className="object-cover object-center"
                     />
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-baseline gap-4">
-                        <span
-                          className={`font-mono text-xs tracking-widest transition-colors duration-300 ${
-                            isActive
-                              ? "text-orange-600 font-semibold"
-                              : "text-stone-400 group-hover:text-stone-700"
-                          }`}
-                        >
-                          {room.number}
-                        </span>
-
-                        <h3
-                          className={`font-serif text-xl sm:text-2xl transition-colors duration-300 ${
-                            isActive
-                              ? "text-stone-900 font-medium"
-                              : "text-stone-700 group-hover:text-stone-900"
-                          }`}
-                        >
-                          {room.title}
-                        </h3>
-                      </div>
-
-                      <span
-                        className={`text-[10px] font-sans tracking-[0.2em] uppercase transition-all duration-300 ${
-                          isActive
-                            ? "text-orange-600 opacity-100 font-medium translate-x-0"
-                            : "opacity-0 -translate-x-2 pointer-events-none"
-                        }`}
-                      >
-                        Viewing
-                      </span>
-                    </div>
-
-                    {/* Animated Detail Container */}
-                    {isActive && (
-                      <div
-                        key={room.id}
-                        className="mt-4 pt-4 border-t border-stone-100 animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both"
-                      >
-                        <p className="font-sans text-xs sm:text-[13px] text-stone-600 font-light mb-3.5 leading-relaxed">
-                          {room.tagline}
-                        </p>
-
-                        <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-[10px] font-sans text-stone-500 uppercase tracking-[0.16em]">
-                          {room.amenities.map((item, i) => (
-                            <span
-                              key={item}
-                              style={{ animationDelay: `${i * 60}ms` }}
-                              className="flex items-center gap-1.5 animate-in fade-in slide-in-from-bottom-1 duration-400 fill-mode-both"
-                            >
-                              <span className="w-1 h-1 rounded-full bg-orange-500" />
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </button>
                 );
               })}
             </div>
+          </div>
 
-            {/* Bottom Dynamic Action Strip */}
-            <div
-              key={`footer-${activeRoom.id}`}
-              className={`pt-6 border-t border-stone-300/80 flex items-center justify-between mt-auto transition-all duration-1000 delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isInView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-              }`}
-            >
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-stone-400 block mb-0.5">
-                  {activeRoom.id === "wellness" ? "Therapy Sessions" : "Reservations"}
+          {/* RIGHT: Curated Suite Dossier & Booking Strip */}
+          <div className="lg:col-span-4 bg-[#F4EFE6] rounded-xl sm:rounded-2xl md:rounded-3xl border border-stone-300/70 p-5 sm:p-7 lg:p-8 flex flex-col justify-between self-stretch w-full box-border">
+            
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8C6D3B] font-semibold block mb-1.5 sm:mb-2">
+                Suite Specification
+              </span>
+              <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl text-[#1B1917] font-normal leading-tight">
+                {activeRoom.title}
+              </h3>
+              <p className="font-serif italic text-stone-500 text-xs sm:text-sm mt-1">
+                {activeRoom.subtitle}
+              </p>
+
+              <div className="mt-4 sm:mt-5 w-10 h-[1px] bg-[#8C6D3B]/40" />
+
+              <p className="font-sans text-xs sm:text-[13px] text-stone-600 font-light leading-relaxed mt-4 sm:mt-5">
+                {activeRoom.tagline}
+              </p>
+
+              {/* Amenity Badges */}
+              <div className="mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-stone-300/60">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-stone-500 block mb-3">
+                  Included Amenities
                 </span>
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  {activeRoom.amenities.map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-center gap-1.5 sm:gap-2 bg-white/70 border border-stone-200/80 px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-[11px] font-sans text-stone-800"
+                    >
+                      <Check className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#8C6D3B] shrink-0" />
+                      <span className="truncate">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
-                <span className="font-serif text-lg sm:text-xl font-medium text-stone-900">
+            {/* Bottom Booking Action Strip (Fully Responsive Stack on Mobile) */}
+            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-stone-300/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-baseline justify-between sm:block">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-stone-500 block sm:mb-0.5">
+                  Tariff Rate
+                </span>
+                <span className="font-serif text-base sm:text-lg font-medium text-stone-900">
                   {activeRoom.price}
                 </span>
               </div>
 
-              {/* High-End Primary Button */}
               <Link
                 href={activeRoom.href}
-                className="group inline-flex items-center gap-2 bg-stone-900 hover:bg-black text-white font-sans text-[11px] uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-md shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98] cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1B1917] hover:bg-stone-800 text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-md transition-all shadow-sm active:scale-95 cursor-pointer"
               >
-                <span>
-                  {activeRoom.id === "wellness" ? "Explore Spa" : "Reserve Suite"}
-                </span>
-                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-400" />
+                <span>{activeRoom.id === "wellness" ? "Explore Spa" : "Reserve"}</span>
+                <ArrowUpRight className="w-4 h-4 stroke-[2]" />
               </Link>
             </div>
 
-          </div>
-
-          {/* Right Column: Layered Canvas Settle Entrance */}
-          <div
-            className={`lg:col-span-7 relative min-h-[420px] sm:min-h-[520px] rounded-2xl overflow-hidden border border-stone-200/90 shadow-xl bg-stone-950 transition-all duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isInView ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-[0.98]"
-            }`}
-          >
-            {roomsData.map((room, index) => {
-              const isCurrent = index === activeRoomIndex;
-
-              return (
-                <div
-                  key={room.id}
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-                    isCurrent
-                      ? "opacity-100 z-10"
-                      : "opacity-0 z-0 pointer-events-none"
-                  }`}
-                >
-                  <div
-                    className={`relative w-full h-full transform transition-transform duration-[7000ms] ease-out will-change-transform ${
-                      isCurrent ? "scale-105" : "scale-100"
-                    }`}
-                  >
-                    <Image
-                      src={room.image}
-                      alt={`${room.title} at Highland Hotel Bengaluru`}
-                      fill
-                      quality={90}
-                      priority={index === 0}
-                      className="object-cover object-center"
-                      sizes="(max-width: 1024px) 100vw, 60vw"
-                    />
-                  </div>
-
-                  {/* Gradient Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
-
-                  {/* Specification Corner Badges */}
-                  <div className="absolute top-6 right-6 z-20">
-                   
-                  </div>
-
-                  <div className="absolute bottom-6 left-6 z-20 text-white">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-orange-400 block mb-1">
-                      Highland Sanctuary
-                    </span>
-                    <p className="font-serif text-xl sm:text-2xl font-light">
-                      {room.title}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
           </div>
 
         </div>

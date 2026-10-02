@@ -1,349 +1,213 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, UtensilsCrossed } from "lucide-react";
+import { ArrowUpRight, Clock, Sparkles } from "lucide-react";
 
-type CuisineType = "indian" | "thai" | "sri-lankan";
+const diningPhotos = [
+  // 0: Main panoramic feature shot
+  "/dining/1.webp",
+  // 1-4: The other 4 perspectives/angles of the dining area
+  "/dining/2.webp",
+  "/dining/3.webp",
+  "/dining/4.webp",
+  "/dining/5.webp",
+];
 
-interface CuisineItem {
-  id: string;
-  name: string;
-  desc: string;
-  notes: string;
-  badge?: string;
-}
-
-interface CuisineSection {
-  label: string;
-  subtitle: string;
-  heroImage: string;
-  items: CuisineItem[];
-}
-
-const cuisinePreviews: Record<CuisineType, CuisineSection> = {
-  indian: {
-    label: "Indian Heritage",
-    subtitle: "Aromatic spice compositions & regional recipes",
-    heroImage: "/restaurant.webp",
-    items: [
-      {
-        id: "01",
-        name: "North Indian Delicacies",
-        desc: "Slow-simmered gravies, charcoal tandoor kebabs, and delicate saffron-infused breads crafted to order.",
-        notes: "Clay Tandoor • Saffron • Ghee Roasts",
-        badge: "Chef Signature",
-      },
-      {
-        id: "02",
-        name: "South Indian Specialities",
-        desc: "Authentic coastal Karnataka flavours, tempering of fresh curry leaves, and heritage preparations.",
-        notes: "Stone Ground Spices • Coconut Milk",
-      },
-      {
-        id: "03",
-        name: "Contemporary Awadhi & Biryanis",
-        desc: "Fragrant long-grain basmati layered with artisanal spices, sealed and cooked in traditional 'dum' style.",
-        notes: "Dum Pukht Method • Aged Basmati",
-        badge: "House Favourite",
-      },
-    ],
+const featuredDishes = [
+  {
+    id: "01",
+    name: "Awadhi Dum Biryani",
+    desc: "Aromatic aged basmati slow-cooked in sealed clay handi with saffron & whole spices.",
+    category: "Indian Heritage",
+    badge: "Chef Signature",
   },
-
-  thai: {
-    label: "Thai Gastronomy",
-    subtitle: "Sweet, sour, salty, and spicy in precise harmony",
-    heroImage: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=1600&auto=format&fit=crop",
-    items: [
-      {
-        id: "01",
-        name: "Aromatic Coconut Curries",
-        desc: "Silky green and red Thai curries scented with freshly pounded lemongrass, galangal, and kaffir lime leaves.",
-        notes: "Fresh Galangal • Kaffir Lime",
-        badge: "Speciality",
-      },
-      {
-        id: "02",
-        name: "Wok-Tossed Street Classics",
-        desc: "Smoky flat-rice noodles and jasmine stir-fries blistered at intense wok heat with holy basil and tamarind.",
-        notes: "High-Heat Wok Hei • Thai Basil",
-      },
-      {
-        id: "03",
-        name: "Zesty Salads & Starters",
-        desc: "Crisp raw papaya lightly crushed with bird's eye chillies, palm sugar glaze, and crushed roasted peanuts.",
-        notes: "Som Tum • Crispy Aromatics",
-      },
-    ],
+  {
+    id: "02",
+    name: "Charcoal Tandoori Kebab",
+    desc: "Tender, clay-oven roasted cuts marinated in hand-ground spices and mustard oil.",
+    category: "Tandoor Special",
+    badge: "Smoky Classic",
   },
-
-  "sri-lankan": {
-    label: "Island Flavours",
-    subtitle: "Rich toasted spices, black curries & coastal Ceylon delicacies",
-    heroImage: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=1600&auto=format&fit=crop",
-    items: [
-      {
-        id: "01",
-        name: "Roasted Jaffna Curries",
-        desc: "Deep, complex gravies steeped in hand-roasted black curry powder, fennel, and freshly grated coconut.",
-        notes: "Heirloom Pepper • Dark Roasted Cumin",
-        badge: "Rare Selection",
-      },
-      {
-        id: "02",
-        name: "Pol Sambol & String Hoppers",
-        desc: "Delicate steamed rice noodles paired with spicy coconut sambol, tempered dhal, and coconut cream.",
-        notes: "Traditional Ceylon Breakfast & Dinner",
-      },
-      {
-        id: "03",
-        name: "Coastal Spiced Medleys",
-        desc: "Tender local vegetables and fresh market catch simmered in golden turmeric, goraka, and tempered mustard seeds.",
-        notes: "Goraka Infusion • Island Herbs",
-      },
-    ],
+  {
+    id: "03",
+    name: "Thai Green Curry",
+    desc: "Silky coconut broth simmered with crushed lemongrass, galangal & holy basil.",
+    category: "Pan-Asian",
+    badge: "Aromatic",
   },
-};
+  {
+    id: "04",
+    name: "Ceylon Spiced Roast",
+    desc: "Rich coastal black curry infused with hand-toasted island spices & tempered curry leaves.",
+    category: "Island Special",
+    badge: "House Favourite",
+  },
+];
 
 export default function Dining() {
-  const [activeCuisine, setActiveCuisine] = useState<CuisineType>("indian");
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const currentSection = cuisinePreviews[activeCuisine];
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-        }
-      },
-      { threshold: 0.12 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const [heroImage, ...gridImages] = diningPhotos;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full bg-[#f8f7f4] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden selection:bg-orange-500/20"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section className="relative w-full max-w-full bg-[#FAF7F0] text-[#1B1917] py-10 px-4 sm:px-8 lg:px-14 border-t border-[#E5E0D5] overflow-hidden box-border">
+      <div className="max-w-7xl mx-auto w-full">
 
-        {/* Section Header: Mask Reveals */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-xl text-left">
-            {/* Tagline Mask */}
-            <div className="overflow-hidden mb-3">
-              <div
-                className={`flex items-center gap-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-              >
-            
-                <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
-                  Cinnamon Restaurant
-                </p>
-              </div>
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 pb-6 sm:pb-8 border-b border-[#E0D8CB] gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-[#8C6D3B] font-semibold">
+                Cinnamon Restaurant &bull; Highland Hotel
+              </p>
             </div>
-
-            {/* Headline Mask */}
-            <div className="overflow-hidden">
-              <h2
-                className={`font-serif text-3xl sm:text-5xl font-normal tracking-tight text-stone-900 leading-[1.12] transition-all duration-1000 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isInView ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-              >
-                Flavours Worth Staying For
-              </h2>
-            </div>
+            <h2 className="font-serif text-3xl sm:text-5xl text-[#1B1917] font-normal tracking-tight leading-[1.15]">
+              Dining &amp; Hospitality
+            </h2>
           </div>
 
-          {/* Pill Badge Entrance */}
-          <div
-            className={`flex items-center gap-2.5 text-stone-600 font-sans text-xs tracking-wider uppercase border border-stone-300/80 bg-white/60 backdrop-blur-sm px-4 py-2.5 rounded-full w-fit transition-all duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-            }`}
-          >
-            <UtensilsCrossed className="w-3.5 h-3.5 text-orange-500 shrink-0" />
-            <span className="text-[11px] font-medium tracking-[0.16em] text-stone-700">
-              Indian &bull; Thai &bull; Sri Lankan
-            </span>
+          <div className="inline-flex items-center gap-2 bg-white border border-[#DDD4C4] px-4 py-2 rounded-full text-xs font-sans text-stone-700 shadow-2xs self-start md:self-auto">
+            <Clock className="w-3.5 h-3.5 text-[#8C6D3B]" />
+            <span>Open Daily &bull; 07:00 – 23:00</span>
           </div>
         </div>
 
-        {/* Main 2-Column Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-16">
-
-          {/* Left: Atmospheric Restaurant Canvas with Slow Drift & Entrance */}
-          <div
-            className={`lg:col-span-7 relative min-h-[420px] sm:min-h-[500px] rounded-2xl overflow-hidden border border-stone-200 shadow-xl bg-stone-950 group transition-all duration-1000 delay-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isInView ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-[0.98]"
-            }`}
-          >
-            <div className="relative w-full h-full transform transition-transform duration-[7000ms] ease-out group-hover:scale-105">
-              <Image
-                src="https://highlandhotel.in/wp-content/uploads/2024/09/150.jpg"
-                alt="Cinnamon Multicuisine Restaurant at Highland Hotel Bengaluru"
-                fill
-                quality={90}
-                priority
-                className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
-            </div>
-
-            {/* Editorial Vignette & Text Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
-
-            <div className="absolute top-6 left-6 z-10">
-              <span className="inline-block bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-[0.2em] px-3.5 py-1.5 rounded">
-                Cinnamon Dining Hall
+        {/* Top: Left Editorial Card + Right 5-Photo Mosaic */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start mb-14 sm:mb-16">
+          
+          {/* Left Column: Brief Story & Timing (4 cols) */}
+          <div className="lg:col-span-4 bg-white rounded-2xl md:rounded-3xl border border-[#DDD4C4] p-6 sm:p-8 flex flex-col justify-between shadow-xs self-stretch">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8C6D3B] font-semibold block mb-2">
+                Ambience
               </span>
-            </div>
-
-            <div className="absolute bottom-6 left-6 right-6 text-white font-sans z-10 text-left">
-              <p className="text-[10px] font-mono tracking-[0.28em] uppercase text-orange-400 font-medium mb-1">
-                Fine Dining &bull; Highland Hotel
-              </p>
-              <h3 className="font-serif text-2xl sm:text-3xl font-light leading-snug">
-                Where Culinary Tradition Meets Quiet Luxury
+              <h3 className="font-serif text-2xl sm:text-3xl text-[#1B1917] font-normal leading-snug">
+                Cinnamon Restaurant
               </h3>
-            </div>
-          </div>
-
-          {/* Right: Narrative Story Card Entrance */}
-          <div
-            className={`lg:col-span-5 bg-white p-8 sm:p-12 rounded-2xl border border-stone-200/90 shadow-sm flex flex-col justify-between text-left transition-all duration-1000 delay-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isInView ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-            }`}
-          >
-            <div className="space-y-4">
-              <span className="font-sans text-[10px] uppercase tracking-[0.28em] text-orange-600 font-semibold block">
-                The Cinnamon Story
-              </span>
-
-              <h3 className="font-serif text-2xl sm:text-3xl text-stone-900 font-normal leading-[1.2]">
-                A sensory journey across three distinct regional culinary legacies.
-              </h3>
-
-              <p className="font-sans text-stone-600 text-xs sm:text-sm font-light leading-relaxed pt-2">
-                Cinnamon combines the warmth of traditional hospitality with an ambitious culinary program. From comforting tandoori feasts to aromatic Thai curries and rare Ceylon spices, every plate is prepared using unadulterated ingredients, stone-pressed oils, and farm-fresh produce.
+              <p className="font-serif italic text-stone-500 text-xs sm:text-sm mt-1">
+                Indoor &amp; Scenic Balcony Seating
               </p>
-            </div>
 
-            <div className="pt-8 mt-8 border-t border-stone-200/80 flex items-center justify-between gap-4">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 block mb-0.5">
-                  Dining Ambience
-                </span>
-                <span className="font-serif text-base text-stone-900 font-medium">
-                  Indoor &amp; Scenic Balcony
-                </span>
+              <div className="mt-4 sm:mt-5 w-10 h-[1px] bg-[#8C6D3B]/40" />
+
+              <p className="font-sans text-xs sm:text-[13px] text-stone-600 font-light leading-relaxed mt-4 sm:mt-5">
+                Our in-house multicuisine restaurant pairs warm timber interiors and natural light with scenic elevated views. Whether you are enjoying a leisurely family breakfast, an executive business lunch, or an evening dinner, Cinnamon offers a calm, welcoming environment.
+              </p>
+
+              <div className="mt-6 pt-6 border-t border-stone-200 space-y-3 text-xs font-sans text-stone-700">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D3B]" />
+                  <span>Indian, Continental &amp; Asian Multicuisine</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D3B]" />
+                  <span>Air-Conditioned Indoor &amp; Open-Air Balcony</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6D3B]" />
+                  <span>Dedicated Buffet &amp; Table Service</span>
+                </div>
               </div>
+            </div>
 
+            <div className="mt-8 pt-6 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <Link
-                href="/menu"
-                className="inline-flex items-center gap-2 bg-stone-900 hover:bg-black text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-full shadow-sm transition-all duration-300 active:scale-[0.98] group cursor-pointer"
+                href="/contact"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#1B1917] hover:bg-stone-800 text-white font-sans text-xs uppercase tracking-[0.2em] font-medium px-6 py-3.5 rounded-md transition-all shadow-sm active:scale-95 cursor-pointer text-center"
               >
-                <span>View Menu</span>
-                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-400" />
+                <span>Reserve Table</span>
+                <ArrowUpRight className="w-4 h-4 stroke-[2]" />
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Interactive Cuisine Explorer Entrance */}
-        <div
-          className={`bg-white rounded-2xl border border-stone-200/90 p-8 sm:p-12 shadow-sm transition-all duration-1000 delay-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isInView ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-          }`}
-        >
-
-          {/* Cuisine Pill Tabs */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-6 mb-10 gap-4">
-            <div className="flex items-center gap-2.5 flex-wrap">
-              {(
-                [
-                  { key: "indian", label: "Indian Cuisine" },
-                  { key: "thai", label: "Thai Cuisine" },
-                  { key: "sri-lankan", label: "Sri Lankan Cuisine" },
-                ] as const
-              ).map((tab) => {
-                const isActive = activeCuisine === tab.key;
-                return (
-                  <button
-                    key={tab.key}
-                    onClick={() => setActiveCuisine(tab.key)}
-                    className={`px-5 py-2.5 rounded-full font-sans text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 cursor-pointer ${
-                      isActive
-                        ? "bg-stone-900 text-white shadow-sm"
-                        : "bg-stone-100/90 text-stone-600 hover:bg-stone-200/70 hover:text-stone-900"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
+          {/* Right Column: 5-Photo Mosaic Layout (8 cols) */}
+          <div className="lg:col-span-8 flex flex-col gap-3 sm:gap-4">
+            
+            {/* Primary Large Panoramic Shot */}
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xl sm:rounded-2xl overflow-hidden border border-[#DDD4C4] shadow-md bg-stone-100">
+              <Image
+                src={heroImage}
+                alt="Cinnamon Restaurant main dining room view"
+                fill
+                priority
+                quality={95}
+                sizes="(max-width: 1024px) 100vw, 65vw"
+                className="object-cover object-center"
+              />
             </div>
 
-            <div className="text-left sm:text-right font-sans">
-              <span className="text-[10px] font-mono tracking-widest uppercase text-stone-400 block mb-0.5">
-                Curated Focus
-              </span>
-              <p className="text-xs text-stone-800 font-medium">
-                {currentSection.subtitle}
-              </p>
+            {/* 4 Remaining Angles (Equal Compact Grid Below) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+              {gridImages.map((src, index) => (
+                <div
+                  key={index}
+                  className="relative aspect-[4/3] w-full rounded-lg sm:rounded-xl overflow-hidden border border-[#DDD4C4] shadow-2xs bg-stone-100"
+                >
+                  <Image
+                    src={src}
+                    alt={`Cinnamon Restaurant perspective ${index + 2}`}
+                    fill
+                    quality={90}
+                    sizes="(max-width: 640px) 50vw, 20vw"
+                    className="object-cover object-center"
+                  />
+                </div>
+              ))}
             </div>
+
           </div>
 
-          {/* Staggered Dishes Grid with Keyed Transition */}
-          <div
-            key={activeCuisine}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left animate-in fade-in slide-in-from-bottom-3 duration-500 fill-mode-both"
-          >
-            {currentSection.items.map((dish, i) => (
+        </div>
+
+        {/* Bottom: Compact Signature Dishes Showcase */}
+        <div className="pt-10 border-t border-[#E0D8CB]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-2">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#8C6D3B] font-semibold block mb-1">
+                Culinary Highlights
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl text-[#1B1917] font-normal">
+                Signature Kitchen Selections
+              </h3>
+            </div>
+            <p className="font-sans text-xs text-stone-500 font-light">
+              Crafted with hand-ground spices and fresh local produce
+            </p>
+          </div>
+
+          {/* 4 Small Minimal Dish Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+            {featuredDishes.map((dish) => (
               <div
                 key={dish.id}
-                style={{ animationDelay: `${i * 100}ms` }}
-                className="group relative bg-[#faf9f6] hover:bg-[#f5f3ee] border border-stone-200/70 rounded-xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-md"
+                className="bg-white rounded-xl border border-[#DDD4C4] p-5 flex flex-col justify-between hover:border-[#8C6D3B]/60 transition-colors shadow-2xs"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <span className="font-mono text-xs text-orange-600 font-medium">
-                      {dish.id}
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#8C6D3B] font-semibold">
+                      {dish.category}
                     </span>
-
-                    {dish.badge && (
-                      <span className="bg-orange-500/10 border border-orange-500/20 text-orange-700 text-[9px] font-mono tracking-widest uppercase px-2.5 py-0.5 rounded-full">
-                        {dish.badge}
-                      </span>
-                    )}
+                    <span className="bg-[#FAF7F0] border border-[#E5E0D5] text-stone-700 text-[9px] font-mono tracking-wider uppercase px-2 py-0.5 rounded-full">
+                      {dish.badge}
+                    </span>
                   </div>
 
-                  <h4 className="font-serif text-xl text-stone-900 font-normal mb-2.5 leading-snug group-hover:text-orange-600 transition-colors">
+                  <h4 className="font-serif text-base sm:text-lg text-[#1B1917] font-normal mb-1.5 leading-snug">
                     {dish.name}
                   </h4>
 
-                  <p className="font-sans text-xs sm:text-[13px] text-stone-600 font-light leading-relaxed mb-6">
+                  <p className="font-sans text-xs text-stone-600 font-light leading-relaxed">
                     {dish.desc}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-stone-200/60 flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-stone-500">
-                  <span>{dish.notes}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-orange-500 transition-opacity" />
+                <div className="pt-3.5 mt-3.5 border-t border-stone-100 flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-stone-400">
+                  <span>Selection {dish.id}</span>
+                  <Sparkles className="w-3 h-3 text-[#8C6D3B]" />
                 </div>
               </div>
             ))}
           </div>
-
         </div>
 
       </div>
