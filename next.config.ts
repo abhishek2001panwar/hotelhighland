@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
 
       },
+     
       {
         protocol: "https",
         hostname: "r2imghtlak.mmtcdn.com",

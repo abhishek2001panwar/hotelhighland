@@ -21,7 +21,6 @@ const BOOK_NOW_URL =
   "https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517";
 
 const navLinks: NavItem[] = [
-  { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
   { label: "BANQUET HALL", href: "/banquet" },
   { label: "SANGAM GOSHALA", href: "/sangam" },
@@ -62,6 +61,7 @@ const navLinks: NavItem[] = [
 ];
 
 const menuQuickLinks = [
+  { label: "Home", href: "/" },
   { label: "Blogs", href: "/blogs" },
   { label: "Gallery", href: "/gallery" },
   { label: "Videos", href: "/videos" },
@@ -108,30 +108,30 @@ export default function Navbar() {
       {/* =========================================================
           FIXED HEADER BAR
       ========================================================== */}
-      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 lg:px-14 py-3 sm:py-4 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-all pointer-events-auto">
-        <div className="max-w-[1720px] mx-auto flex items-center justify-between text-white gap-3 sm:gap-4">
+      <header className="fixed top-0 left-0 w-full z-40 px-3 sm:px-6 lg:px-8 2xl:px-12 py-2 sm:py-2.5 bg-gradient-to-b from-black/90 via-black/55 to-transparent transition-all pointer-events-auto">
+        <div className="max-w-[1840px] mx-auto flex items-center justify-between text-white gap-2 sm:gap-4 lg:gap-6">
           
-          {/* Left: Brand Logo */}
+          {/* Brand Logo - Enlarged while maintaining responsive container proportions */}
           <Link
             href="/"
-            className="flex items-center select-none group shrink-0"
+            className="flex items-center select-none group min-w-0 shrink"
             aria-label="Highland Hotel Home"
           >
-            <div className="relative w-40 h-12 sm:w-56 sm:h-16 lg:w-64 lg:h-18 transition-transform duration-300 group-hover:scale-[1.01]">
+            <div className="relative w-56 sm:w-68 md:w-76 lg:w-84 xl:w-92 2xl:w-[420px] aspect-[24/7] max-h-18 sm:max-h-22 lg:max-h-24 transition-transform duration-300 group-hover:scale-[1.01]">
               <Image
                 src="https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-24.png"
                 alt="Highland Hotel Bengaluru Logo"
                 fill
                 priority
                 className="object-contain object-left drop-shadow-lg"
-                sizes="(max-width: 640px) 160px, (max-width: 1024px) 224px, 256px"
+                sizes="(max-width: 640px) 224px, (max-width: 768px) 272px, (max-width: 1024px) 304px, (max-width: 1536px) 368px, 420px"
               />
             </div>
           </Link>
 
           {/* Desktop Navigation Links + Book Now + Menu Button */}
-          <div className="hidden xl:flex items-center gap-5 2xl:gap-7">
-            <nav className="flex items-center gap-3.5 2xl:gap-5 font-sans text-[10px] 2xl:text-[11px] tracking-[0.22em] uppercase font-medium">
+          <div className="hidden xl:flex items-center gap-3.5 2xl:gap-5 shrink-0">
+            <nav className="flex items-center gap-2 2xl:gap-4 font-sans text-[10px] 2xl:text-[11px] tracking-[0.16em] 2xl:tracking-[0.2em] uppercase font-medium">
               {navLinks.map((item) => {
                 const hasSublinks = !!item.sublinks;
 
@@ -140,7 +140,7 @@ export default function Navbar() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap"
+                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap px-1 py-1"
                     >
                       {item.label}
                     </Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      className="inline-flex items-center gap-1.5 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap"
+                      className="inline-flex items-center gap-1 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap px-1 py-1"
                     >
                       <span>{item.label}</span>
                       <ChevronDown className="w-3 h-3 text-stone-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
@@ -189,21 +189,21 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Desktop "Book Now" Button (NO BACKGROUND, PURE WHITE TEXT) */}
+            {/* Desktop "Book Now" Button */}
             <a
               href={BOOK_NOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/50 hover:border-white hover:bg-white/10 px-4 py-2 rounded-xs font-sans text-[10px] 2xl:text-[11px] uppercase tracking-[0.22em] font-medium transition-all active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/50 hover:border-white hover:bg-white/10 px-3 py-1.5 2xl:px-4 2xl:py-2 rounded-xs font-sans text-[10px] 2xl:text-[11px] uppercase tracking-[0.2em] font-medium transition-all active:scale-95 whitespace-nowrap"
             >
               <span>Book Now</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[1.8]" />
+              <ArrowUpRight className="w-3 h-3 2xl:w-3.5 2xl:h-3.5 stroke-[1.8]" />
             </a>
 
             {/* Desktop Menu Trigger Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-2 font-sans text-[10px] 2xl:text-[11px] font-semibold tracking-[0.24em] uppercase text-white hover:text-stone-300 transition-colors py-2 px-3 rounded-xs border border-white/20 hover:border-white/40 cursor-pointer"
+              className="flex items-center gap-1.5 font-sans text-[10px] 2xl:text-[11px] font-semibold tracking-[0.22em] uppercase text-white hover:text-stone-300 transition-colors py-1.5 px-2.5 2xl:py-2 2xl:px-3 rounded-xs border border-white/20 hover:border-white/40 cursor-pointer shrink-0"
               aria-label="Toggle Full Menu"
             >
               <span>{isOpen ? "CLOSE" : "MENU"}</span>
@@ -223,25 +223,24 @@ export default function Navbar() {
           </div>
 
           {/* Mobile & Tablet Header Controls */}
-          <div className="flex xl:hidden items-center gap-2.5">
-            {/* Mobile "Book" Button (NO BACKGROUND, PURE WHITE TEXT) */}
+          <div className="flex xl:hidden items-center gap-1.5 sm:gap-2.5 shrink-0">
             <a
               href={BOOK_NOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 bg-transparent text-white border border-white/40 hover:border-white px-2.5 py-1.5 rounded-xs font-sans text-[10px] uppercase tracking-[0.2em] font-medium transition-all active:scale-95"
+              className="inline-flex items-center gap-1 bg-transparent text-white border border-white/40 hover:border-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-xs font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.16em] font-medium transition-all active:scale-95 whitespace-nowrap"
             >
               <span>Book</span>
-              <ArrowUpRight className="w-3 h-3 stroke-[1.8]" />
+              <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[1.8]" />
             </a>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-1.5 font-sans text-[10px] sm:text-[11px] font-medium tracking-[0.22em] uppercase text-white hover:text-stone-300 transition-colors py-1 px-2 border border-white/20 rounded-xs cursor-pointer focus:outline-none"
+              className="flex items-center gap-1 font-sans text-[9px] sm:text-[10px] font-semibold tracking-[0.18em] uppercase text-white hover:text-stone-300 transition-colors py-1 px-2 sm:py-1.5 sm:px-2.5 border border-white/25 hover:border-white/50 rounded-xs cursor-pointer focus:outline-none whitespace-nowrap"
               aria-label="Toggle Menu"
             >
               <span>{isOpen ? "CLOSE" : "MENU"}</span>
-              <div className="flex flex-col gap-1 w-3.5">
+              <div className="flex flex-col gap-1 w-3 sm:w-3.5">
                 <span
                   className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
                     isOpen ? "rotate-45 translate-y-[2.5px]" : ""
@@ -255,7 +254,6 @@ export default function Navbar() {
               </div>
             </button>
           </div>
-
         </div>
       </header>
 
@@ -264,17 +262,18 @@ export default function Navbar() {
       ========================================================== */}
       <div
         className={`fixed inset-0 z-40 bg-black/75 backdrop-blur-xs transition-opacity duration-300 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       />
 
       {/* =========================================================
-          UNIVERSAL DRAWER / MODAL (MOBILE RESPONSIVE + DESKTOP)
+          UNIVERSAL DRAWER / MODAL
       ========================================================== */}
       <div
         ref={menuRef}
         className={`fixed z-50 transition-all duration-300 ease-out bg-[#111111] text-white border-neutral-800 shadow-2xl flex flex-col justify-between
-          /* Mobile: Full viewport slide down / overlay */
           inset-0 sm:inset-auto sm:top-5 sm:right-6 lg:right-10 sm:w-[620px] md:w-[740px] lg:w-[860px] sm:max-h-[92vh] sm:rounded-2xl sm:border
           ${
             isOpen
@@ -282,7 +281,6 @@ export default function Navbar() {
               : "-translate-y-4 sm:-translate-y-6 opacity-0 pointer-events-none"
           }`}
       >
-        {/* Top Header */}
         <div className="flex items-center justify-between p-5 sm:p-7 border-b border-neutral-800 shrink-0 bg-[#111111]">
           <div className="flex items-baseline gap-2">
             <span className="font-sans text-xs tracking-[0.24em] uppercase font-semibold text-white">
@@ -302,10 +300,8 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Scrollable Body Content */}
         <div className="overflow-y-auto p-5 sm:p-8 flex-1">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
-            
             {/* Column 1: Primary Navigation */}
             <div className="md:col-span-5 flex flex-col space-y-3">
               <span className="text-[10px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
@@ -322,7 +318,6 @@ export default function Navbar() {
                       {item.label}
                     </Link>
 
-                    {/* Sub-links */}
                     {item.sublinks && (
                       <div className="pl-3 mt-1.5 flex flex-col space-y-1.5 border-l border-neutral-800">
                         {item.sublinks.map((sub) => (
@@ -396,14 +391,16 @@ export default function Navbar() {
                     </a>
                   </p>
                   <p className="pt-1">
-                    <a href="mailto:bookings@highlandhotel.in" className="hover:underline">
+                    <a
+                      href="mailto:bookings@highlandhotel.in"
+                      className="hover:underline"
+                    >
                       bookings@highlandhotel.in
                     </a>
                   </p>
                 </div>
               </div>
 
-              {/* Book Button inside modal (NO BACKGROUND, PURE WHITE TEXT) */}
               <div className="pt-2">
                 <a
                   href={BOOK_NOW_URL}
@@ -416,11 +413,9 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
-
           </div>
         </div>
 
-        {/* Footer info strip on mobile */}
         <div className="p-4 sm:p-5 border-t border-neutral-800 text-[10px] text-stone-500 font-mono text-center shrink-0">
           Highland Hotel Bengaluru &bull; All Rights Reserved
         </div>

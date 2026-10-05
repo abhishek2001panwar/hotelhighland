@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  Sparkles,
   Phone,
   Mail,
   MapPin,
@@ -17,53 +16,25 @@ import {
 import Navbar from "@/components/Navbar";
 
 // Official Assets
-const heroImg =
-  "/sangam/hero.webp";
+const heroImg = "/sangam/hero.webp";
 
+// NOTE: Use HTTPS or put the file in /public/videos/IMG_4071-1.mp4 to prevent browser blocking
 const goshalaVideo =
-  "https://highlandhotel.in/wp-content/uploads/2026/03/IMG_4071-1.mp4";
+  "https://hsrtiles.in/wp-content/uploads/2026/10/IMG_4071-1.mp4";
 
 // 7 Dedicated Goshala Images
 const goshalaGallery = [
-  {
-    id: "01",
-    src: "/sangam/1.webp",
-    span: "md:col-span-4 aspect-[4/3]",
-  },
-  {
-    id: "02",
-    src: "/sangam/2.webp",
-    span: "md:col-span-4 aspect-[4/3]",
-  },
-  {
-    id: "03",
-    src: "/sangam/3.webp",
-    span: "md:col-span-4 aspect-[4/3]",
-  },
-  {
-    id: "04",
-    src: "/sangam/4.webp",
-    span: "md:col-span-6 aspect-[16/10]",
-  },
-  {
-    id: "05",
-    src: "/sangam/5.webp",
-    span: "md:col-span-6 aspect-[16/10]",
-  },
-  {
-    id: "06",
-    src: "/sangam/6.webp",
-    span: "md:col-span-5 aspect-[4/3]",
-  },
-  {
-    id: "07",
-    src: "/sangam/7.webp",
-    span: "md:col-span-7 aspect-[16/10]",
-  },
+  { id: "01", src: "/sangam/1.webp", span: "md:col-span-4 aspect-[4/3]" },
+  { id: "02", src: "/sangam/2.webp", span: "md:col-span-4 aspect-[4/3]" },
+  { id: "03", src: "/sangam/3.webp", span: "md:col-span-4 aspect-[4/3]" },
+  { id: "04", src: "/sangam/4.webp", span: "md:col-span-6 aspect-[16/10]" },
+  { id: "05", src: "/sangam/5.webp", span: "md:col-span-6 aspect-[16/10]" },
+  { id: "06", src: "/sangam/6.webp", span: "md:col-span-5 aspect-[4/3]" },
+  { id: "07", src: "/sangam/7.webp", span: "md:col-span-7 aspect-[16/10]" },
 ];
 
 export default function SangamGoshalaPage() {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -79,26 +50,52 @@ export default function SangamGoshalaPage() {
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "16%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.25]);
 
+  // Robust Autoplay Handling
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // Autoplay was prevented by browser policy
+          setIsPlaying(false);
+        });
+    }
+  }, []);
+
   const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
     } else {
-      videoRef.current.play();
-      setIsPlaying(true);
+      video.pause();
+      setIsPlaying(false);
     }
   };
 
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
   };
 
   return (
     <main className="min-h-screen bg-[#fbf9f5] text-[#1e1b18] antialiased selection:bg-orange-500/20 selection:text-orange-950 overflow-x-hidden">
       <Navbar />
+
       {/* =========================================================
           01 - HERO BANNER WITH PARALLAX & FLOATING TEXT
       ========================================================== */}
@@ -121,7 +118,6 @@ export default function SangamGoshalaPage() {
           />
         </motion.div>
 
-        {/* Ambient Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/25 pointer-events-none z-10" />
         <div className="absolute inset-0 bg-black/15 pointer-events-none z-10" />
 
@@ -154,18 +150,24 @@ export default function SangamGoshalaPage() {
             <div className="flex items-center gap-2">
               <Phone className="w-3.5 h-3.5 text-orange-400 shrink-0" />
               <span>Direct Enquiries:</span>
-              <a href="tel:+919035034418" className="text-white hover:text-orange-300 transition-colors font-medium ml-1">
+              <a
+                href="tel:+919035034418"
+                className="text-white hover:text-orange-300 transition-colors font-medium ml-1"
+              >
                 +91 90350 34418
               </a>
               <span>/</span>
-              <a href="tel:+917619231899" className="text-white hover:text-orange-300 transition-colors font-medium">
+              <a
+                href="tel:+917619231899"
+                className="text-white hover:text-orange-300 transition-colors font-medium"
+              >
                 +91 76192 31899
               </a>
             </div>
 
             <a
               href="mailto:sangamgoshala@gmail.com"
-              className="inline-flex items-center gap-2 bg-white text-stone-900   px-6 py-2.5 rounded-md font-sans text-[10px] uppercase tracking-[0.22em] font-medium transition-all shadow-md active:scale-95"
+              className="inline-flex items-center gap-2 bg-white text-stone-900 px-6 py-2.5 rounded-md font-sans text-[10px] uppercase tracking-[0.22em] font-medium transition-all shadow-md active:scale-95"
             >
               <span>Connect With Us</span>
               <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
@@ -175,7 +177,7 @@ export default function SangamGoshalaPage() {
       </section>
 
       {/* =========================================================
-          02 - STORY & QUOTE (PURE EDITORIAL PARAGRAPHS - NO IMAGES)
+          02 - STORY & PHILOSOPHY
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -204,7 +206,6 @@ export default function SangamGoshalaPage() {
       ========================================================== */}
       <section className="bg-[#f4f0e6] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-t border-stone-300/70">
         <div className="max-w-7xl mx-auto">
-          
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 pb-6 border-b border-stone-300/80">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 block mb-2 font-medium">
@@ -214,10 +215,8 @@ export default function SangamGoshalaPage() {
                 Moments of Seva
               </h2>
             </div>
-
           </div>
 
-          {/* 7-Image Layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
             {goshalaGallery.map((item, idx) => (
               <div
@@ -235,21 +234,17 @@ export default function SangamGoshalaPage() {
                     imageRendering: "-webkit-optimize-contrast",
                   }}
                 />
-
-             
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
-      {/* =========================================================
-          04 - SANCTUARY LIVE VIDEO (AFTER IMAGES)
+   {/* =========================================================
+          04 - SANCTUARY LIVE VIDEO (NORMAL NATIVE PLAYER)
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28 border-t border-stone-300/60">
         <div className="max-w-4xl mx-auto">
-          
           <div className="text-center mb-8">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 block mb-2 font-medium">
               Live Atmosphere
@@ -259,60 +254,26 @@ export default function SangamGoshalaPage() {
             </h2>
           </div>
 
-          <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-stone-900 border border-stone-300/80 shadow-xl group">
+          <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-black border border-stone-300/80 shadow-xl">
             <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted={isMuted}
+              controls
               playsInline
+              preload="metadata"
               poster={heroImg}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover"
             >
               <source src={goshalaVideo} type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
-
-            <div className="absolute top-5 left-5 z-20">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-white/90 bg-black/45 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
-                Gomatha Seva &bull; Sanctuary Video
-              </span>
-            </div>
-
-            <div className="absolute bottom-5 inset-x-5 flex items-center justify-between z-20 text-white">
-              <p className="font-serif text-base sm:text-lg font-light italic text-stone-200">
-                Peaceful rhythms of daily care
-              </p>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleMute}
-                  aria-label={isMuted ? "Unmute video" : "Mute video"}
-                  className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/80 flex items-center justify-center transition-all cursor-pointer"
-                >
-                  {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-orange-400" />}
-                </button>
-                <button
-                  onClick={togglePlay}
-                  aria-label={isPlaying ? "Pause video" : "Play video"}
-                  className="w-9 h-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/80 flex items-center justify-center transition-all cursor-pointer"
-                >
-                  {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current ml-0.5" />}
-                </button>
-              </div>
-            </div>
           </div>
-
         </div>
       </section>
 
       {/* =========================================================
-          05 - LOCATION, CONTACT & SOCIAL CHANNELS WITH ICONS
+          05 - LOCATION, CONTACT & SOCIAL CHANNELS
       ========================================================== */}
       <section className="bg-[#f4f0e6] px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28 border-t border-stone-300/80">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          
           <div className="lg:col-span-5">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 block mb-2 font-medium">
               Location &bull; Reach Out
@@ -327,7 +288,6 @@ export default function SangamGoshalaPage() {
           </div>
 
           <div className="lg:col-span-7 space-y-8 border-t border-stone-300/80 pt-8 lg:pt-0 lg:border-t-0">
-            
             {/* Address */}
             <div className="flex items-start gap-4">
               <MapPin className="w-4 h-4 text-orange-600 shrink-0 mt-1" />
@@ -382,15 +342,13 @@ export default function SangamGoshalaPage() {
               </div>
             </div>
 
-            {/* Social Connectivity with Custom SVG Icons */}
+            {/* Social Connectivity */}
             <div className="pt-6 border-t border-stone-200">
               <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 block mb-3.5">
                 Connect Us
               </span>
-              
+
               <div className="flex flex-wrap gap-2.5 text-[11px] font-sans uppercase tracking-[0.18em] font-medium text-stone-700">
-                
-                {/* Facebook */}
                 <a
                   href="https://www.facebook.com/Highlandhotel.info/"
                   target="_blank"
@@ -404,7 +362,6 @@ export default function SangamGoshalaPage() {
                   <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
                 </a>
 
-                {/* Instagram */}
                 <a
                   href="https://www.instagram.com/highland__hotel/"
                   target="_blank"
@@ -419,7 +376,6 @@ export default function SangamGoshalaPage() {
                   <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
                 </a>
 
-                {/* X - Twitter */}
                 <a
                   href="https://x.com/Highland__hotel"
                   target="_blank"
@@ -433,7 +389,6 @@ export default function SangamGoshalaPage() {
                   <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
                 </a>
 
-                {/* Youtube */}
                 <a
                   href="https://www.youtube.com/@HIGH-LANDHOTEL"
                   target="_blank"
@@ -447,7 +402,6 @@ export default function SangamGoshalaPage() {
                   <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
                 </a>
 
-                {/* Linkedin */}
                 <a
                   href="https://www.linkedin.com/company/high-land-hotel"
                   target="_blank"
@@ -460,15 +414,11 @@ export default function SangamGoshalaPage() {
                   <span>Linkedin</span>
                   <ArrowUpRight className="w-3 h-3 text-stone-400 group-hover:text-white" />
                 </a>
-
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
-
     </main>
   );
 }

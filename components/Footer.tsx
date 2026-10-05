@@ -31,7 +31,7 @@ const journalLegalLinks = [
   { label: "Contact", href: "/contact" },
   { label: "Careers", href: "/careers" },
   { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Terms and Conditions", href: "/term-condition" },
 ];
 
 export default function Footer() {
