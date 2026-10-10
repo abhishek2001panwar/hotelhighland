@@ -20,6 +20,7 @@ interface NavItem {
 const BOOK_NOW_URL =
   "https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517";
 
+// "CONTACT US" removed from here so it stays accessible inside the Menu drawer
 const navLinks: NavItem[] = [
   { label: "ABOUT US", href: "/about" },
   { label: "BANQUET HALL", href: "/banquet" },
@@ -57,11 +58,11 @@ const navLinks: NavItem[] = [
     ],
   },
   { label: "COMBOS", href: "/combos" },
-  { label: "CONTACT US", href: "/contact" },
 ];
 
 const menuQuickLinks = [
   { label: "Home", href: "/" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Blogs", href: "/blogs" },
   { label: "Gallery", href: "/gallery" },
   { label: "Videos", href: "/videos" },
@@ -108,30 +109,31 @@ export default function Navbar() {
       {/* =========================================================
           FIXED HEADER BAR
       ========================================================== */}
-      <header className="fixed top-0 left-0 w-full z-40 px-3 sm:px-6 lg:px-8 2xl:px-12 py-2 sm:py-2.5 bg-gradient-to-b from-black/90 via-black/55 to-transparent transition-all pointer-events-auto">
-        <div className="max-w-[1840px] mx-auto flex items-center justify-between text-white gap-2 sm:gap-4 lg:gap-6">
+      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 lg:px-10 2xl:px-14 py-3 sm:py-4 bg-gradient-to-b from-black/95 via-black/60 to-transparent transition-all pointer-events-auto">
+        <div className="max-w-[1920px] mx-auto flex items-center justify-between text-white gap-4 sm:gap-6 lg:gap-8">
           
-          {/* Brand Logo - Enlarged while maintaining responsive container proportions */}
+          {/* Brand Logo - Enlarged */}
           <Link
             href="/"
             className="flex items-center select-none group min-w-0 shrink"
             aria-label="Highland Hotel Home"
           >
-            <div className="relative w-56 sm:w-68 md:w-76 lg:w-84 xl:w-92 2xl:w-[420px] aspect-[24/7] max-h-18 sm:max-h-22 lg:max-h-24 transition-transform duration-300 group-hover:scale-[1.01]">
+            <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] xl:w-[480px] 2xl:w-[540px] aspect-[24/7] max-h-20 sm:max-h-24 md:max-h-28 lg:max-h-32 transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
                 src="https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-24.png"
                 alt="Highland Hotel Bengaluru Logo"
                 fill
                 priority
-                className="object-contain object-left drop-shadow-lg"
-                sizes="(max-width: 640px) 224px, (max-width: 768px) 272px, (max-width: 1024px) 304px, (max-width: 1536px) 368px, 420px"
+                className="object-contain object-left drop-shadow-xl"
+                sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, (max-width: 1024px) 420px, (max-width: 1536px) 480px, 540px"
               />
             </div>
           </Link>
 
           {/* Desktop Navigation Links + Book Now + Menu Button */}
-          <div className="hidden xl:flex items-center gap-3.5 2xl:gap-5 shrink-0">
-            <nav className="flex items-center gap-2 2xl:gap-4 font-sans text-[10px] 2xl:text-[11px] tracking-[0.16em] 2xl:tracking-[0.2em] uppercase font-medium">
+          <div className="hidden xl:flex items-center gap-5 2xl:gap-8 shrink-0">
+            {/* Enlarged font: text-xs (12px) and 2xl:text-sm (14px) */}
+            <nav className="flex items-center gap-3 2xl:gap-6 font-sans text-sm 2xl:text-sm tracking-[0.14em] 2xl:tracking-[0.18em] uppercase font-semibold">
               {navLinks.map((item) => {
                 const hasSublinks = !!item.sublinks;
 
@@ -140,7 +142,7 @@ export default function Navbar() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap px-1 py-1"
+                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-2 py-1.5"
                     >
                       {item.label}
                     </Link>
@@ -156,15 +158,15 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      className="inline-flex items-center gap-1 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-[6px] decoration-stone-300 whitespace-nowrap px-1 py-1"
+                      className="inline-flex items-center gap-1.5 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-2 py-1.5"
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className="w-3 h-3 text-stone-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
+                      <ChevronDown className="w-3.5 h-3.5 text-stone-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
                     </Link>
 
                     {/* Desktop Dropdown Flyout */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 pointer-events-none group-hover:pointer-events-auto opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      <div className="w-[320px] bg-[#141414]/95 backdrop-blur-xl border border-neutral-800 rounded-xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1">
+                      <div className="w-[360px] bg-[#141414]/95 backdrop-blur-xl border border-neutral-800 rounded-xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1">
                         {item.sublinks?.map((sub) => (
                           <Link
                             key={sub.label}
@@ -172,12 +174,12 @@ export default function Navbar() {
                             className="group/item flex flex-col p-3 rounded-lg hover:bg-white/5 transition-all text-left"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="font-serif text-sm normal-case tracking-normal font-normal text-stone-100 group-hover/item:text-stone-300 transition-colors">
+                              <span className="font-serif text-base normal-case tracking-normal font-normal text-stone-100 group-hover/item:text-stone-300 transition-colors">
                                 {sub.label}
                               </span>
-                              <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-stone-300" />
+                              <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-stone-300" />
                             </div>
-                            <span className="font-sans text-[11px] normal-case tracking-normal font-light text-stone-400 mt-1 leading-snug">
+                            <span className="font-sans text-xs normal-case tracking-normal font-light text-stone-400 mt-1 leading-snug">
                               {sub.subtext}
                             </span>
                           </Link>
@@ -194,20 +196,20 @@ export default function Navbar() {
               href={BOOK_NOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/50 hover:border-white hover:bg-white/10 px-3 py-1.5 2xl:px-4 2xl:py-2 rounded-xs font-sans text-[10px] 2xl:text-[11px] uppercase tracking-[0.2em] font-medium transition-all active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center gap-2 bg-transparent text-white border border-white/60 hover:border-white hover:bg-white/10 px-4 py-2 2xl:px-5 2xl:py-2.5 rounded-sm font-sans text-xs 2xl:text-sm uppercase tracking-[0.18em] font-medium transition-all active:scale-95 whitespace-nowrap"
             >
               <span>Book Now</span>
-              <ArrowUpRight className="w-3 h-3 2xl:w-3.5 2xl:h-3.5 stroke-[1.8]" />
+              <ArrowUpRight className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 stroke-[2]" />
             </a>
 
             {/* Desktop Menu Trigger Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-1.5 font-sans text-[10px] 2xl:text-[11px] font-semibold tracking-[0.22em] uppercase text-white hover:text-stone-300 transition-colors py-1.5 px-2.5 2xl:py-2 2xl:px-3 rounded-xs border border-white/20 hover:border-white/40 cursor-pointer shrink-0"
+              className="flex items-center gap-2 font-sans text-xs 2xl:text-sm font-semibold tracking-[0.2em] uppercase text-white hover:text-stone-300 transition-colors py-2 px-3.5 2xl:py-2.5 2xl:px-4 rounded-sm border border-white/25 hover:border-white/50 cursor-pointer shrink-0"
               aria-label="Toggle Full Menu"
             >
               <span>{isOpen ? "CLOSE" : "MENU"}</span>
-              <div className="flex flex-col gap-1 w-3.5">
+              <div className="flex flex-col gap-1 w-4">
                 <span
                   className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
                     isOpen ? "rotate-45 translate-y-[2.5px]" : ""
@@ -223,24 +225,24 @@ export default function Navbar() {
           </div>
 
           {/* Mobile & Tablet Header Controls */}
-          <div className="flex xl:hidden items-center gap-1.5 sm:gap-2.5 shrink-0">
+          <div className="flex xl:hidden items-center gap-2 sm:gap-3 shrink-0">
             <a
               href={BOOK_NOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 bg-transparent text-white border border-white/40 hover:border-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-xs font-sans text-[9px] sm:text-[10px] uppercase tracking-[0.16em] font-medium transition-all active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/50 hover:border-white px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-sm font-sans text-[10px] sm:text-xs uppercase tracking-[0.16em] font-medium transition-all active:scale-95 whitespace-nowrap"
             >
               <span>Book</span>
-              <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[1.8]" />
+              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2]" />
             </a>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-1 font-sans text-[9px] sm:text-[10px] font-semibold tracking-[0.18em] uppercase text-white hover:text-stone-300 transition-colors py-1 px-2 sm:py-1.5 sm:px-2.5 border border-white/25 hover:border-white/50 rounded-xs cursor-pointer focus:outline-none whitespace-nowrap"
+              className="flex items-center gap-1.5 font-sans text-[10px] sm:text-xs font-semibold tracking-[0.18em] uppercase text-white hover:text-stone-300 transition-colors py-1.5 px-2.5 sm:py-2 sm:px-3.5 border border-white/30 hover:border-white/60 rounded-sm cursor-pointer focus:outline-none whitespace-nowrap"
               aria-label="Toggle Menu"
             >
               <span>{isOpen ? "CLOSE" : "MENU"}</span>
-              <div className="flex flex-col gap-1 w-3 sm:w-3.5">
+              <div className="flex flex-col gap-1 w-3.5 sm:w-4">
                 <span
                   className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
                     isOpen ? "rotate-45 translate-y-[2.5px]" : ""
@@ -274,7 +276,7 @@ export default function Navbar() {
       <div
         ref={menuRef}
         className={`fixed z-50 transition-all duration-300 ease-out bg-[#111111] text-white border-neutral-800 shadow-2xl flex flex-col justify-between
-          inset-0 sm:inset-auto sm:top-5 sm:right-6 lg:right-10 sm:w-[620px] md:w-[740px] lg:w-[860px] sm:max-h-[92vh] sm:rounded-2xl sm:border
+          inset-0 sm:inset-auto sm:top-5 sm:right-6 lg:right-10 sm:w-[640px] md:w-[760px] lg:w-[880px] sm:max-h-[92vh] sm:rounded-2xl sm:border
           ${
             isOpen
               ? "translate-y-0 opacity-100 pointer-events-auto"
@@ -304,10 +306,10 @@ export default function Navbar() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
             {/* Column 1: Primary Navigation */}
             <div className="md:col-span-5 flex flex-col space-y-3">
-              <span className="text-[10px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
+              <span className="text-[11px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
                 Main Pages
               </span>
-              <nav className="flex flex-col space-y-3 font-sans text-xs tracking-[0.18em] uppercase font-medium">
+              <nav className="flex flex-col space-y-3 font-sans text-xs sm:text-sm tracking-[0.18em] uppercase font-medium">
                 {navLinks.map((item) => (
                   <div key={item.label} className="flex flex-col">
                     <Link
@@ -337,12 +339,12 @@ export default function Navbar() {
               </nav>
             </div>
 
-            {/* Column 2: Exclusive Quick Links */}
+            {/* Column 2: Exclusive Quick Links (Including Contact Us) */}
             <div className="md:col-span-4 md:border-l md:border-neutral-800 md:pl-6 flex flex-col space-y-3 border-t border-neutral-800 pt-6 md:border-t-0 md:pt-0">
-              <span className="text-[10px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
+              <span className="text-[11px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
                 Explore &amp; Policies
               </span>
-              <nav className="flex flex-col space-y-3 font-sans text-xs tracking-[0.16em] uppercase font-medium">
+              <nav className="flex flex-col space-y-3 font-sans text-xs sm:text-sm tracking-[0.16em] uppercase font-medium">
                 {menuQuickLinks.map((item) => {
                   if (item.external) {
                     return (
@@ -364,7 +366,11 @@ export default function Navbar() {
                       key={item.label}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className="text-stone-300 hover:text-white transition-colors hover:underline underline-offset-4 decoration-stone-300 w-fit py-0.5"
+                      className={`transition-colors hover:underline underline-offset-4 decoration-stone-300 w-fit py-0.5 ${
+                        item.label === "Contact Us"
+                          ? "text-white font-semibold"
+                          : "text-stone-300 hover:text-white"
+                      }`}
                     >
                       {item.label}
                     </Link>
