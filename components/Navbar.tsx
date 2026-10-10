@@ -20,7 +20,6 @@ interface NavItem {
 const BOOK_NOW_URL =
   "https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517";
 
-// "CONTACT US" removed from here so it stays accessible inside the Menu drawer
 const navLinks: NavItem[] = [
   { label: "ABOUT US", href: "/about" },
   { label: "BANQUET HALL", href: "/banquet" },
@@ -109,31 +108,30 @@ export default function Navbar() {
       {/* =========================================================
           FIXED HEADER BAR
       ========================================================== */}
-      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 lg:px-10 2xl:px-14 py-3 sm:py-4 bg-gradient-to-b from-black/95 via-black/60 to-transparent transition-all pointer-events-auto">
+      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 lg:px-10 2xl:px-14 py-3 sm:py-4 lg:py-6 bg-gradient-to-b from-black/95 via-black/60 to-transparent transition-all pointer-events-auto">
         <div className="max-w-[1920px] mx-auto flex items-center justify-between text-white gap-4 sm:gap-6 lg:gap-8">
           
-          {/* Brand Logo - Enlarged */}
+          {/* Brand Logo - Dramatically scaled up across every screen size */}
           <Link
             href="/"
             className="flex items-center select-none group min-w-0 shrink"
             aria-label="Highland Hotel Home"
           >
-            <div className="relative w-64 sm:w-80 md:w-96 lg:w-[420px] xl:w-[480px] 2xl:w-[540px] aspect-[24/7] max-h-20 sm:max-h-24 md:max-h-28 lg:max-h-32 transition-transform duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-80 sm:w-[420px] md:w-[500px] lg:w-[580px] xl:w-[660px] 2xl:w-[760px] aspect-[24/7] max-h-28 sm:max-h-32 md:max-h-36 lg:max-h-44 2xl:max-h-52 transition-transform duration-300 group-hover:scale-[1.02]">
               <Image
-                src="https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-24.png"
+                src="/logo.webp"
                 alt="Highland Hotel Bengaluru Logo"
                 fill
                 priority
                 className="object-contain object-left drop-shadow-xl"
-                sizes="(max-width: 640px) 256px, (max-width: 768px) 320px, (max-width: 1024px) 420px, (max-width: 1536px) 480px, 540px"
+                sizes="(max-width: 640px) 320px, (max-width: 768px) 420px, (max-width: 1024px) 500px, (max-width: 1280px) 580px, (max-width: 1536px) 660px, 760px"
               />
             </div>
           </Link>
 
           {/* Desktop Navigation Links + Book Now + Menu Button */}
           <div className="hidden xl:flex items-center gap-5 2xl:gap-8 shrink-0">
-            {/* Enlarged font: text-xs (12px) and 2xl:text-sm (14px) */}
-            <nav className="flex items-center gap-3 2xl:gap-6 font-sans text-sm 2xl:text-sm tracking-[0.14em] 2xl:tracking-[0.18em] uppercase font-semibold">
+            <nav className="flex items-center gap-3 2xl:gap-6 font-sans text-xs 2xl:text-sm tracking-[0.16em] 2xl:tracking-[0.18em] uppercase font-semibold">
               {navLinks.map((item) => {
                 const hasSublinks = !!item.sublinks;
 
@@ -339,7 +337,7 @@ export default function Navbar() {
               </nav>
             </div>
 
-            {/* Column 2: Exclusive Quick Links (Including Contact Us) */}
+            {/* Column 2: Exclusive Quick Links */}
             <div className="md:col-span-4 md:border-l md:border-neutral-800 md:pl-6 flex flex-col space-y-3 border-t border-neutral-800 pt-6 md:border-t-0 md:pt-0">
               <span className="text-[11px] font-sans tracking-[0.24em] uppercase text-stone-400 font-semibold block mb-1">
                 Explore &amp; Policies
