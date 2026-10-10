@@ -67,7 +67,7 @@ const menuQuickLinks = [
   { label: "Videos", href: "/videos" },
   { label: "Reservation", href: BOOK_NOW_URL, external: true },
   { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Terms and Conditions", href: "/term-condition" },
 ];
 
 export default function Navbar() {
