@@ -108,30 +108,31 @@ export default function Navbar() {
       {/* =========================================================
           FIXED HEADER BAR
       ========================================================== */}
-      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 lg:px-10 2xl:px-14 py-3 sm:py-4 lg:py-6 bg-gradient-to-b from-black/95 via-black/60 to-transparent transition-all pointer-events-auto">
-        <div className="max-w-[1920px] mx-auto flex items-center justify-between text-white gap-4 sm:gap-6 lg:gap-8">
+      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-6 md:px-8 xl:px-12 py-2 sm:py-2.5 bg-gradient-to-b from-black/95 via-black/80 to-transparent transition-all pointer-events-auto">
+        <div className="w-full max-w-[1780px] mx-auto flex items-center justify-between text-white gap-4">
           
-          {/* Brand Logo - Dramatically scaled up across every screen size */}
+          {/* Brand Logo - Explicit container bounds so it NEVER forces horizontal overflow */}
           <Link
             href="/"
-            className="flex items-center select-none group min-w-0 shrink"
+            className="flex items-center select-none group shrink-0"
             aria-label="Highland Hotel Home"
           >
-            <div className="relative w-80 sm:w-[420px] md:w-[500px] lg:w-[580px] xl:w-[660px] 2xl:w-[760px] aspect-[24/7] max-h-28 sm:max-h-32 md:max-h-36 lg:max-h-44 2xl:max-h-52 transition-transform duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-56 sm:w-72 md:w-80 lg:w-96 xl:w-[360px] 2xl:w-[400px] h-20 sm:h-24 md:h-28 lg:h-32 xl:h-[135px] transition-transform duration-300 group-hover:scale-[1.01]">
               <Image
                 src="/logo.webp"
                 alt="Highland Hotel Bengaluru Logo"
                 fill
                 priority
                 className="object-contain object-left drop-shadow-xl"
-                sizes="(max-width: 640px) 320px, (max-width: 768px) 420px, (max-width: 1024px) 500px, (max-width: 1280px) 580px, (max-width: 1536px) 660px, 760px"
+                sizes="(max-width: 640px) 230px, (max-width: 1024px) 340px, 400px"
               />
             </div>
           </Link>
 
-          {/* Desktop Navigation Links + Book Now + Menu Button */}
-          <div className="hidden xl:flex items-center gap-5 2xl:gap-8 shrink-0">
-            <nav className="flex items-center gap-3 2xl:gap-6 font-sans text-xs 2xl:text-sm tracking-[0.16em] 2xl:tracking-[0.18em] uppercase font-semibold">
+          {/* Desktop Right Navigation + Action Group */}
+          <div className="hidden xl:flex items-center gap-3 2xl:gap-6 shrink-0">
+            {/* Nav links with balanced padding and font size */}
+            <nav className="flex items-center gap-1.5 2xl:gap-3 font-sans text-sm 2xl:text-[14px] tracking-[0.1em] 2xl:tracking-[0.12em] uppercase font-semibold">
               {navLinks.map((item) => {
                 const hasSublinks = !!item.sublinks;
 
@@ -140,7 +141,7 @@ export default function Navbar() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-2 py-1.5"
+                      className="text-stone-200/90 hover:text-white transition-colors duration-200 hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-1.5 py-1.5"
                     >
                       {item.label}
                     </Link>
@@ -156,7 +157,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={item.href}
-                      className="inline-flex items-center gap-1.5 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-2 py-1.5"
+                      className="inline-flex items-center gap-1 text-stone-200/90 group-hover:text-white transition-colors duration-200 group-hover:underline underline-offset-8 decoration-stone-300 whitespace-nowrap px-1.5 py-1.5"
                     >
                       <span>{item.label}</span>
                       <ChevronDown className="w-3.5 h-3.5 text-stone-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
@@ -164,7 +165,7 @@ export default function Navbar() {
 
                     {/* Desktop Dropdown Flyout */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 pointer-events-none group-hover:pointer-events-auto opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      <div className="w-[360px] bg-[#141414]/95 backdrop-blur-xl border border-neutral-800 rounded-xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1">
+                      <div className="w-[340px] bg-[#141414]/95 backdrop-blur-xl border border-neutral-800 rounded-xl p-3 shadow-2xl shadow-black/80 flex flex-col gap-1">
                         {item.sublinks?.map((sub) => (
                           <Link
                             key={sub.label}
@@ -189,58 +190,59 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Desktop "Book Now" Button */}
-            <a
-              href={BOOK_NOW_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-transparent text-white border border-white/60 hover:border-white hover:bg-white/10 px-4 py-2 2xl:px-5 2xl:py-2.5 rounded-sm font-sans text-xs 2xl:text-sm uppercase tracking-[0.18em] font-medium transition-all active:scale-95 whitespace-nowrap"
-            >
-              <span>Book Now</span>
-              <ArrowUpRight className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 stroke-[2]" />
-            </a>
+            {/* Desktop Action Group (Book Now + Menu Button) fully protected from clipping */}
+            <div className="flex items-center gap-2.5 shrink-0 pl-2">
+              <a
+                href={BOOK_NOW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/60 hover:border-white hover:bg-white/10 px-3.5 py-2 rounded-sm font-sans text-xs uppercase tracking-[0.14em] font-medium transition-all active:scale-95 whitespace-nowrap"
+              >
+                <span>Book Now</span>
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
+              </a>
 
-            {/* Desktop Menu Trigger Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-2 font-sans text-xs 2xl:text-sm font-semibold tracking-[0.2em] uppercase text-white hover:text-stone-300 transition-colors py-2 px-3.5 2xl:py-2.5 2xl:px-4 rounded-sm border border-white/25 hover:border-white/50 cursor-pointer shrink-0"
-              aria-label="Toggle Full Menu"
-            >
-              <span>{isOpen ? "CLOSE" : "MENU"}</span>
-              <div className="flex flex-col gap-1 w-4">
-                <span
-                  className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
-                    isOpen ? "rotate-45 translate-y-[2.5px]" : ""
-                  }`}
-                />
-                <span
-                  className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
-                    isOpen ? "-rotate-45 -translate-y-[2.5px]" : ""
-                  }`}
-                />
-              </div>
-            </button>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center gap-1.5 font-sans text-xs font-semibold tracking-[0.16em] uppercase text-white hover:text-stone-300 transition-colors py-2 px-3 rounded-sm border border-white/30 hover:border-white/60 cursor-pointer shrink-0"
+                aria-label="Toggle Full Menu"
+              >
+                <span>{isOpen ? "CLOSE" : "MENU"}</span>
+                <div className="flex flex-col gap-1 w-3.5">
+                  <span
+                    className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
+                      isOpen ? "rotate-45 translate-y-[2.5px]" : ""
+                    }`}
+                  />
+                  <span
+                    className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
+                      isOpen ? "-rotate-45 -translate-y-[2.5px]" : ""
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
 
-          {/* Mobile & Tablet Header Controls */}
-          <div className="flex xl:hidden items-center gap-2 sm:gap-3 shrink-0">
+          {/* Mobile & Tablet Header Controls (< 1280px) */}
+          <div className="flex xl:hidden items-center gap-2 shrink-0">
             <a
               href={BOOK_NOW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-transparent text-white border border-white/50 hover:border-white px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-sm font-sans text-[10px] sm:text-xs uppercase tracking-[0.16em] font-medium transition-all active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center gap-1 bg-transparent text-white border border-white/50 hover:border-white px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-sm font-sans text-[11px] sm:text-xs uppercase tracking-[0.14em] font-medium transition-all active:scale-95 whitespace-nowrap"
             >
               <span>Book</span>
-              <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2]" />
+              <ArrowUpRight className="w-3 h-3 stroke-[2]" />
             </a>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center gap-1.5 font-sans text-[10px] sm:text-xs font-semibold tracking-[0.18em] uppercase text-white hover:text-stone-300 transition-colors py-1.5 px-2.5 sm:py-2 sm:px-3.5 border border-white/30 hover:border-white/60 rounded-sm cursor-pointer focus:outline-none whitespace-nowrap"
+              className="flex items-center gap-1.5 font-sans text-[11px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-white hover:text-stone-300 transition-colors py-1.5 px-2.5 sm:py-2 sm:px-3 border border-white/30 hover:border-white/60 rounded-sm cursor-pointer focus:outline-none whitespace-nowrap"
               aria-label="Toggle Menu"
             >
               <span>{isOpen ? "CLOSE" : "MENU"}</span>
-              <div className="flex flex-col gap-1 w-3.5 sm:w-4">
+              <div className="flex flex-col gap-1 w-3.5">
                 <span
                   className={`h-[1.5px] w-full bg-current transition-transform duration-300 ${
                     isOpen ? "rotate-45 translate-y-[2.5px]" : ""
