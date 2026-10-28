@@ -84,83 +84,88 @@ export default function About() {
       {/* ========================================================
           01 - FULL PARALLAX HERO
           ======================================================== */}
-      <section
-        ref={heroRef}
-        className="relative w-full h-[90svh] min-h-[640px] max-h-[950px] overflow-hidden flex flex-col justify-end"
-      >
-        <motion.div
-          style={{ y: imageY }}
-          className="absolute inset-x-0 -top-[12%] h-[124%] w-full will-change-transform pointer-events-none transform-gpu"
-        >
-          <Image
-            src="/06.jpg"
-            alt="Highland Hotel Bengaluru Exterior and Grounds"
-            fill
-            priority
-            unoptimized
-            sizes="100vw"
-            className="object-cover object-center"
-            style={{
-              imageRendering: "-webkit-optimize-contrast",
-              backfaceVisibility: "hidden",
-              WebkitBackfaceVisibility: "hidden",
-            }}
-          />
-        </motion.div>
+     <section
+  ref={heroRef}
+  className="relative w-full h-[90svh] min-h-[640px] max-h-[950px] overflow-hidden flex flex-col justify-end"
+>
+  <motion.div
+    style={{ y: imageY }}
+    className="absolute inset-x-0 -top-[12%] h-[124%] w-full will-change-transform pointer-events-none transform-gpu"
+  >
+    <Image
+      src="/06.jpg"
+      alt="Highland Hotel Bengaluru Exterior and Grounds"
+      fill
+      priority
+      unoptimized
+      sizes="100vw"
+      className="object-cover object-center"
+      style={{
+        imageRendering: "-webkit-optimize-contrast",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+      }}
+    />
+  </motion.div>
 
-        {/* Ambient Dark Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25 pointer-events-none z-10" />
+  {/* Ambient Dark Gradient Overlays */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25 pointer-events-none z-10" />
 
-        <motion.div
-          style={{ y: contentY, opacity: contentOpacity }}
-          className="relative z-20 w-full max-w-[1720px] mx-auto px-6 sm:px-12 lg:px-16 pb-16 sm:pb-20 text-white"
-        >
-          <div className="flex items-center gap-2 mb-3">
-         
-            <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-300 font-medium">
-              About Us &bull; Highland Hotel Bengaluru
-            </p>
-          </div>
+  <motion.div
+    style={{ y: contentY, opacity: contentOpacity }}
+    className="relative z-20 w-full max-w-[1720px] mx-auto px-6 sm:px-12 lg:px-16 pb-16 sm:pb-20 text-white"
+  >
+    <div className="flex items-center gap-2 mb-4">
+      <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-white/70 font-light">
+        About Us &bull; Highland Hotel Bengaluru
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
-            <div className="lg:col-span-8">
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.04] tracking-[-0.03em] drop-shadow-md">
-                Embark on a Journey of <br className="hidden sm:inline" />
-                <span className="italic font-light text-stone-200">Wellness and Luxury</span>
-              </h1>
-            </div>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+      {/* Premium 2-line Headline */}
+      <div className="lg:col-span-8">
+        <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl uppercase tracking-[0.04em] leading-[1.12]">
+          <span className="font-light block whitespace-nowrap text-white/90">
+            Embark on a Journey of
+          </span>
+          <span className="font-semibold block whitespace-nowrap tracking-[0.06em] text-white">
+            Wellness &amp; Luxury
+          </span>
+        </h1>
+      </div>
 
-            <div className="lg:col-span-4 lg:text-right">
-              <p className="font-serif italic text-xl sm:text-2xl text-stone-200 font-light leading-snug drop-shadow-sm">
-                &ldquo;Explore! Discover! Live!&rdquo;
-              </p>
-              <div className="mt-3 flex items-center lg:justify-end gap-3 font-mono text-[10px] tracking-widest text-stone-300/80 uppercase">
-                <span>Since 2008</span>
-                <span>&bull;</span>
-                <span>North Bangalore</span>
-              </div>
-            </div>
-          </div>
+      {/* Elegant, Editorial Right Column */}
+      <div className="lg:col-span-4 lg:text-right">
+        <p className="font-serif text-lg sm:text-xl text-white/90 font-light tracking-[0.18em] uppercase">
+          Explore &bull; Discover &bull; Live
+        </p>
+        <div className="mt-2.5 flex items-center lg:justify-end gap-3 font-sans text-[10px] tracking-[0.25em] text-white/60 uppercase font-light">
+          <span>Est. 2008</span>
+          <span className="text-white/40">&bull;</span>
+          <span>North Bangalore</span>
+        </div>
+      </div>
+    </div>
 
-          <div className="mt-10 pt-6 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-stone-300">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>For Enquiries:</span>
-              <a href="tel:+919035034418" className="text-white hover:underline transition-colors font-medium">
-                +91 90350 34418
-              </a>
-              <span>/</span>
-              <a href="tel:+917619231899" className="text-white hover:underline transition-colors font-medium">
-                +91 76192 31899
-              </a>
-            </div>
+    <div className="mt-10 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-stone-300">
+      <div className="flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        <span>For Enquiries:</span>
+        <a href="tel:+919035034418" className="text-white hover:underline transition-colors font-medium">
+          +91 90350 34418
+        </a>
+        <span>/</span>
+        <a href="tel:+917619231899" className="text-white hover:underline transition-colors font-medium">
+          +91 76192 31899
+        </a>
+      </div>
 
-            <div className="hidden sm:flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-stone-400">
-              Scroll Down to Explore <span className="text-stone-300">&darr;</span>
-            </div>
-          </div>
-        </motion.div>
-      </section>
+      <div className="hidden sm:flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-stone-400">
+        Scroll Down to Explore <span className="text-stone-300">&darr;</span>
+      </div>
+    </div>
+  </motion.div>
+</section>
 
       {/* ========================================================
           02 - CHAPTER I: HOTEL OVERVIEW & VISION
