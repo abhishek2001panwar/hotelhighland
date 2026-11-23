@@ -57,7 +57,7 @@ export default function About() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden border-t border-stone-200/80 bg-[#f8f7f4] px-6 py-16 text-stone-900 sm:px-12 sm:py-32 lg:px-20 selection:bg-orange-500/20"
+      className="relative w-full overflow-hidden border-t border-[#DDD4C4] bg-[#FDFBF7] px-6 py-16 text-[#3A2D21] sm:px-12 sm:py-28 lg:px-20 selection:bg-[#A1611D]/20"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
         
@@ -68,7 +68,7 @@ export default function About() {
           }`}
         >
           {/* Main Image */}
-          <div className="relative h-[420px] w-full overflow-hidden rounded-lg border border-stone-200 bg-stone-100 shadow-xl sm:h-[540px] sm:w-[84%]">
+          <div className="relative h-[420px] w-full overflow-hidden rounded-xl border border-[#DDD4C4] bg-[#F4EFE6] shadow-xl sm:h-[540px] sm:w-[84%]">
             <Image
               src="/about1.jpg"
               alt="Highland Hotel exterior and property"
@@ -78,11 +78,12 @@ export default function About() {
               className="object-cover object-center transition-transform duration-1000 hover:scale-105"
               sizes="(max-width: 768px) 100vw, 55vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+            {/* Warm Espresso Bronze Vignette (Zero Black) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3A2D21]/40 via-transparent to-transparent pointer-events-none" />
           </div>
 
           {/* Secondary Inset Image */}
-          <div className="absolute -bottom-8 right-0 z-10 hidden h-[280px] w-[230px] overflow-hidden rounded-lg border-4 border-[#f8f7f4] bg-stone-200 shadow-2xl sm:block lg:-right-4">
+          <div className="absolute -bottom-8 right-0 z-10 hidden h-[280px] w-[230px] overflow-hidden rounded-xl border-4 border-[#FDFBF7] bg-[#F4EFE6] shadow-2xl sm:block lg:-right-4">
             <Image
               src="/about.jpg"
               alt="Highland Hotel suite room interior"
@@ -93,13 +94,13 @@ export default function About() {
             />
           </div>
 
-          {/* Location Badge */}
-          <div className="absolute bottom-5 left-5 z-20 border border-white/30 bg-black/40 px-4 py-3 backdrop-blur-md">
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/70">
+          {/* Location Badge (Warm Espresso Bronze Glass, Zero Black) */}
+          <div className="absolute bottom-5 left-5 z-20 rounded-sm border border-[#FDFBF7]/35 bg-[#3A2D21]/85 px-5 py-3.5 backdrop-blur-md shadow-md">
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#E5C99B]">
               Highland Hotel
             </p>
-            <p className="mt-1 text-xs text-white font-medium">
-              North Bangalore
+            <p className="mt-1 text-xs sm:text-sm text-[#FDFBF7] font-bold tracking-wide">
+              North Bangalore &bull; Hesaraghatta Road
             </p>
           </div>
         </div>
@@ -113,9 +114,12 @@ export default function About() {
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <p className="mb-3 font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-orange-600">
-              About Highland
-            </p>
+            <div className="flex items-center gap-2.5 mb-3">
+              
+              <p className="font-sans text-xs font-bold uppercase tracking-[0.28em] text-[#A1611D]">
+                About Highland
+              </p>
+            </div>
           </div>
 
           {/* Heading */}
@@ -124,55 +128,59 @@ export default function About() {
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <h2 className="mb-6 font-serif text-3xl sm:text-4xl lg:text-[46px] font-normal leading-[1.08] tracking-tight text-stone-900">
+            <h2 className="mb-6 font-serif text-3xl sm:text-4xl lg:text-[46px] font-bold leading-[1.08] tracking-wide text-[#3A2D21]">
               A place to stay,
               <br />
-              <span className="italic">dine, celebrate</span>
+              <span className="italic font-normal text-[#A1611D]">dine, celebrate</span>
               <br />
               &amp; reconnect.
             </h2>
           </div>
 
-          {/* Narrative Copy */}
+          {/* Narrative Copy (Facilities & Services Highlighted in Bold + Wide Tracking) */}
           <div
             className={`transition-all duration-700 delay-300 ease-out ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <p className="mb-8 max-w-lg font-sans text-xs sm:text-sm font-light leading-relaxed text-stone-600">
-              Highland Hotel brings together comfortable stays, multi-cuisine
-              dining, celebrations and holistic wellness under one roof in North
-              Bangalore. With 42 rooms and suites, Cinnamon Restaurant, Utsava
-              Banquet Hall and Ayurvedic therapies, Highland offers an intimate
-              setting for both peaceful stays and milestone occasions.
+            <p className="mb-8 max-w-lg font-sans text-xs sm:text-sm md:text-[15px] font-normal leading-relaxed tracking-wide text-[#5A4A3B]">
+              Highland Hotel brings together{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                comfortable stays, multi-cuisine dining, grand celebrations, and holistic wellness
+              </strong>{" "}
+              under one roof in North Bangalore. Featuring{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                42 rooms and suites, Cinnamon Restaurant, Utsava Banquet Hall, and KEVA Ayurvedic therapies
+              </strong>
+              , Highland offers an intimate setting for both peaceful stays and milestone occasions.
             </p>
           </div>
 
-          {/* REFINED EDITORIAL STATS */}
+          {/* BOLD EDITORIAL STATS */}
           <div
-            className={`grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-stone-300/70 pt-6 transition-all duration-700 delay-400 ease-out ${
+            className={`grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-[#DDD4C4] pt-6 transition-all duration-700 delay-400 ease-out ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
             {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col">
+              <div key={stat.label} className="flex flex-col border-l-2 border-[#A1611D] pl-3.5">
                 <div className="flex items-baseline gap-1.5 mb-0.5">
-                  <span className="font-serif text-2xl sm:text-[28px] font-light text-stone-900">
+                  <span className="font-serif text-2xl sm:text-[30px] font-bold text-[#3A2D21] tracking-wide">
                     {stat.value}
                   </span>
-                  <span className="font-sans text-[10px] tracking-wider lowercase text-stone-500 font-medium">
+                  <span className="font-sans text-[11px] tracking-wider lowercase text-[#A1611D] font-bold">
                     {stat.unit}
                   </span>
                 </div>
 
-                <span className="font-sans text-[9px] sm:text-[9.5px] font-medium uppercase tracking-[0.2em] text-stone-500 leading-tight">
+                <span className="font-sans text-[10px] sm:text-[10.5px] font-bold uppercase tracking-[0.18em] text-[#3A2D21]/85 leading-tight">
                   {stat.label}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* CTA Link */}
+          {/* Primary #A1611D CTA Button */}
           <div
             className={`pt-8 transition-all duration-700 delay-500 ease-out ${
               isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -180,10 +188,10 @@ export default function About() {
           >
             <Link
               href="/about"
-              className="group inline-flex w-fit items-center gap-2 border-b border-stone-900/30 pb-1 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-stone-900 transition-colors duration-300 hover:border-orange-500 hover:text-orange-600 cursor-pointer"
+              className="group inline-flex w-fit items-center gap-2 bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3.5 rounded-sm font-sans text-xs font-bold uppercase tracking-[0.22em] transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
             >
               <span>Discover Highland</span>
-              <ArrowUpRight className="h-3 w-3 text-stone-600 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-orange-600" />
+              <ArrowUpRight className="h-4 w-4 stroke-[2.2] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </div>
 
@@ -191,7 +199,7 @@ export default function About() {
       </div>
 
       {/* Subtle Background Watermark */}
-      <div className="pointer-events-none absolute -bottom-12 -left-4 hidden select-none font-serif text-[180px] font-light leading-none text-stone-900/[0.02] lg:block">
+      <div className="pointer-events-none absolute -bottom-12 -left-4 hidden select-none font-serif text-[180px] font-light leading-none text-[#3A2D21]/[0.03] lg:block">
         HIGHLAND
       </div>
     </section>

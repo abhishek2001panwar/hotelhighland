@@ -14,6 +14,7 @@ import Navbar from '@/components/Navbar'
 import Reviews from '@/components/Reviews'
 import AmenitiesRibbon from '@/components/Ribon'
 import Rooms from '@/components/Rooms'
+import VideoShowcaseCarousel from '@/components/Video'
 import VirtualTour from '@/components/VirtualTour'
 import React from 'react'
 
@@ -27,8 +28,9 @@ function page() {
       <Rooms />
       <Dining />
       <Ayurveda />
+      <VideoShowcaseCarousel />
       <Banquet />
-      <CarouselSection />
+      {/* <CarouselSection /> */}
       {/* <VirtualTour /> */}
       <Gallery />
       <Reviews />

@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  Sparkles,
   Phone,
   Mail,
   ArrowUpRight,
@@ -18,19 +17,11 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
-const heroBg =
-  "/ayurveda/hero.webp";
+const heroBg = "/ayurveda/hero.webp";
+const traditionImg = "/ayurveda/1.webp";
+const acupunctureImg = "/ayurveda/2.webp";
 
-const traditionImg =
-  "/ayurveda/1.webp";
-
-const acupunctureImg =
-  "/ayurveda/2.webp";
-
-const doctorCards = [
-  "/ayurveda/3.webp",
-  "/ayurveda/4.webp",
-];
+const doctorCards = ["/ayurveda/3.webp", "/ayurveda/4.webp"];
 
 const allTestimonials = [
   {
@@ -164,9 +155,9 @@ export default function AyurvedaPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f7f4] text-[#1b1916] antialiased selection:bg-orange-500/20 selection:text-orange-950 overflow-x-hidden">
+    <main className="min-h-screen bg-[#FDFBF7] text-[#3A2D21] antialiased selection:bg-[#A1611D]/20 selection:text-[#3A2D21] overflow-x-hidden">
       {/* =========================================================
-          01 - PARALLAX HERO
+          01 - PARALLAX HERO (ZERO BLACK / RED, BOLD ENQUIRIES, #A1611D CTA)
       ========================================================== */}
       <Navbar />
       <section
@@ -188,55 +179,62 @@ export default function AyurvedaPage() {
           />
         </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25 pointer-events-none z-10" />
-        <div className="absolute inset-0 bg-black/15 pointer-events-none z-10" />
+        {/* Warm Espresso Bronze Scrims (Zero Black) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(44, 34, 24, 0.88) 0%, rgba(44, 34, 24, 0.42) 45%, rgba(44, 34, 24, 0.2) 100%)",
+          }}
+        />
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="relative z-20 w-full max-w-8xl mx-auto px-6 sm:px-12 lg:px-20 pb-16 sm:pb-20 text-white"
+          className="relative z-20 w-full max-w-[1720px] mx-auto px-6 sm:px-12 lg:px-20 pb-16 sm:pb-20 text-[#FDFBF7]"
         >
-          <div className="flex items-center gap-2 mb-4">
-           
-            <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-orange-300 font-medium">
-              The Best Place For Nature Care
+          <div className="flex items-center gap-2.5 mb-4">
+            <span className="w-5 h-[1.5px] bg-[#E5C99B]" />
+            <p className="font-sans text-[11px] sm:text-xs tracking-[0.32em] uppercase text-[#E5C99B] font-bold">
+              KEVA Ayurveda &bull; The Best Place For Nature Care
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-normal leading-[1.04] tracking-[-0.035em] drop-shadow-md">
+              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold leading-[1.04] tracking-wide drop-shadow-sm">
                 Ayurveda <br />
-                <span className="italic font-light text-stone-200">
+                <span className="italic font-light text-[#F4EFE6]">
                   &amp; Holistic Wellness
                 </span>
               </h1>
             </div>
 
             <div className="lg:col-span-4 lg:text-right">
-              <p className="font-serif italic text-lg sm:text-xl text-stone-200 font-light leading-relaxed">
+              <p className="font-serif italic text-lg sm:text-xl text-[#F4EFE6] font-semibold leading-relaxed tracking-wide">
                 &ldquo;Restoring harmony across body, mind, and spirit.&rdquo;
               </p>
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-stone-300">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          {/* Bold Appointment Contact & #A1611D Button */}
+          <div className="mt-10 pt-6 border-t border-[#FDFBF7]/20 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-sans text-[#F4EFE6]">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-bold tracking-wide">
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-                <span>Appointment:</span>
+                <Phone className="w-4 h-4 text-[#E5C99B] shrink-0" />
+                <span className="text-[#E5C99B]">Appointment:</span>
                 <a
                   href="tel:+919035034425"
-                  className="text-white hover:text-orange-300 transition-colors font-medium"
+                  className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors"
                 >
                   +91-9035034425
                 </a>
               </div>
 
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                <Mail className="w-4 h-4 text-[#E5C99B] shrink-0" />
                 <a
                   href="mailto:kevahesarghatta@kevaayurveda.com"
-                  className="text-white hover:text-orange-300 transition-colors font-medium"
+                  className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors"
                 >
                   kevahesarghatta@kevaayurveda.com
                 </a>
@@ -245,60 +243,68 @@ export default function AyurvedaPage() {
 
             <a
               href="tel:+919035034425"
-              className="inline-flex items-center gap-2 bg-white text-stone-900 hover:bg-orange-500 hover:text-white px-6 py-2.5 rounded-md font-sans text-[10px] uppercase tracking-[0.22em] font-medium transition-all shadow-md active:scale-95"
+              className="inline-flex items-center gap-2 bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all shadow-md active:scale-95"
             >
               <span>Book Consultation</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
+              <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
             </a>
           </div>
         </motion.div>
       </section>
 
       {/* =========================================================
-          02 - AYURVEDIC TRADITIONS
+          02 - AYURVEDIC TRADITIONS (WIDE TRACKING & BOLD HIGHLIGHTS)
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           <div className="lg:col-span-6 space-y-6">
             <div className="flex items-center gap-2">
-              <Flower2 className="w-4 h-4 text-orange-600" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 font-medium">
+              <Flower2 className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
                 Vedic Equilibrium
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl text-stone-900 font-normal leading-[1.12]">
+            <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
               Ayurvedic Traditions
             </h2>
 
-            <p className="font-sans text-stone-700 text-sm sm:text-base font-light leading-relaxed">
-              At Highland Hotel, immerse yourself in the ancient healing
-              practices of Ayurveda, a holistic system aimed at restoring
-              balance and harmony within the body, mind, and spirit.
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              At Highland Hotel, immerse yourself in the{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                ancient healing practices of Ayurveda
+              </strong>
+              , a holistic system aimed at restoring balance and harmony within the body, mind, and spirit.
             </p>
 
-            <p className="font-sans text-stone-600 text-sm sm:text-base font-light leading-relaxed">
-              Our Ayurvedic services offer personalized consultations with
-              experienced practitioners who tailor treatments to your unique
-              constitution, addressing imbalances through a combination of
-              herbal remedies, dietary adjustments, and therapeutic treatments
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              Our Ayurvedic services offer{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                personalized consultations with experienced practitioners
+              </strong>{" "}
+              who tailor treatments to your unique constitution, addressing imbalances through a combination of{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                herbal remedies, dietary adjustments, and therapeutic treatments
+              </strong>{" "}
               such as massage, detoxification, and meditation.
             </p>
 
-            <p className="font-sans text-stone-600 text-sm sm:text-base font-light leading-relaxed">
-              Whether you seek relief from physical ailments, stress reduction,
-              or a deeper connection to your inner self, our Ayurvedic offerings
-              provide a pathway to holistic wellness and rejuvenation.
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              Whether you seek relief from physical ailments, stress reduction, or a deeper connection to your inner self, our Ayurvedic offerings provide a pathway to{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                holistic wellness and rejuvenation
+              </strong>
+              .
             </p>
 
-            <div className="pt-4 border-t border-stone-300/70 flex items-center gap-6 font-mono text-[11px] uppercase tracking-wider text-stone-500">
+            <div className="pt-4 border-t border-[#DDD4C4] flex flex-wrap items-center gap-4 sm:gap-6 font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#A1611D]">
               <span>Personalized Dosha Analysis</span>
               <span>&bull;</span>
-              <span>Herbal Detox</span>
+              <span>Herbal Detox &amp; Steam</span>
             </div>
           </div>
 
-          <div className="lg:col-span-6 relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-stone-900 border border-stone-300/80 shadow-xl">
+          <div className="lg:col-span-6 relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#EAE1D0] border border-[#DDD4C4] shadow-xl">
             <Image
               src={traditionImg}
               alt="Ayurvedic traditions and healing therapies"
@@ -312,12 +318,12 @@ export default function AyurvedaPage() {
       </section>
 
       {/* =========================================================
-          03 - ACUPUNCTURE
+          03 - ACUPUNCTURE (WIDE TRACKING & BOLD HIGHLIGHTS)
       ========================================================== */}
-      <section className="bg-[#f2eee5] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-y border-stone-300/70">
+      <section className="bg-[#F4EFE6] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-y border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-            <div className="lg:col-span-6 relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-stone-900 border border-stone-300/80 shadow-xl order-2 lg:order-1">
+            <div className="lg:col-span-6 relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-[#EAE1D0] border border-[#DDD4C4] shadow-xl order-2 lg:order-1">
               <Image
                 src={acupunctureImg}
                 alt="Acupuncture therapy at Highland"
@@ -330,39 +336,41 @@ export default function AyurvedaPage() {
 
             <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-orange-600" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 font-medium">
+                <Activity className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
+                <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
                   Meridian Therapy
                 </span>
               </div>
 
-              <h2 className="font-serif text-3xl sm:text-5xl text-stone-900 font-normal leading-[1.12]">
+              <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
                 Acupuncture
               </h2>
 
-              <p className="font-sans text-stone-700 text-sm sm:text-base font-light leading-relaxed">
-                Discover the ancient art of acupuncture at Highland Hotel, where
-                skilled practitioners use fine needles to stimulate key points on
-                the body’s meridian pathways, restoring balance and promoting
-                the free flow of vital energy, or Qi.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Discover the{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  ancient art of acupuncture
+                </strong>{" "}
+                at Highland Hotel, where skilled practitioners use fine needles to stimulate key points on the body’s meridian pathways, restoring balance and promoting the free flow of vital energy, or Qi.
               </p>
 
-              <p className="font-sans text-stone-600 text-sm sm:text-base font-light leading-relaxed">
-                Drawing upon centuries-old Chinese medicine traditions,
-                acupuncture offers a safe and effective treatment for a wide
-                range of physical, emotional, and psychological ailments, from
-                chronic pain and inflammation to stress, anxiety, and insomnia.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Drawing upon centuries-old traditions, acupuncture offers a{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  safe and effective treatment
+                </strong>{" "}
+                for a wide range of physical, emotional, and psychological ailments, from{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  chronic pain and inflammation to stress, anxiety, and insomnia
+                </strong>
+                .
               </p>
 
-              <p className="font-sans text-stone-600 text-sm sm:text-base font-light leading-relaxed">
-                Whether you’re seeking pain relief, stress reduction, or support
-                for your overall health and well-being, our acupuncture sessions
-                provide a gentle and natural approach to healing, helping you to
-                reconnect with your body’s innate healing intelligence and achieve
-                a state of optimal wellness.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Whether you’re seeking pain relief, stress reduction, or support for your overall health and well-being, our acupuncture sessions provide a gentle and natural approach to healing.
               </p>
 
-              <div className="pt-4 border-t border-stone-300/70 flex items-center gap-6 font-mono text-[11px] uppercase tracking-wider text-stone-500">
+              <div className="pt-4 border-t border-[#DDD4C4] flex flex-wrap items-center gap-4 sm:gap-6 font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#A1611D]">
                 <span>Qi Flow Activation</span>
                 <span>&bull;</span>
                 <span>Pain &amp; Stress Relief</span>
@@ -373,14 +381,14 @@ export default function AyurvedaPage() {
       </section>
 
       {/* =========================================================
-          04 - OUR AYURVEDA DOCTOR PROFILES (IMAGE ONLY CARDS)
+          04 - OUR AYURVEDA DOCTOR PROFILES
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 block mb-2 font-medium">
+          <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
             Clinical Care &bull; Resident Practitioners
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-stone-900 font-normal leading-[1.12]">
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
             Our Ayurveda Doctor Profiles
           </h2>
         </div>
@@ -389,7 +397,7 @@ export default function AyurvedaPage() {
           {doctorCards.map((src, idx) => (
             <div
               key={idx}
-              className="relative w-full rounded-2xl overflow-hidden border border-stone-300/80 shadow-md bg-white group hover:shadow-xl transition-shadow duration-300"
+              className="relative w-full rounded-2xl overflow-hidden border border-[#DDD4C4] shadow-md bg-white group hover:shadow-xl transition-shadow duration-300"
             >
               <Image
                 src={src}
@@ -409,40 +417,38 @@ export default function AyurvedaPage() {
       </section>
 
       {/* =========================================================
-          05 - TESTIMONIALS CAROUSEL (3 PER VIEW WITH DOTS & ARROWS)
+          05 - TESTIMONIALS CAROUSEL (#A1611D ACCENTS & ARROWS)
       ========================================================== */}
-      <section className="bg-[#f2eee5] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-t border-stone-300/70 select-none">
+      <section className="bg-[#F4EFE6] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4] select-none">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header with Arrow Controls */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-orange-600 block mb-2 font-medium">
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
                 Guest Reflections
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl text-stone-900 font-normal">
+              <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold tracking-wide">
                 Our Testimonials
               </h2>
-              <p className="font-sans text-stone-600 text-sm font-light mt-2 max-w-xl">
-                Genuine healing journeys, reviews, and clinical experiences
-                shared by our wellness retreat guests.
+              <p className="font-sans text-[#5A4A3B] text-sm font-medium mt-2 max-w-xl tracking-wide">
+                Genuine healing journeys, reviews, and clinical experiences shared by our wellness retreat guests.
               </p>
             </div>
 
-            {/* Slider Navigation Buttons */}
+            {/* Slider Navigation Buttons (#A1611D Hover) */}
             <div className="flex items-center gap-3">
               <button
                 onClick={handlePrev}
                 aria-label="Previous Testimonials"
-                className="w-10 h-10 rounded-full border border-stone-300/90 bg-white/80 hover:bg-stone-900 hover:text-white hover:border-stone-900 text-stone-800 flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="w-11 h-11 rounded-full border border-[#DDD4C4] bg-[#FDFBF7] hover:bg-[#A1611D] hover:text-[#FDFBF7] hover:border-[#A1611D] text-[#3A2D21] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <ArrowLeft className="w-4 h-4 stroke-[1.8]" />
+                <ArrowLeft className="w-4 h-4 stroke-[2.2]" />
               </button>
               <button
                 onClick={handleNext}
                 aria-label="Next Testimonials"
-                className="w-10 h-10 rounded-full border border-stone-300/90 bg-white/80 hover:bg-stone-900 hover:text-white hover:border-stone-900 text-stone-800 flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="w-11 h-11 rounded-full border border-[#DDD4C4] bg-[#FDFBF7] hover:bg-[#A1611D] hover:text-[#FDFBF7] hover:border-[#A1611D] text-[#3A2D21] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <ArrowRight className="w-4 h-4 stroke-[1.8]" />
+                <ArrowRight className="w-4 h-4 stroke-[2.2]" />
               </button>
             </div>
           </div>
@@ -460,27 +466,27 @@ export default function AyurvedaPage() {
             {allTestimonials.map((t, idx) => (
               <div
                 key={idx}
-                className="shrink-0 snap-start w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-white p-7 sm:p-8 rounded-2xl border border-stone-300/80 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
+                className="shrink-0 snap-start w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-[#FDFBF7] p-7 sm:p-8 rounded-2xl border border-[#DDD4C4] shadow-xs flex flex-col justify-between hover:border-[#A1611D] hover:shadow-md transition-all duration-300"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-orange-600 mb-4">
+                  <div className="flex items-center gap-1 text-[#A1611D] mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
 
-                  <Quote className="w-5 h-5 text-stone-300 mb-2.5" />
+                  <Quote className="w-5 h-5 text-[#A1611D]/40 mb-2.5" />
 
-                  <p className="font-serif text-base text-stone-800 font-normal leading-relaxed italic mb-6">
+                  <p className="font-serif text-base text-[#3A2D21] font-medium leading-relaxed italic tracking-wide mb-6">
                     &ldquo;{t.quote}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
-                  <p className="font-sans text-xs uppercase tracking-wider text-stone-900 font-semibold">
+                <div className="pt-4 border-t border-[#DDD4C4] flex items-center justify-between">
+                  <p className="font-sans text-xs uppercase tracking-wider text-[#3A2D21] font-bold">
                     {t.author}
                   </p>
-                  <p className="font-mono text-[10px] text-stone-400">
+                  <p className="font-sans text-xs font-bold text-[#A1611D]">
                     {t.location}
                   </p>
                 </div>
@@ -488,7 +494,7 @@ export default function AyurvedaPage() {
             ))}
           </div>
 
-          {/* Pagination Dots at Bottom */}
+          {/* Pagination Dots */}
           <div className="flex items-center justify-center gap-2.5 mt-8">
             {Array.from({ length: maxPages }).map((_, pageIdx) => (
               <button
@@ -497,8 +503,8 @@ export default function AyurvedaPage() {
                 aria-label={`Go to slide ${pageIdx + 1}`}
                 className={`transition-all duration-300 cursor-pointer rounded-full ${
                   activeSlide === pageIdx
-                    ? "w-8 h-2 bg-orange-600"
-                    : "w-2 h-2 bg-stone-300 hover:bg-stone-400"
+                    ? "w-8 h-2 bg-[#A1611D]"
+                    : "w-2 h-2 bg-[#3A2D21]/25 hover:bg-[#A1611D]/60"
                 }`}
               />
             ))}
@@ -506,29 +512,29 @@ export default function AyurvedaPage() {
         </div>
       </section>
 
- {/* =========================================================
-          06 - DIRECT ENQUIRY FOOTER STRIP (LIGHT PARCHMENT)
+      {/* =========================================================
+          06 - DIRECT ENQUIRY FOOTER STRIP (#A1611D PRIMARY CTA)
       ========================================================== */}
-      <section className="bg-[#F2ECE1] text-[#1B1917] py-16 sm:py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DFD8CA]">
+      <section className="bg-[#FDFBF7] text-[#3A2D21] py-16 sm:py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
-            <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] font-semibold block mb-2">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold block mb-2">
               Plan Your Healing Retreat
             </span>
-            <h3 className="font-serif text-2xl sm:text-4xl text-[#1B1917] font-normal mb-3">
+            <h3 className="font-serif text-2xl sm:text-4xl text-[#3A2D21] font-bold tracking-wide mb-3">
               Book Your Ayurvedic Consultation
             </h3>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[#1B1917]/75 font-sans text-xs sm:text-sm">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[#3A2D21] font-sans text-xs sm:text-sm font-bold tracking-wide">
               <a
                 href="tel:+919035034425"
-                className="hover:text-[#1B1917] font-medium transition-colors"
+                className="hover:text-[#A1611D] transition-colors"
               >
                 T: +91-9035034425
               </a>
-              <span className="text-[#7A6E58]">&bull;</span>
+              <span className="text-[#A1611D]">&bull;</span>
               <a
                 href="mailto:kevahesarghatta@kevaayurveda.com"
-                className="hover:text-[#1B1917] hover:underline transition-colors"
+                className="hover:text-[#A1611D] hover:underline transition-colors"
               >
                 kevahesarghatta@kevaayurveda.com
               </a>
@@ -538,13 +544,13 @@ export default function AyurvedaPage() {
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <a
               href="tel:+919035034425"
-              className="bg-[#1B1917] text-[#FDFBF7] hover:bg-stone-800 px-7 py-3.5 rounded-xs font-sans text-xs uppercase tracking-[0.2em] font-medium transition-all shadow-xs active:scale-95"
+              className="bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3.5 rounded-sm font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-sm active:scale-95"
             >
               Get an Appointment
             </a>
             <Link
               href="/rooms"
-              className="bg-white border border-[#D8D0C0] hover:border-[#1B1917] text-[#1B1917] px-7 py-3.5 rounded-xs font-sans text-xs uppercase tracking-[0.2em] font-medium transition-all shadow-2xs hover:bg-[#FAF7F0]"
+              className="bg-[#F4EFE6] border border-[#DDD4C4] hover:border-[#A1611D] text-[#3A2D21] px-7 py-3.5 rounded-sm font-sans text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-2xs hover:bg-white"
             >
               Stay at Highland
             </Link>

@@ -15,6 +15,25 @@
   --font-body: var(--font-karla), sans-serif;
   --font-test: var(--font-test), sans-serif;
   --font-test1: var(--font-test1), sans-serif;
+  --font-montserrat: var(--font-montserrat), sans-serif;
+}
+
+@font-face {
+  font-family: "dmsans";
+  src: url("/fonts/dm-sans-v11-latin_latin-ext-regular.ttf") format("truetype");
+       
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ppwoodland";
+  src: url("/fonts/PPWoodland-Regular.ttf") format("truetype");
+       
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Base Body (Karla Light default) */

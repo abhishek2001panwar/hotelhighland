@@ -275,51 +275,54 @@ export default function BlogDetailPage() {
   );
 
   return (
-    <main className="min-h-screen bg-[#FDFBF7] text-[#1B1917] antialiased selection:bg-[#1B1917] selection:text-[#FDFBF7] overflow-x-hidden pt-28 sm:pt-36">
+    <main className="min-h-screen bg-[#FDFBF7] text-[#3A2D21] antialiased selection:bg-[#A1611D]/20 selection:text-[#3A2D21] overflow-x-hidden pt-28 sm:pt-36">
       <Navbar />
       <article className="max-w-4xl mx-auto px-6 sm:px-10 pb-20">
         
         {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-[0.2em] text-[#7A6E58] mb-8">
+        <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-[0.22em] text-[#A1611D] font-bold mb-8">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-1.5 hover:text-[#1B1917] transition-colors"
+            className="inline-flex items-center gap-1.5 hover:text-[#865017] transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 stroke-[2.2]" />
             <span>All Articles</span>
           </Link>
-          <span>/</span>
-          <span className="text-[#1B1917]/50 truncate">{post.category}</span>
+          <span className="text-[#DDD4C4]">/</span>
+          <span className="text-[#5A4A3B] truncate">{post.category}</span>
         </div>
 
         {/* Category & Title */}
-        <div className="space-y-4 border-b border-[#E5E0D5] pb-8">
-          <span className="font-sans text-[11px] uppercase tracking-[0.25em] text-[#7A6E58] font-semibold">
-            {post.category}
-          </span>
+        <div className="space-y-4 border-b border-[#DDD4C4] pb-8">
+          <div className="flex items-center gap-2.5">
+            <span className="w-5 h-[1.5px] bg-[#A1611D]" />
+            <span className="font-sans text-xs uppercase tracking-[0.28em] text-[#A1611D] font-bold">
+              {post.category}
+            </span>
+          </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#1B1917] font-normal leading-[1.1] tracking-[-0.03em]">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#3A2D21] font-bold leading-[1.1] tracking-wide">
             {post.title}
           </h1>
 
           {/* Metadata Row */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 text-xs font-sans text-[#1B1917]/65">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 text-xs font-sans text-[#5A4A3B] font-semibold tracking-wide">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               <div className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-[#7A6E58]" />
+                <Calendar className="w-3.5 h-3.5 text-[#A1611D]" />
                 <span>
                   {post.day} {post.month} {post.year}
                 </span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#7A6E58]" />
+                <Clock className="w-3.5 h-3.5 text-[#A1611D]" />
                 <span>{post.readTime}</span>
               </div>
 
               <div className="flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-[#7A6E58]" />
-                <span>{post.author}</span>
+                <User className="w-3.5 h-3.5 text-[#A1611D]" />
+                <span className="text-[#3A2D21] font-bold">{post.author}</span>
               </div>
             </div>
 
@@ -332,7 +335,7 @@ export default function BlogDetailPage() {
                   alert("Link copied to clipboard");
                 }
               }}
-              className="inline-flex items-center gap-1.5 text-xs text-[#7A6E58] hover:text-[#1B1917] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#A1611D] hover:text-[#865017] transition-colors cursor-pointer"
             >
               <Share2 className="w-3.5 h-3.5" />
               <span>Share</span>
@@ -341,9 +344,9 @@ export default function BlogDetailPage() {
         </div>
 
         {/* =========================================================
-            TOP FEATURED IMAGE (UNFAILING HTML5 RESPONSIVE IMG)
+            TOP FEATURED IMAGE
         ========================================================== */}
-        <div className="w-full my-10 rounded-2xl overflow-hidden border border-[#E5E0D5] bg-[#F2EDE4] shadow-xs">
+        <div className="w-full my-10 rounded-2xl overflow-hidden border border-[#DDD4C4] bg-[#F4EFE6] shadow-xs">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={post.image}
@@ -362,7 +365,7 @@ export default function BlogDetailPage() {
               return (
                 <p
                   key={idx}
-                  className="font-sans text-base sm:text-[17px] text-[#1B1917]/85 font-light leading-[1.8]"
+                  className="font-sans text-base sm:text-[17px] text-[#3A2D21]/85 font-normal leading-[1.85] tracking-wide"
                 >
                   {block.text}
                 </p>
@@ -373,7 +376,7 @@ export default function BlogDetailPage() {
               return (
                 <h2
                   key={idx}
-                  className="font-serif text-2xl sm:text-3xl text-[#1B1917] font-normal pt-6 pb-1 border-b border-[#EAE4D7]"
+                  className="font-serif text-2xl sm:text-3xl text-[#3A2D21] font-bold pt-6 pb-2 border-b border-[#DDD4C4] tracking-wide"
                 >
                   {block.text}
                 </h2>
@@ -382,16 +385,38 @@ export default function BlogDetailPage() {
 
             if (block.type === "list" && block.items) {
               return (
-                <ul key={idx} className="space-y-3 pl-2 sm:pl-4 my-4">
-                  {block.items.map((item, itemIdx) => (
-                    <li
-                      key={itemIdx}
-                      className="flex items-start gap-3 font-sans text-sm sm:text-base text-[#1B1917]/80 font-light leading-relaxed"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#7A6E58] mt-2.5 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                <ul key={idx} className="space-y-3.5 pl-2 sm:pl-4 my-4">
+                  {block.items.map((item, itemIdx) => {
+                    const [lead, ...rest] = item.split(" – ");
+                    const hasSplit = rest.length > 0;
+                    const [colonLead, ...colonRest] = !hasSplit ? item.split(": ") : ["", ""];
+                    const hasColonSplit = !hasSplit && colonRest.length > 0;
+
+                    return (
+                      <li
+                        key={itemIdx}
+                        className="flex items-start gap-3 font-sans text-sm sm:text-base text-[#3A2D21]/85 font-normal leading-relaxed tracking-wide"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#A1611D] mt-2.5 shrink-0" />
+                        <span>
+                          {hasSplit ? (
+                            <>
+                              <strong className="font-bold text-[#3A2D21]">{lead}</strong>
+                              {" – "}
+                              {rest.join(" – ")}
+                            </>
+                          ) : hasColonSplit ? (
+                            <>
+                              <strong className="font-bold text-[#3A2D21]">{colonLead}:</strong>{" "}
+                              {colonRest.join(": ")}
+                            </>
+                          ) : (
+                            item
+                          )}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               );
             }
@@ -400,7 +425,7 @@ export default function BlogDetailPage() {
               return (
                 <div
                   key={idx}
-                  className="my-8 p-6 sm:p-8 rounded-xl bg-[#FAF7F0] border border-[#E5E0D5] shadow-2xs whitespace-pre-line font-sans text-sm sm:text-[15px] text-[#1B1917]/85 font-light leading-relaxed"
+                  className="my-8 p-6 sm:p-8 rounded-2xl bg-[#F4EFE6] border border-[#DDD4C4] shadow-2xs whitespace-pre-line font-sans text-sm sm:text-[15px] text-[#3A2D21] font-medium leading-relaxed tracking-wide"
                 >
                   {block.text}
                 </div>
@@ -412,12 +437,12 @@ export default function BlogDetailPage() {
         </div>
 
         {/* Back Link CTA */}
-        <div className="mt-14 pt-8 border-t border-[#E5E0D5] flex items-center justify-between">
+        <div className="mt-14 pt-8 border-t border-[#DDD4C4] flex items-center justify-between">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.2em] font-medium text-[#1B1917] hover:underline"
+            className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-[0.22em] font-bold text-[#A1611D] hover:text-[#865017] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 stroke-[2.2]" />
             <span>Return to All Stories</span>
           </Link>
         </div>
@@ -427,12 +452,15 @@ export default function BlogDetailPage() {
           RECOMMENDED STORIES
       ========================================================== */}
       {otherStories.length > 0 && (
-        <section className="bg-[#F7F4EE] py-16 sm:py-20 px-6 sm:px-12 lg:px-20 border-y border-[#E8E2D6]">
+        <section className="bg-[#F4EFE6] py-16 sm:py-20 px-6 sm:px-12 lg:px-20 border-y border-[#DDD4C4]">
           <div className="max-w-7xl mx-auto">
-            <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] block mb-2 font-medium">
-              Read Further
-            </span>
-            <h3 className="font-serif text-2xl sm:text-4xl text-[#1B1917] font-normal mb-10">
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="w-5 h-[1.5px] bg-[#A1611D]" />
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
+                Read Further
+              </span>
+            </div>
+            <h3 className="font-serif text-2xl sm:text-4xl text-[#3A2D21] font-bold tracking-wide mb-10">
               More from the Highland Journal
             </h3>
 
@@ -441,23 +469,23 @@ export default function BlogDetailPage() {
                 <Link
                   key={other.slug}
                   href={`/blogs/${other.slug}`}
-                  className="group bg-[#FDFBF7] p-7 rounded-xl border border-[#E5E0D5] hover:border-[#1B1917]/40 transition-all flex flex-col justify-between"
+                  className="group bg-[#FDFBF7] p-7 sm:p-8 rounded-2xl border border-[#DDD4C4] hover:border-[#A1611D] hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center justify-between text-xs text-[#7A6E58] font-mono mb-3">
+                    <div className="flex items-center justify-between text-xs text-[#A1611D] font-sans font-bold uppercase tracking-wider mb-3">
                       <span>{other.category}</span>
-                      <span>{other.readTime}</span>
+                      <span className="text-[#5A4A3B]">{other.readTime}</span>
                     </div>
-                    <h4 className="font-serif text-xl text-[#1B1917] font-normal group-hover:underline">
+                    <h4 className="font-serif text-xl sm:text-2xl text-[#3A2D21] font-bold tracking-wide group-hover:text-[#A1611D] transition-colors">
                       {other.title}
                     </h4>
-                    <p className="font-sans text-xs text-[#1B1917]/70 font-light mt-2 line-clamp-2">
+                    <p className="font-sans text-xs sm:text-sm text-[#5A4A3B] font-normal leading-relaxed tracking-wide mt-2.5 line-clamp-2">
                       {other.content[0]?.text || ""}
                     </p>
                   </div>
-                  <div className="mt-6 flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest font-medium text-[#1B1917]">
+                  <div className="mt-6 pt-4 border-t border-[#DDD4C4] flex items-center justify-between text-xs font-sans uppercase tracking-[0.2em] font-bold text-[#A1611D]">
                     <span>Read Article</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-4 h-4 stroke-[2.2] transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </Link>
               ))}
@@ -467,46 +495,53 @@ export default function BlogDetailPage() {
       )}
 
       {/* =========================================================
-          LIGHT PARCHMENT CONTACT & FOOTER STRIP
+          LIGHT PARCHMENT CONTACT & FOOTER STRIP (#A1611D CTA)
       ========================================================== */}
-      <section className="bg-[#F2ECE1] text-[#1B1917] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DFD8CA]">
+      <section className="bg-[#FDFBF7] text-[#3A2D21] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-12 border-b border-[#D8D0C0]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-12 border-b border-[#DDD4C4]">
             <div className="lg:col-span-6">
-              <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] block mb-2 font-medium">
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2 font-bold">
                 Highland Hotel &bull; Bengaluru
               </span>
-              <h3 className="font-serif text-3xl sm:text-4xl text-[#1B1917] font-normal mb-3">
+              <h3 className="font-serif text-3xl sm:text-4xl text-[#3A2D21] font-bold tracking-wide mb-3">
                 Consult With Our Specialists
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-[#1B1917]/75 font-light leading-relaxed">
-                Connect directly with our resident Ayurvedic doctors for personalized dosha consultations, or make dining reservations at Cinnamon Multicuisine Restaurant.
+              <p className="font-sans text-xs sm:text-sm text-[#5A4A3B] font-medium leading-relaxed tracking-wide">
+                Connect directly with our{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  resident Ayurvedic doctors
+                </strong>{" "}
+                for personalized dosha consultations, or make dining reservations at{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  Cinnamon Multicuisine Restaurant
+                </strong>
+                .
               </p>
             </div>
 
             <div className="lg:col-span-6 flex flex-col sm:flex-row items-start sm:items-center justify-start lg:justify-end gap-4 text-xs font-sans">
               <a
                 href="tel:+919035034425"
-                className="bg-[#1B1917] text-[#FDFBF7] hover:bg-stone-800 px-6 py-3 rounded-xs uppercase tracking-[0.2em] font-medium transition-all shadow-xs"
+                className="bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3.5 rounded-sm uppercase tracking-[0.2em] font-bold transition-all shadow-sm active:scale-95"
               >
                 Ayurveda Consultation
               </a>
               <Link
                 href="/cinnamon"
-                className="border border-[#1B1917]/30 hover:border-[#1B1917] text-[#1B1917] px-6 py-3 rounded-xs uppercase tracking-[0.2em] font-medium transition-all"
+                className="bg-[#F4EFE6] hover:bg-white border border-[#DDD4C4] hover:border-[#A1611D] text-[#3A2D21] px-7 py-3.5 rounded-sm uppercase tracking-[0.2em] font-bold transition-all shadow-2xs"
               >
                 Cinnamon Dining
               </Link>
             </div>
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-[#1B1917]/60">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans font-bold text-[#3A2D21]/80 tracking-wide">
             <p>Highland Hotel &bull; All Rights Reserved &copy; {new Date().getFullYear()}</p>
             <p>#4 &amp; 5, MM Heights, Chikkasandra, Hesaraghatta Main Rd, Bengaluru</p>
           </div>
         </div>
       </section>
-
     </main>
   );
 }

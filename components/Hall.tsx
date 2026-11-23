@@ -1,80 +1,74 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 
 const carouselSlides = [
-  { src: "/carousel/c1.webp", label: "01 - Deluxe Room" },
-  { src: "/carousel/c2.webp", label: "02 - Executive Suite" },
-  { src: "/carousel/c3.webp", label: "03 - Dining Area" },
-  { src: "/carousel/c4.webp", label: "04 - Restaurant & Dining" },
-  { src: "/carousel/c5.webp", label: "05 - Banquet Dining" },
+  { src: "/carousel/c1.webp", alt: "Highland Hotel Slide 1" },
+  { src: "/carousel/c2.webp", alt: "Highland Hotel Slide 2" },
+  { src: "/carousel/c3.webp", alt: "Highland Hotel Slide 3" },
+  { src: "/carousel/c4.webp", alt: "Highland Hotel Slide 4" },
+  { src: "/carousel/c5.webp", alt: "Highland Hotel Slide 5" },
 ];
 
-interface CardProps {
-  slide: { src: string; label: string };
-  index: number;
-  progress: MotionValue<number>;
-  range: [number, number];
-  targetScale: number;
-}
-
-function StackedCard({ slide, index, progress, range, targetScale }: CardProps) {
-  const scale = useTransform(progress, range, [1, targetScale]);
-
-  return (
-    <div className="sticky top-0 h-screen flex items-center justify-center">
-      <motion.div
-        style={{
-          scale,
-          top: `calc(4vh + ${index * 14}px)`,
-        }}
-        className="relative w-full h-[75vh] sm:h-[85vh] max-h-[880px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-stone-200/80 bg-stone-100 will-change-transform"
-      >
-        <Image
-          src={slide.src}
-          alt={slide.label}
-          fill
-          priority={index === 0}
-          quality={95}
-          sizes="(max-width: 1280px) 100vw, 1400px"
-          className="object-cover object-center"
-        />
-
-        {/* Minimal frosted glass label */}
-      </motion.div>
-    </div>
-  );
-}
-
 export default function CarouselSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  // Smooth auto-scroll left to right every 4.5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % carouselSlides.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full px-4 sm:px-8 lg:px-12 bg-[#FDFBF7]"
-    >
-      <div className="max-w-[1440px] mx-auto">
-        {carouselSlides.map((slide, index) => {
-          const targetScale = 1 - (carouselSlides.length - index) * 0.04;
-          return (
-            <StackedCard
+    <section className="relative w-full overflow-hidden bg-[#FDFBF7]">
+      {/* Full-Width Horizontal Track */}
+      <div className="relative w-full h-[65vh] sm:h-[78vh] lg:h-[88vh] min-h-[420px] max-h-[900px] overflow-hidden">
+        <motion.div
+          animate={{ x: `-${currentIndex * 100}%` }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="flex w-full h-full will-change-transform"
+        >
+          {carouselSlides.map((slide, index) => (
+            <div
               key={index}
-              slide={slide}
-              index={index}
-              progress={scrollYProgress}
-              range={[index * 0.2, 1]}
-              targetScale={targetScale}
-            />
-          );
-        })}
+              className="relative w-full h-full shrink-0 overflow-hidden bg-[#F4EFE6]"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={index === 0}
+                quality={95}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Minimal Slide Indicator Dots (No Text, Zero Black/Red) */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-[#3A2D21]/45 backdrop-blur-md px-3.5 py-2 rounded-full border border-[#FDFBF7]/20">
+          {carouselSlides.map((_, index) => {
+            const isActive = index === currentIndex;
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Slide ${index + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                  isActive
+                    ? "w-7 bg-[#E5C99B]"
+                    : "w-1.5 bg-[#FDFBF7]/50 hover:bg-[#FDFBF7]"
+                }`}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   );

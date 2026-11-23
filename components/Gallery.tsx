@@ -1,147 +1,106 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, Maximize2, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { X, ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryImage {
   id: number;
-  number: string;
-  title: string;
-  category: string;
+  alt: string;
   src: string;
-  aspect: "wide" | "tall";
-  speed: number; // Parallax intensity multiplier
 }
 
 const galleryItems: GalleryImage[] = [
   {
     id: 1,
-    number: "01",
-    title: "Highland Hotel Facade & Grounds",
-    category: "Architecture",
+    alt: "Highland Hotel Facade & Grounds",
     src: "/gallery1.webp",
-    aspect: "wide",
-    speed: 0.12,
   },
   {
     id: 2,
-    number: "02",
-    title: "Executive Suite Living Area",
-    category: "Accommodations",
+    alt: "Executive Suite Living Area",
     src: "/gallery2.webp",
-    aspect: "tall",
-    speed: -0.16,
   },
   {
     id: 3,
-    number: "03",
-    title: "Utsava Banquet Grand Interior",
-    category: "Celebrations",
+    alt: "Utsava Banquet Grand Interior",
     src: "/gallery3.webp",
-    aspect: "tall",
-    speed: 0.14,
   },
   {
     id: 4,
-    number: "04",
-    title: "Executive Twin Suite",
-    category: "Accommodations",
+    alt: "Executive Twin Suite",
     src: "/gallery4.webp",
-    aspect: "wide",
-    speed: -0.1,
   },
   {
     id: 5,
-    number: "05",
-    title: "Cinnamon Multicuisine Dining",
-    category: "Gastronomy",
+    alt: "Cinnamon Multicuisine Dining",
     src: "/gallery5.webp",
-    aspect: "wide",
-    speed: 0.15,
   },
   {
     id: 6,
-    number: "06",
-    title: "Ayurveda & Holistic Rejuvenation",
-    category: "Wellness",
+    alt: "Ayurveda & Holistic Rejuvenation",
     src: "/gallery6.webp",
-    aspect: "tall",
-    speed: -0.14,
   },
 ];
 
+// Ultra-buttery, critically-damped luxury spring (zero bounce, liquid deceleration)
+const luxurySpring = {
+  type: "spring" as const,
+  stiffness: 130,
+  damping: 26,
+  mass: 1.1,
+  restDelta: 0.001,
+};
+
 export default function Gallery() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [parallaxProgress, setParallaxProgress] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
-  // Smooth scroll tracking for native parallax
+  const total = galleryItems.length;
+
   useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            if (rect.top <= windowHeight && rect.bottom >= 0) {
-              const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-              setParallaxProgress(progress - 0.5); // Center around 0
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+    const checkViewport = () => {
+      setIsDesktop(window.innerWidth >= 1024);
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+    return () => window.removeEventListener("resize", checkViewport);
   }, []);
 
-  // In-view observer for initial entrance
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsInView(true);
-      },
-      { threshold: 0.08 }
-    );
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
+  }, [total]);
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % total);
+  }, [total]);
 
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
-  const prevImage = useCallback(() => {
-    if (lightboxIndex === null || galleryItems.length === 0) return;
-    setLightboxIndex((prev) => (prev === null || prev === 0 ? galleryItems.length - 1 : prev - 1));
-  }, [lightboxIndex]);
+  const prevLightbox = useCallback(() => {
+    setLightboxIndex((prev) =>
+      prev === null ? null : prev === 0 ? total - 1 : prev - 1
+    );
+  }, [total]);
 
-  const nextImage = useCallback(() => {
-    if (lightboxIndex === null || galleryItems.length === 0) return;
-    setLightboxIndex((prev) => (prev === null || prev === galleryItems.length - 1 ? 0 : prev + 1));
-  }, [lightboxIndex]);
+  const nextLightbox = useCallback(() => {
+    setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % total));
+  }, [total]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (lightboxIndex === null) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") prevImage();
-      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevLightbox();
+      if (e.key === "ArrowRight") nextLightbox();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, prevImage, nextImage]);
+  }, [lightboxIndex, prevLightbox, nextLightbox]);
 
-  // Prevent scroll when lightbox open
   useEffect(() => {
     if (lightboxIndex === null) return;
     const original = document.body.style.overflow;
@@ -151,170 +110,169 @@ export default function Gallery() {
     };
   }, [lightboxIndex]);
 
+  const slideOffset = isDesktop
+    ? `calc(-${activeIndex} * (28vw + 2rem))`
+    : `calc(-${activeIndex} * (78vw + 1.25rem))`;
+
   return (
     <section
-      ref={sectionRef}
       data-scroll-section
-      className="relative w-full bg-[#f8f7f4] text-stone-900 py-16 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden"
+      className="relative w-full bg-[#FDFBF7] text-[#3A2D21] py-14 sm:py-20 border-t border-[#DDD4C4] overflow-hidden select-none"
     >
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Heading with subtle entrance */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-16 gap-6 transition-all duration-1000 ease-out ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <div className="max-w-xl text-left">
-            <div className="flex items-center gap-2 mb-2.5">
-             
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-stone-900 leading-[1.12]">
-              Moments of Highland
-            </h2>
-          </div>
-
-          <p className="font-sans text-stone-600 text-xs sm:text-sm font-light max-w-sm leading-relaxed text-left md:text-right">
-            An architectural and experiential glimpse into the suites, dining, celebrations, and wellness sanctuary.
-          </p>
+      {/* Top Bar: Stationary Header + Stationary Pill Controls */}
+      <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 mb-6 sm:mb-8 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2.5">
+          
+          <span className="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[#A1611D] font-bold">
+            Visual Gallery
+          </span>
         </div>
 
-        {/* Parallax Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-          {galleryItems.map((item, index) => {
-            const isWide = item.aspect === "wide";
-            // Calculates individual image translation offset in pixels based on assigned speed
-            const translateY = parallaxProgress * item.speed * 280;
+        {/* Stationary Pill Arrows & Counter */}
+        <div className="flex items-center gap-3.5 sm:gap-4 shrink-0 pointer-events-auto">
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous image"
+            className="w-11 h-8 sm:w-12 sm:h-8 rounded-full bg-[#EAE1D0] hover:bg-[#DDD4C4] text-[#3A2D21] flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+          >
+            <ArrowLeft className="w-4 h-4 stroke-[2]" />
+          </button>
+
+          <span className="font-sans text-xs font-bold tracking-[0.18em] text-[#3A2D21] min-w-[38px] text-center">
+            {activeIndex + 1}/{total}
+          </span>
+
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next image"
+            className="w-11 h-8 sm:w-12 sm:h-8 rounded-full bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shadow-xs"
+          >
+            <ArrowRight className="w-4 h-4 stroke-[2]" />
+          </button>
+        </div>
+      </div>
+
+      {/* ONLY THE IMAGES MOVE INSIDE THIS ISOLATED VIEWPORT */}
+      <div className="relative z-10 w-full overflow-hidden pl-6 sm:pl-12 lg:pl-16">
+        <motion.div
+          animate={{ x: slideOffset }}
+          transition={luxurySpring}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.08}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -50) handleNext();
+            else if (info.offset.x > 50) handlePrev();
+          }}
+          className="flex items-end gap-5 lg:gap-8 will-change-transform transform-gpu cursor-grab active:cursor-grabbing"
+        >
+          {galleryItems.map((item, idx) => {
+            const isActive = idx === activeIndex;
 
             return (
-              <button
+              <motion.div
                 key={item.id}
-                type="button"
-                onClick={() => openLightbox(index)}
-                data-scroll
-                data-scroll-speed={item.speed > 0 ? "1" : "-1"}
-                className={`relative group cursor-pointer overflow-hidden  border border-stone-200 shadow-sm bg-stone-900 h-[320px] sm:h-[400px] text-left transition-all duration-700 ${
-                  isWide
-                    ? "md:col-span-7 lg:col-span-8"
-                    : "md:col-span-5 lg:col-span-4"
-                } ${
-                  isInView
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{
-                  transitionDelay: `${index * 80}ms`,
+                animate={{
+                  width: isDesktop
+                    ? isActive
+                      ? "70vw"
+                      : "28vw"
+                    : isActive
+                    ? "86vw"
+                    : "78vw",
+                  height: isDesktop
+                    ? isActive
+                      ? 570
+                      : 330
+                    : isActive
+                    ? 380
+                    : 260,
+                  opacity: isActive ? 1 : 0.85,
                 }}
-                aria-label={`View ${item.title}`}
+                transition={luxurySpring}
+                onClick={() => {
+                  if (isActive) openLightbox(idx);
+                  else setActiveIndex(idx);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    if (isActive) openLightbox(idx);
+                    else setActiveIndex(idx);
+                  }
+                }}
+                aria-label={item.alt}
+                className="relative shrink-0 rounded-2xl overflow-hidden bg-[#F4EFE6] border border-[#DDD4C4] shadow-md hover:opacity-100 will-change-[width,height] transform-gpu group"
               >
-                {/* Parallax Window: oversized inner container with vertical translation */}
-                <div
-                  className="absolute -top-[15%] left-0 w-full h-[130%] will-change-transform pointer-events-none transition-transform duration-300 ease-out"
-                  style={{
-                    transform: `translate3d(0, ${translateY}px, 0)`,
+                {/* Inner Parallax Counter-Scale so image never stretches during width/height expansion */}
+                <motion.div
+                  animate={{
+                    scale: isActive ? 1 : 1.07,
                   }}
+                  transition={luxurySpring}
+                  className="relative w-full h-full will-change-transform transform-gpu"
                 >
                   <Image
                     src={item.src}
-                    alt={item.title}
+                    alt={item.alt}
                     fill
-                    quality={90}
-                    priority={index <= 1}
-                    className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 850px"
+                    priority={idx <= 2}
+                    quality={95}
+                    draggable={false}
+                    className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-103 pointer-events-none"
+                    sizes="(max-width: 1024px) 86vw, 72vw"
                   />
-                </div>
-
-                {/* Permanent Minimal Number Badge */}
-                <div className="absolute top-5 left-5 z-10">
-                 
-                </div>
-
-                {/* Luxury Hover Overlay & Meta */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 sm:p-7 text-white z-10">
-                  <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 flex items-end justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] font-mono tracking-[0.24em] uppercase text-orange-400 block mb-1">
-                        {item.category}
-                      </span>
-                      <p className="font-serif text-lg sm:text-xl font-light leading-snug">
-                        {item.title}
-                      </p>
-                    </div>
-
-                    <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </div>
-              </button>
+                </motion.div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
 
       {/* Fullscreen Lightbox Modal */}
       {lightboxIndex !== null && galleryItems[lightboxIndex] && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-300"
+          className="fixed inset-0 z-50 bg-[#241B14]/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-300"
           role="dialog"
           aria-modal="true"
           aria-label="Image gallery fullscreen preview"
         >
-          {/* Close Trigger */}
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 text-stone-400 hover:text-white p-2.5 rounded-full bg-stone-900/70 border border-white/10 transition-colors z-50 cursor-pointer"
+            className="absolute top-6 right-6 text-[#FDFBF7] hover:bg-[#A1611D] p-3 rounded-full bg-[#3A2D21]/80 border border-[#FDFBF7]/20 transition-colors z-50 cursor-pointer"
             aria-label="Close gallery"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Previous Arrow */}
           <button
-            onClick={prevImage}
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 text-white p-3 rounded-full bg-stone-900/70 border border-white/10 hover:bg-orange-500 hover:border-orange-500 transition-colors z-50 cursor-pointer"
+            onClick={prevLightbox}
+            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 text-[#FDFBF7] p-3.5 rounded-full bg-[#3A2D21]/80 border border-[#FDFBF7]/20 hover:bg-[#A1611D] hover:border-[#A1611D] transition-colors z-50 cursor-pointer"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* Next Arrow */}
           <button
-            onClick={nextImage}
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 text-white p-3 rounded-full bg-stone-900/70 border border-white/10 hover:bg-orange-500 hover:border-orange-500 transition-colors z-50 cursor-pointer"
+            onClick={nextLightbox}
+            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 text-[#FDFBF7] p-3.5 rounded-full bg-[#3A2D21]/80 border border-[#FDFBF7]/20 hover:bg-[#A1611D] hover:border-[#A1611D] transition-colors z-50 cursor-pointer"
             aria-label="Next image"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
 
-          {/* Active Centered Image Stage */}
-          <div className="relative max-w-5xl w-full h-[75vh] flex flex-col items-center justify-center">
-            <div className="relative w-full h-full">
-              <Image
-                src={galleryItems[lightboxIndex].src}
-                alt={galleryItems[lightboxIndex].title}
-                fill
-                className="object-contain"
-                sizes="95vw"
-                priority
-              />
-            </div>
-
-            {/* Lightbox Footer Meta */}
-            <div className="mt-4 flex items-center justify-between w-full text-stone-300 text-xs sm:text-sm font-sans px-2 gap-4">
-              <div className="flex items-center gap-3 truncate">
-                <span className="text-[10px] font-mono tracking-widest uppercase text-orange-400 bg-white/10 px-2 py-0.5 rounded">
-                  {galleryItems[lightboxIndex].category}
-                </span>
-                <span className="truncate font-serif text-base text-white">
-                  {galleryItems[lightboxIndex].title}
-                </span>
-              </div>
-              <span className="font-mono text-xs text-stone-400 tracking-widest uppercase shrink-0">
-                0{lightboxIndex + 1} / 0{galleryItems.length}
-              </span>
-            </div>
+          <div className="relative max-w-5xl w-full h-[80vh] flex items-center justify-center">
+            <Image
+              src={galleryItems[lightboxIndex].src}
+              alt={galleryItems[lightboxIndex].alt}
+              fill
+              className="object-contain"
+              sizes="95vw"
+              priority
+            />
           </div>
         </div>
       )}

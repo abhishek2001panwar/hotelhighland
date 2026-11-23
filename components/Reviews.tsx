@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { Star, ChevronLeft, ChevronRight, Quote, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, ArrowLeft, ArrowRight, Quote, CheckCircle2 } from "lucide-react";
 
 interface Review {
+  id: string;
   quote: string;
+  highlight: string;
   author: string;
   source: string;
   image: string;
@@ -14,38 +17,48 @@ interface Review {
 
 const reviews: Review[] = [
   {
+    id: "aarav",
     quote:
-      "We recently celebrated our daughter’s engagement at Highland Hotel, and it was an absolutely wonderful experience. From start to finish, the staff went above and beyond to ensure that every detail was perfect. The highlight of the event was undoubtedly the food. It was incredibly tasty, and our guests couldn’t stop raving about it. Every dish was prepared to perfection, offering a delightful culinary experience that truly made the evening special. The venue itself was beautifully decorated and provided a warm and welcoming atmosphere. The event space was spacious yet intimate, allowing everyone to mingle comfortably and enjoy the celebration....",
+      "We recently celebrated our daughter’s engagement at Highland Hotel, and it was an absolutely wonderful experience. From start to finish, the staff went above and beyond to ensure that every detail was perfect. The highlight of the event was undoubtedly the food. It was incredibly tasty, and our guests couldn’t stop raving about it. Every dish was prepared to perfection, offering a delightful culinary experience that truly made the evening special.",
+    highlight: "Engagement Celebration & Banquet",
     author: "Aarav",
-    source: "Guest Review",
+    source: "Verified Google Review",
     context: "Family Celebration & Banquet",
     image: "/test1.webp",
   },
   {
+    id: "mahesh",
     quote:
       "I had the pleasure of staying at Highland Hotel recently, and I was thoroughly impressed by the level of customer service. From the moment I arrived, the staff went out of their way to ensure that my stay was comfortable and enjoyable. They were attentive, courteous, and always ready to assist with any request. Highland Hotel truly knows how to make their guests feel welcome and valued.",
+    highlight: "Attentive Hospitality & Comfort",
     author: "Mahesh",
-    source: "Guest Review",
+    source: "Verified Google Review",
     context: "Executive Leisure Stay",
     image: "/test2.webp",
   },
   {
+    id: "sandeep",
     quote:
-      "Absolutely exceptional experience at the Highland Hotel! From the moment we arrived, the staff went above and beyond to make us feel welcome and comfortable. The rooms were immaculate, spacious, and tastefully decorated. The bed was incredibly comfortable, and the amenities were top-notch. The hotel's location was perfect for exploring the surrounding area, and the views from the Hotel were breathtaking. The food was delicious, and the service was attentive and friendly. What truly sets the Highland Hotel apart, however, is the exceptional service. Every staff member we interacted with was warm, friendly, and went out of their way to...",
+      "Absolutely exceptional experience at the Highland Hotel! From the moment we arrived, the staff went above and beyond to make us feel welcome and comfortable. The rooms were immaculate, spacious, and tastefully decorated. The bed was incredibly comfortable, and the amenities were top-notch. The hotel's location was perfect for exploring the surrounding area, and the views from the Hotel were breathtaking.",
+    highlight: "Immaculate Suites & Breathtaking Views",
     author: "Sandeep Grover",
-    source: "Guest Review",
+    source: "Verified Google Review",
     context: "Weekend Getaway & Dining",
     image: "/test3.webp",
   },
   {
+    id: "nikhil",
     quote:
-      "Newly opened property. The staff is very warm and friendly. Special mention to the executive chef and the floor managers of restaurant. Slightly on the outskirts, but the view and rooms are beautiful. Definitely worth a visit ☀️",
+      "Newly opened property. The staff is very warm and friendly. Special mention to the executive chef and the floor managers of restaurant. Slightly on the outskirts, but the view and rooms are beautiful. Definitely worth a visit.",
+    highlight: "Executive Chef & Scenic Rooms",
     author: "Nikhil Pradhan",
-    source: "Guest Review",
+    source: "Verified Google Review",
     context: "Culinary & Suite Experience",
     image: "/test4.webp",
   },
 ];
+
+const appleEase = [0.16, 1, 0.3, 1] as const;
 
 export default function Reviews() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,8 +66,8 @@ export default function Reviews() {
   const sectionRef = useRef<HTMLElement>(null);
 
   const activeReview = reviews[currentIndex];
+  const total = reviews.length;
 
-  // In-view observer only (no auto-timer)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -67,193 +80,232 @@ export default function Reviews() {
     return () => observer.disconnect();
   }, []);
 
-  const previousReview = () => {
-    setCurrentIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
-  };
+  const previousReview = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
+  }, [total]);
 
-  const nextReview = () => {
-    setCurrentIndex((prev) => (prev + 1) % reviews.length);
-  };
+  const nextReview = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % total);
+  }, [total]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#f8f7f4] text-stone-900 py-24 sm:py-32 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 overflow-hidden selection:bg-orange-500/20"
+      className="relative w-full bg-[#FDFBF7] text-[#3A2D21] py-12 sm:py-16 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4] overflow-hidden selection:bg-[#A1611D]/20"
     >
       <div className="max-w-7xl mx-auto">
-        
-        {/* Editorial Section Header */}
+        {/* ================= COMPACT EDITORIAL HEADER ================= */}
         <div
-          className={`flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-20 gap-6 transition-all duration-1000 ease-out ${
-            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 pb-4 border-b border-[#DDD4C4] gap-4 transition-all duration-1000 ease-out ${
+            isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
           <div className="max-w-xl text-left">
-            <div className="flex items-center gap-2 mb-2.5">
-           
-              <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-stone-500 font-medium">
-                Guest Impressions
+            <div className="flex items-center gap-2.5 mb-1.5">
+              
+              <p className="font-sans text-[11px] tracking-[0.28em] uppercase text-[#A1611D] font-bold">
+                Guest Impressions &bull; Verified Stays
               </p>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-stone-900 leading-[1.12]">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-[#3A2D21] leading-tight">
               A Stay They Remember
             </h2>
           </div>
 
-          {/* Minimal Verified Rating Pill */}
-          <div className="flex items-center gap-3 bg-white border border-stone-200/90 px-4 py-2.5 rounded-full w-fit shadow-xs">
+          {/* Warm Sandstone Rating Badge */}
+          <div className="flex items-center gap-3 bg-[#F4EFE6] border border-[#DDD4C4] px-4 py-2 rounded-full w-fit shadow-2xs">
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className="w-3.5 h-3.5 fill-orange-500 text-orange-500"
+                  className="w-3 h-3 fill-[#A1611D] text-[#A1611D]"
                 />
               ))}
             </div>
 
-            <div className="flex items-center gap-1.5 font-sans text-xs">
-              <span className="font-semibold text-stone-900">4.7</span>
-              <span className="text-stone-300">&bull;</span>
-              <span className="text-stone-600 font-light text-[11px]">540+ Google Reviews</span>
+            <div className="flex items-center gap-2 font-sans text-xs">
+              <span className="font-bold text-[#3A2D21]">4.7 / 5</span>
+              <span className="text-[#A1611D]">&bull;</span>
+              <span className="text-[#5A4A3B] font-semibold">
+                540+ Google Reviews
+              </span>
             </div>
           </div>
         </div>
 
-        {/* 2-Column Editorial Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* ================= COMPACT 2-COLUMN SHOWCASE ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
           
-          {/* Left Column: Flowing Testimonial */}
-          <div className="lg:col-span-8 flex flex-col justify-between text-left">
-            <Quote className="w-10 h-10 text-orange-500/30 mb-6 -scale-x-100 stroke-[1.5]" />
+          {/* LEFT: COMPACT TESTIMONIAL CARD (7 Cols) */}
+          <div className="lg:col-span-7 bg-[#F4EFE6] rounded-2xl border border-[#DDD4C4] p-6 sm:p-8 flex flex-col justify-between shadow-xs">
+            <div>
+              {/* Top Quote Icon + Highlight Tag */}
+              <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+                <div className="w-9 h-9 rounded-full bg-[#FDFBF7] border border-[#DDD4C4] flex items-center justify-center text-[#A1611D]">
+                  <Quote className="w-4 h-4 -scale-x-100 stroke-[2]" />
+                </div>
 
-            {/* Keyed Dynamic Quote with Smooth In-Place Fade */}
-            <div className="min-h-[220px] sm:min-h-[200px] flex items-center">
-              <div
-                key={currentIndex}
-                className="animate-in fade-in duration-500 fill-mode-both"
-              >
-                <blockquote className="font-serif text-xl sm:text-2xl md:text-[26px] font-light text-stone-800 leading-[1.42] tracking-tight">
-                  &ldquo;{activeReview.quote}&rdquo;
-                </blockquote>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={`badge-${activeReview.id}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.3, ease: appleEase }}
+                    className="inline-flex items-center gap-1.5 bg-[#FDFBF7] border border-[#DDD4C4] text-[#A1611D] px-3 py-1 rounded-full font-sans text-[10px] font-bold uppercase tracking-[0.16em]"
+                  >
+                    <CheckCircle2 className="w-3 h-3 stroke-[2.2]" />
+                    <span>{activeReview.highlight}</span>
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+
+              {/* Quote Body */}
+              <div className="min-h-[125px] sm:min-h-[115px] flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.blockquote
+                    key={activeReview.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.4, ease: appleEase }}
+                    className="font-serif text-base sm:text-lg md:text-[19px] font-medium text-[#3A2D21] leading-[1.5] tracking-wide line-clamp-5"
+                  >
+                    &ldquo;{activeReview.quote}&rdquo;
+                  </motion.blockquote>
+                </AnimatePresence>
               </div>
             </div>
 
-            {/* Stars */}
-            <div className="flex items-center gap-1.5 my-7">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-3.5 h-3.5 fill-orange-500 text-orange-500"
-                />
-              ))}
-            </div>
+            {/* Bottom Author Meta + Pill Controls */}
+            <div className="mt-5 pt-4 border-t border-[#DDD4C4] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`author-${activeReview.id}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex items-center gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-3 h-3 fill-[#A1611D] text-[#A1611D]"
+                      />
+                    ))}
+                  </div>
+                  <p className="font-serif text-lg sm:text-xl font-bold text-[#3A2D21] tracking-wide leading-tight">
+                    {activeReview.author}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+                    <span className="font-sans text-[10px] font-bold text-[#5A4A3B] uppercase tracking-wider">
+                      {activeReview.source}
+                    </span>
+                    <span className="text-[#A1611D] text-xs">&bull;</span>
+                    <span className="font-sans text-[11px] text-[#A1611D] font-bold tracking-wide">
+                      {activeReview.context}
+                    </span>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
 
-            {/* Author Meta & Manual Navigation Controls */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-stone-300/80">
-              <div key={`author-${currentIndex}`} className="animate-in fade-in duration-400">
-                <p className="font-serif text-xl font-normal text-stone-900">
-                  {activeReview.author}
-                </p>
-                <div className="flex items-center gap-2 mt-0.5">
-                  <span className="font-mono text-[10px] text-stone-400 uppercase tracking-widest">
-                    {activeReview.source}
-                  </span>
-                  <span className="text-stone-300 text-xs">&bull;</span>
-                  <span className="font-sans text-[11px] text-orange-600 font-medium">
-                    {activeReview.context}
-                  </span>
-                </div>
-              </div>
+              {/* Pill Navigation Buttons */}
+              <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
+                <button
+                  type="button"
+                  onClick={previousReview}
+                  aria-label="Previous review"
+                  className="w-10 h-8 rounded-full bg-[#FDFBF7] hover:bg-[#EAE1D0] border border-[#DDD4C4] text-[#3A2D21] flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 stroke-[2]" />
+                </button>
 
-              {/* Slider Controls & Number Index */}
-              <div className="flex items-center gap-4 self-start sm:self-center">
-               
+                <span className="font-sans text-xs font-bold tracking-[0.18em] text-[#3A2D21] min-w-[34px] text-center">
+                  {currentIndex + 1}/{total}
+                </span>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={previousReview}
-                    className="w-10 h-10 rounded-full border border-stone-300 bg-white hover:bg-stone-900 hover:border-stone-900 hover:text-white flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs active:scale-95"
-                    aria-label="Previous review"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-
-                  <button
-                    onClick={nextReview}
-                    className="w-10 h-10 rounded-full border border-stone-300 bg-white hover:bg-stone-900 hover:border-stone-900 hover:text-white flex items-center justify-center transition-all duration-300 cursor-pointer shadow-xs active:scale-95"
-                    aria-label="Next review"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={nextReview}
+                  aria-label="Next review"
+                  className="w-10 h-8 rounded-full bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shadow-xs"
+                >
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2]" />
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Curated High-DPI Visual Canvas */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[340px] h-[450px] rounded-2xl overflow-hidden border border-stone-200/90 shadow-xl bg-stone-900">
-              {reviews.map((review, index) => {
-                const isActive = index === currentIndex;
-                return (
-                  <div
-                    key={index}
-                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                      isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                    }`}
-                  >
-                    <Image
-                      src={review.image}
-                      alt={`Highland Hotel impression by ${review.author}`}
-                      fill
-                      quality={95}
-                      priority={index === 0}
-                      className="object-cover object-center"
-                      sizes="340px"
-                    />
-                  </div>
-                );
-              })}
+          {/* RIGHT: COMPACT PHOTO CARD + SELECTOR PILLS (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between gap-3">
+            <div className="relative w-full h-[240px] sm:h-[260px] lg:flex-1 rounded-2xl overflow-hidden border border-[#DDD4C4] shadow-sm bg-[#3A2D21]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeReview.image}
+                  initial={{ opacity: 0.3, scale: 1.03 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0.3 }}
+                  transition={{ duration: 0.6, ease: appleEase }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={activeReview.image}
+                    alt={`Highland Hotel impression by ${activeReview.author}`}
+                    fill
+                    quality={95}
+                    priority
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
 
-              {/* Editorial Gradient Mask */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20" />
+              {/* Warm Espresso Bronze Bottom Scrim */}
+              <div
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(44, 34, 24, 0.85) 0%, rgba(44, 34, 24, 0.2) 48%, rgba(44, 34, 24, 0) 78%)",
+                }}
+              />
 
               {/* Bottom Inset Label */}
-              <div className="absolute bottom-6 left-6 right-6 text-white text-left z-30">
-                <span className="text-[10px] font-mono tracking-[0.24em] uppercase text-orange-400 block mb-1">
-                  Verified Stay
+              <div className="absolute bottom-4 left-5 right-5 text-[#FDFBF7] text-left z-20">
+                <span className="text-[10px] font-sans font-bold tracking-[0.24em] uppercase text-[#E5C99B] block mb-0.5">
+                  Guest Experience &bull; 0{currentIndex + 1}
                 </span>
-                <p className="font-serif text-lg font-light leading-snug">
-                  Highland Hotel Bengaluru
+                <p className="font-serif text-lg sm:text-xl font-bold leading-snug tracking-wide text-[#FDFBF7]">
+                  {activeReview.context}
                 </p>
               </div>
+            </div>
+
+            {/* Interactive Guest Selector Pills */}
+            <div className="grid grid-cols-4 gap-2">
+              {reviews.map((rev, idx) => {
+                const isActive = idx === currentIndex;
+                return (
+                  <button
+                    key={rev.id}
+                    type="button"
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`py-2 px-2 rounded-lg border text-center transition-all duration-300 cursor-pointer ${
+                      isActive
+                        ? "bg-[#A1611D] border-[#A1611D] text-[#FDFBF7] shadow-xs"
+                        : "bg-[#F4EFE6] border-[#DDD4C4] text-[#3A2D21] hover:border-[#A1611D]"
+                    }`}
+                  >
+                    <span className="font-sans text-[11px] font-bold tracking-wide block truncate">
+                      {rev.author.split(" ")[0]}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
         </div>
-
-        {/* Minimal Dash Progress Indicators (Click to jump) */}
-        <div className="flex justify-center lg:justify-start mt-12">
-          <div className="flex items-center gap-2">
-            {reviews.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Jump to review ${index + 1}`}
-                className="py-2 cursor-pointer focus:outline-none group"
-              >
-                <span
-                  className={`block h-[2px] rounded-full transition-all duration-500 ${
-                    index === currentIndex
-                      ? "w-8 bg-orange-500"
-                      : "w-3 bg-stone-300 group-hover:bg-stone-400"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-
       </div>
     </section>
   );

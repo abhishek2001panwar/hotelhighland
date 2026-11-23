@@ -2,52 +2,52 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 
 export default function FinalCTA() {
   return (
-    <section className="relative w-full bg-[#f4f1ea] text-stone-900 py-20 px-6 sm:px-12 lg:px-20 border-t border-stone-200/80 text-center overflow-hidden">
+    <section className="relative w-full bg-[#F4EFE6] text-[#3A2D21] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4] text-center overflow-hidden">
       <div className="max-w-2xl mx-auto flex flex-col items-center">
         
-        {/* Minimalist Organic Emblem */}
-        {/* <div className="mb-8 select-none text-stone-800">
-         <div className="relative w-44 h-14 mb-8">
-                    <Image
-                      src="https://highlandhotel.in/wp-content/uploads/2023/08/Untitled-design-24.png"
-                      alt="Highland Hotel Bengaluru Logo"
-                      fill
-                      className="object-contain  "
-                      sizes="176px"
-                    />
-                  </div>
-        </div> */}
+        {/* Subtle Gold Eyebrow */}
+        <div className="flex items-center gap-2.5 mb-3">
+          
+          <p className="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[#A1611D] font-bold">
+            Highland Hotel &bull; North Bangalore
+          </p>
+          
+        </div>
 
-        {/* Serif Headline with Highland Identity */}
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-stone-900 tracking-tight leading-tight mb-4">
+        {/* Bold Serif Headline */}
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A2D21] tracking-tight leading-tight mb-4">
           Plan Your Stay at Highland
         </h2>
 
-        {/* Highland Supporting Narrative */}
-        <p className="font-sans text-stone-600 text-xs sm:text-sm md:text-[15px] font-light leading-relaxed max-w-lg mb-8">
-          Whether you are reserving a suite, planning a wedding at Utsava, or seeking authentic Ayurvedic rejuvenation in North Bangalore, our hospitality team is here to assist.
+        {/* Supporting Narrative with Bolded Services & Facilities */}
+        <p className="font-sans text-[#5A4A3B] text-xs sm:text-sm md:text-[15px] font-normal leading-relaxed max-w-lg mb-8">
+          Whether you are reserving a{" "}
+          <strong className="font-bold text-[#3A2D21]">Luxury Suite</strong>, planning a wedding at{" "}
+          <strong className="font-bold text-[#3A2D21]">Utsava Banquet Hall</strong>, or seeking{" "}
+          <strong className="font-bold text-[#3A2D21]">KEVA Ayurvedic Rejuvenation</strong> in North Bangalore, our hospitality team is here to assist.
         </p>
 
-        {/* Minimal Pill CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        {/* #A1611D Primary Pill Button & Warm Ivory Secondary Button */}
+        <div className="flex flex-wrap items-center justify-center gap-3.5">
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 bg-black hover:bg-stone-800 text-white font-sans text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-8 py-3.5 rounded-full transition-all duration-200 shadow-sm"
+            className="group inline-flex items-center gap-2 bg-[#A1611D]  text-[#FDFBF7] font-sans text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
           >
             <span>Get In Touch</span>
-            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="w-4 h-4 stroke-[2.2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
 
-          <Link
+          <a
             href="https://bookings.resavenue.com/resBooking/availsearch?regCode=VTGA0517"
-            className="inline-flex items-center gap-2 bg-transparent hover:bg-stone-200/50 border border-stone-300 text-stone-800 font-sans text-[11px] sm:text-xs uppercase tracking-[0.22em] font-medium px-8 py-3.5 rounded-full transition-colors duration-200"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#FDFBF7] hover:bg-white border border-[#A1611D]/45 hover:border-[#A1611D] text-[#3A2D21] font-sans text-xs uppercase tracking-[0.2em] font-bold px-8 py-4 rounded-full transition-all duration-200 shadow-2xs active:scale-[0.98]"
           >
             <span>Book Your Stay</span>
-          </Link>
+          </a>
         </div>
 
       </div>

@@ -2,10 +2,8 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  Sparkles,
   Phone,
   Mail,
   ArrowUpRight,
@@ -19,14 +17,9 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
-const heroBg =
-  "/yoga/hero.webp";
-
-const naturopathyImg =
-  "/yoga/1.webp";
-
-const yogaImg =
-  "/yoga/2.webp";
+const heroBg = "/yoga/hero.webp";
+const naturopathyImg = "/yoga/1.webp";
+const yogaImg = "/yoga/2.webp";
 
 const servicesList = [
   "Personalized Naturopathic Consultations",
@@ -171,9 +164,9 @@ export default function YogaNaturopathyPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FDFBF7] text-[#1B1917] antialiased selection:bg-[#1B1917] selection:text-[#FDFBF7] overflow-x-hidden">
+    <main className="min-h-screen bg-[#FDFBF7] text-[#3A2D21] antialiased selection:bg-[#A1611D]/20 selection:text-[#3A2D21] overflow-x-hidden">
       {/* =========================================================
-          01 - PARALLAX HERO
+          01 - PARALLAX HERO (ZERO BLACK/RED, BOLD CONTACT, #A1611D CTA)
       ========================================================== */}
       <Navbar />
 
@@ -196,54 +189,62 @@ export default function YogaNaturopathyPage() {
           />
         </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20 pointer-events-none z-10" />
+        {/* Warm Espresso Bronze Scrim (Zero Black) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(44, 34, 24, 0.88) 0%, rgba(44, 34, 24, 0.4) 45%, rgba(44, 34, 24, 0.18) 100%)",
+          }}
+        />
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="relative z-20 w-full max-w-8xl mx-auto px-6 sm:px-12 lg:px-20 pb-16 sm:pb-20 text-white"
+          className="relative z-20 w-full max-w-[1720px] mx-auto px-6 sm:px-12 lg:px-20 pb-16 sm:pb-20 text-[#FDFBF7]"
         >
-          <div className="flex items-center gap-2 mb-4">
-          
-            <p className="font-sans text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-white/80 font-medium">
-              Holistic Nature Care
+          <div className="flex items-center gap-2.5 mb-4">
+           
+            <p className="font-sans text-[11px] sm:text-xs tracking-[0.32em] uppercase text-[#E5C99B] font-bold">
+              KEVA Wellness &bull; Holistic Nature Care
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-normal leading-[1.05] tracking-[-0.03em] drop-shadow-md">
+              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-bold leading-[1.05] tracking-wide drop-shadow-sm">
                 Yoga, Naturopathy <br />
-                <span className="italic font-light text-stone-200">
+                <span className="italic font-light text-[#F4EFE6]">
                   &amp; Acupuncture
                 </span>
               </h1>
             </div>
 
             <div className="lg:col-span-4 lg:text-right">
-              <p className="font-serif italic text-lg sm:text-xl text-stone-200 font-light leading-relaxed">
+              <p className="font-serif italic text-lg sm:text-xl text-[#F4EFE6] font-semibold leading-relaxed tracking-wide">
                 &ldquo;Cultivating strength, balance, and the innate power to heal.&rdquo;
               </p>
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-stone-200">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          {/* Bold Appointment Strip & #A1611D Button */}
+          <div className="mt-10 pt-6 border-t border-[#FDFBF7]/20 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-sans text-[#F4EFE6]">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-bold tracking-wide">
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-white/70 shrink-0" />
-                <span>Appointment:</span>
+                <Phone className="w-4 h-4 text-[#E5C99B] shrink-0" />
+                <span className="text-[#E5C99B]">Appointment:</span>
                 <a
                   href="tel:+919035034425"
-                  className="text-white hover:text-stone-300 transition-colors font-medium"
+                  className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors"
                 >
                   +91-9035034425
                 </a>
               </div>
 
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-white/70 shrink-0" />
+                <Mail className="w-4 h-4 text-[#E5C99B] shrink-0" />
                 <a
                   href="mailto:kevahesarghatta@kevaayurveda.com"
-                  className="text-white hover:text-stone-300 transition-colors font-medium"
+                  className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors"
                 >
                   kevahesarghatta@kevaayurveda.com
                 </a>
@@ -252,22 +253,22 @@ export default function YogaNaturopathyPage() {
 
             <a
               href="tel:+919035034425"
-              className="inline-flex items-center gap-2 bg-white text-[#1B1917] hover:bg-stone-100 px-6 py-2.5 rounded-sm font-sans text-[10px] uppercase tracking-[0.22em] font-medium transition-all shadow-sm"
+              className="inline-flex items-center gap-2 bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all shadow-md active:scale-95"
             >
               <span>Get an Appointment</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[1.8]" />
+              <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
             </a>
           </div>
         </motion.div>
       </section>
 
       {/* =========================================================
-          02 - NATUROPATHY (PRESERVES TRUE IMAGE RATIO)
+          02 - NATUROPATHY (WIDE TRACKING & BOLD HIGHLIGHTS)
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-          <div className="lg:col-span-5 relative w-full rounded-lg overflow-hidden bg-[#F2EDE4] border border-[#E5E0D5] p-3 shadow-xs">
-            <div className="relative w-full aspect-[4/3] rounded overflow-hidden">
+          <div className="lg:col-span-5 relative w-full rounded-xl overflow-hidden bg-[#F4EFE6] border border-[#DDD4C4] p-3 shadow-xs">
+            <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
               <Image
                 src={naturopathyImg}
                 alt="Naturopathy treatments at Highland Hotel"
@@ -281,30 +282,37 @@ export default function YogaNaturopathyPage() {
 
           <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center gap-2">
-              <Leaf className="w-4 h-4 text-[#7A6E58]" />
-              <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] font-medium">
+              <Leaf className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
                 Innate Healing
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#1B1917] font-normal leading-[1.12]">
+            <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
               Naturopathy
             </h2>
 
-            <p className="font-sans text-[#1B1917]/80 text-sm sm:text-base font-light leading-relaxed">
-              Highland Hotel embraces the principles of naturopathic medicine, offering guests a natural and holistic approach to health and well-being. Our team of naturopathic practitioners combines modern scientific knowledge with traditional healing wisdom to address a wide range of health concerns and promote optimal wellness.
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              Highland Hotel embraces the principles of{" "}
+              <strong className="font-bold text-[#3A2D21]">naturopathic medicine</strong>, offering guests a natural and holistic approach to health and well-being. Our team of{" "}
+              <strong className="font-bold text-[#3A2D21]">certified naturopathic practitioners</strong> combines modern scientific knowledge with traditional healing wisdom to address a wide range of health concerns.
             </p>
 
-            <p className="font-sans text-[#1B1917]/70 text-sm sm:text-base font-light leading-relaxed">
-              Through personalized consultations, dietary guidance, herbal remedies, hydrotherapy, and lifestyle counseling, we empower individuals to take charge of their health and harness the body’s innate ability to heal itself.
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              Through{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                personalized consultations, dietary guidance, herbal remedies, hydrotherapy, and lifestyle counseling
+              </strong>
+              , we empower individuals to take charge of their health and harness the body’s innate ability to heal itself.
             </p>
 
-            <p className="font-sans text-[#1B1917]/70 text-sm sm:text-base font-light leading-relaxed">
-              Whether you’re seeking relief from chronic conditions, striving to boost your immune system, or simply aiming to enhance your overall vitality, our naturopathic services provide a supportive environment for holistic healing and holistic transformation.
+            <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+              Whether you’re seeking relief from chronic conditions, striving to boost your immune system, or enhancing overall vitality, our naturopathic services provide a supportive environment for{" "}
+              <strong className="font-bold text-[#3A2D21]">holistic healing and transformation</strong>.
             </p>
 
-            <div className="pt-4 border-t border-[#E5E0D5] flex items-center gap-6 font-sans text-[11px] uppercase tracking-wider text-[#1B1917]/50">
-              <span>Hydrotherapy</span>
+            <div className="pt-4 border-t border-[#DDD4C4] flex flex-wrap items-center gap-4 sm:gap-6 font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#A1611D]">
+              <span>Hydrotherapy &amp; Steam</span>
               <span>&bull;</span>
               <span>Dietary Guidance</span>
               <span>&bull;</span>
@@ -315,13 +323,13 @@ export default function YogaNaturopathyPage() {
       </section>
 
       {/* =========================================================
-          03 - YOGA (PRESERVES TRUE IMAGE RATIO)
+          03 - YOGA (WIDE TRACKING & BOLD HIGHLIGHTS)
       ========================================================== */}
-      <section className="bg-[#F7F4EE] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-y border-[#E8E2D6]">
+      <section className="bg-[#F4EFE6] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-y border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-            <div className="lg:col-span-5 relative w-full rounded-lg overflow-hidden bg-[#EFE9DD] border border-[#E0D9CB] p-3 shadow-xs">
-              <div className="relative w-full aspect-[4/3] rounded overflow-hidden">
+            <div className="lg:col-span-5 relative w-full rounded-xl overflow-hidden bg-[#FDFBF7] border border-[#DDD4C4] p-3 shadow-xs">
+              <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
                   src={yogaImg}
                   alt="Yoga sessions at Highland Hotel"
@@ -335,34 +343,41 @@ export default function YogaNaturopathyPage() {
 
             <div className="lg:col-span-7 space-y-6">
               <div className="flex items-center gap-2">
-                <Sun className="w-4 h-4 text-[#7A6E58]" />
-                <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] font-medium">
+                <Sun className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
+                <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
                   Mind &bull; Body &bull; Soul
                 </span>
               </div>
 
-              <h2 className="font-serif text-3xl sm:text-5xl text-[#1B1917] font-normal leading-[1.12]">
+              <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
                 Yoga
               </h2>
 
-              <p className="font-sans text-[#1B1917]/80 text-sm sm:text-base font-light leading-relaxed">
-                Elevate your wellness journey at Highland Hotel with our comprehensive yoga program designed to nurture body, mind, and soul. Led by certified instructors in serene studio spaces or amidst the tranquil beauty of nature, our yoga sessions cater to practitioners of all levels, from beginners to advanced yogis.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Elevate your wellness journey at Highland Hotel with our{" "}
+                <strong className="font-bold text-[#3A2D21]">comprehensive yoga program</strong> designed to nurture body, mind, and soul. Led by{" "}
+                <strong className="font-bold text-[#3A2D21]">certified instructors</strong> in serene studio spaces or amidst the tranquil greenery of North Bangalore, our sessions cater to all levels.
               </p>
 
-              <p className="font-sans text-[#1B1917]/70 text-sm sm:text-base font-light leading-relaxed">
-                Experience the transformative power of asanas, pranayama, and meditation as you cultivate strength, flexibility, and inner peace.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Experience the transformative power of{" "}
+                <strong className="font-bold text-[#3A2D21]">
+                  classical asanas, pranayama breathwork, and guided meditation
+                </strong>{" "}
+                as you cultivate strength, flexibility, and inner peace.
               </p>
 
-              <p className="font-sans text-[#1B1917]/70 text-sm sm:text-base font-light leading-relaxed">
-                Whether you’re seeking to enhance your physical fitness, alleviate stress, or embark on a spiritual quest, our diverse array of yoga classes and workshops offer a sanctuary for self-discovery and personal growth.
+              <p className="font-sans text-[#5A4A3B] text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+                Whether you’re seeking to enhance your physical fitness, alleviate stress, or embark on a restorative retreat, our yoga classes and workshops offer a sanctuary for{" "}
+                <strong className="font-bold text-[#3A2D21]">self-discovery and personal renewal</strong>.
               </p>
 
-              <div className="pt-4 border-t border-[#E0D9CB] flex items-center gap-6 font-sans text-[11px] uppercase tracking-wider text-[#1B1917]/50">
+              <div className="pt-4 border-t border-[#DDD4C4] flex flex-wrap items-center gap-4 sm:gap-6 font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#A1611D]">
                 <span>Asanas &amp; Alignment</span>
                 <span>&bull;</span>
-                <span>Pranayama</span>
+                <span>Pranayama Breathwork</span>
                 <span>&bull;</span>
-                <span>Inner Peace</span>
+                <span>Guided Meditation</span>
               </div>
             </div>
           </div>
@@ -370,19 +385,19 @@ export default function YogaNaturopathyPage() {
       </section>
 
       {/* =========================================================
-          04 - TESTIMONIALS SLIDER (WARM PARCHMENT BG & AMBER STARS)
+          04 - TESTIMONIALS SLIDER (#A1611D ACCENTS & CONTROLS)
       ========================================================== */}
-      <section className="bg-[#f2eee5] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-b border-stone-300/70 select-none">
+      <section className="bg-[#FDFBF7] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-b border-[#DDD4C4] select-none">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8C7A5B] block mb-2 font-medium">
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
                 Guest Reflections
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl text-stone-900 font-normal">
+              <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold tracking-wide">
                 Our Testimonials
               </h2>
-              <p className="font-sans text-stone-600 text-sm font-light mt-2 max-w-xl">
+              <p className="font-sans text-[#5A4A3B] text-sm font-medium mt-2 max-w-xl tracking-wide">
                 Real reflections from guests who experienced holistic recovery, therapies, and care at our wellness center.
               </p>
             </div>
@@ -391,16 +406,16 @@ export default function YogaNaturopathyPage() {
               <button
                 onClick={handlePrev}
                 aria-label="Previous Testimonials"
-                className="w-10 h-10 rounded-full border border-stone-300/90 bg-white hover:bg-stone-900 hover:text-white hover:border-stone-900 text-stone-800 flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="w-11 h-11 rounded-full border border-[#DDD4C4] bg-[#F4EFE6] hover:bg-[#A1611D] hover:text-[#FDFBF7] hover:border-[#A1611D] text-[#3A2D21] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <ArrowLeft className="w-4 h-4 stroke-[1.8]" />
+                <ArrowLeft className="w-4 h-4 stroke-[2.2]" />
               </button>
               <button
                 onClick={handleNext}
                 aria-label="Next Testimonials"
-                className="w-10 h-10 rounded-full border border-stone-300/90 bg-white hover:bg-stone-900 hover:text-white hover:border-stone-900 text-stone-800 flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
+                className="w-11 h-11 rounded-full border border-[#DDD4C4] bg-[#F4EFE6] hover:bg-[#A1611D] hover:text-[#FDFBF7] hover:border-[#A1611D] text-[#3A2D21] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                <ArrowRight className="w-4 h-4 stroke-[1.8]" />
+                <ArrowRight className="w-4 h-4 stroke-[2.2]" />
               </button>
             </div>
           </div>
@@ -417,27 +432,27 @@ export default function YogaNaturopathyPage() {
             {allTestimonials.map((t, idx) => (
               <div
                 key={idx}
-                className="shrink-0 snap-start w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-white p-7 sm:p-8 rounded-2xl border border-stone-300/80 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
+                className="shrink-0 snap-start w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] bg-[#F4EFE6] p-7 sm:p-8 rounded-2xl border border-[#DDD4C4] shadow-xs flex flex-col justify-between hover:border-[#A1611D] hover:shadow-md transition-all duration-300"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-[#C49A45] mb-4">
+                  <div className="flex items-center gap-1 text-[#A1611D] mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
 
-                  <Quote className="w-5 h-5 text-stone-300 mb-3" />
+                  <Quote className="w-5 h-5 text-[#A1611D]/40 mb-3" />
 
-                  <p className="font-serif text-base text-stone-800 font-normal leading-relaxed italic mb-6">
+                  <p className="font-serif text-base text-[#3A2D21] font-medium leading-relaxed italic tracking-wide mb-6">
                     &ldquo;{t.quote}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-stone-200 flex items-center justify-between">
-                  <p className="font-sans text-xs uppercase tracking-wider text-stone-900 font-semibold">
+                <div className="pt-4 border-t border-[#DDD4C4] flex items-center justify-between">
+                  <p className="font-sans text-xs uppercase tracking-wider text-[#3A2D21] font-bold">
                     {t.author}
                   </p>
-                  <p className="font-mono text-[10px] text-stone-400">
+                  <p className="font-sans text-xs font-bold text-[#A1611D]">
                     {t.location}
                   </p>
                 </div>
@@ -445,7 +460,7 @@ export default function YogaNaturopathyPage() {
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-2 mt-8">
+          <div className="flex items-center justify-center gap-2.5 mt-8">
             {Array.from({ length: maxPages }).map((_, pageIdx) => (
               <button
                 key={pageIdx}
@@ -453,8 +468,8 @@ export default function YogaNaturopathyPage() {
                 aria-label={`Go to slide ${pageIdx + 1}`}
                 className={`transition-all duration-300 cursor-pointer rounded-full ${
                   activeSlide === pageIdx
-                    ? "w-8 h-2 bg-[#8C7A5B]"
-                    : "w-2 h-2 bg-stone-300 hover:bg-stone-400"
+                    ? "w-8 h-2 bg-[#A1611D]"
+                    : "w-2 h-2 bg-[#3A2D21]/25 hover:bg-[#A1611D]/60"
                 }`}
               />
             ))}
@@ -463,19 +478,19 @@ export default function YogaNaturopathyPage() {
       </section>
 
       {/* =========================================================
-          05 - SERVICES GRID
+          05 - SERVICES GRID (BOLD SERVICES & FACILITIES)
       ========================================================== */}
-      <section className="bg-[#F7F4EE] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-b border-[#E8E2D6]">
+      <section className="bg-[#F4EFE6] py-20 sm:py-28 px-6 sm:px-12 lg:px-20 border-b border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12">
-            <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] block mb-2 font-medium">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
               Comprehensive Care
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#1B1917] font-normal">
-              Services
+            <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold tracking-wide">
+              Wellness Services
             </h2>
-            <p className="font-sans text-[#1B1917]/70 text-sm font-light mt-2">
-              Holistic therapies combining ancient Indian sciences with naturopathic restoration.
+            <p className="font-sans text-[#5A4A3B] text-sm font-medium mt-2 tracking-wide">
+              Holistic therapies combining <strong className="font-bold text-[#3A2D21]">ancient Indian sciences</strong> with <strong className="font-bold text-[#3A2D21]">naturopathic restoration</strong>.
             </p>
           </div>
 
@@ -483,10 +498,10 @@ export default function YogaNaturopathyPage() {
             {servicesList.map((service, index) => (
               <div
                 key={index}
-                className="bg-[#FDFBF7] p-5 rounded border border-[#E5E0D5] shadow-2xs flex items-start gap-3"
+                className="bg-[#FDFBF7] p-5 rounded-xl border border-[#DDD4C4] hover:border-[#A1611D] transition-colors shadow-2xs flex items-start gap-3"
               >
-                <CheckCircle2 className="w-4 h-4 text-[#7A6E58] shrink-0 mt-0.5" />
-                <span className="font-serif text-base text-[#1B1917] font-normal leading-snug">
+                <CheckCircle2 className="w-4 h-4 text-[#A1611D] stroke-[2.2] shrink-0 mt-1" />
+                <span className="font-serif text-base text-[#3A2D21] font-bold leading-snug tracking-wide">
                   {service}
                 </span>
               </div>
@@ -496,65 +511,67 @@ export default function YogaNaturopathyPage() {
       </section>
 
       {/* =========================================================
-          06 - LIGHT PARCHMENT CONTACT & FOOTER STRIP
+          06 - LIGHT PARCHMENT CONTACT & FOOTER STRIP (#A1611D CTA)
       ========================================================== */}
-      <section className="bg-[#F2ECE1] text-[#1B1917] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DFD8CA]">
+      <section className="bg-[#FDFBF7] text-[#3A2D21] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#DDD4C4]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-12 border-b border-[#D8D0C0]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-12 border-b border-[#DDD4C4]">
             <div className="lg:col-span-5">
-              <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-[#7A6E58] block mb-2 font-medium">
+              <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2 font-bold">
                 Connect &bull; Wellness Desk
               </span>
-              <h3 className="font-serif text-3xl sm:text-4xl text-[#1B1917] font-normal mb-3">
+              <h3 className="font-serif text-3xl sm:text-4xl text-[#3A2D21] font-bold tracking-wide mb-3">
                 Contact Info
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-[#1B1917]/75 font-light leading-relaxed">
-                Connect with our certified Ayurvedic, Naturopathy, and Yoga practitioners for consultations, appointment scheduling, and retreat stays.
+              <p className="font-sans text-xs sm:text-sm text-[#5A4A3B] font-medium leading-relaxed tracking-wide">
+                Connect with our <strong className="font-bold text-[#3A2D21]">certified Ayurvedic, Naturopathy, and Yoga practitioners</strong> for consultations, appointment scheduling, and retreat stays.
               </p>
             </div>
 
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-xs font-sans text-[#1B1917]/80">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 text-xs font-sans text-[#3A2D21]">
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[#1B1917] font-sans uppercase tracking-widest text-[11px] font-semibold">
-                  <Phone className="w-3.5 h-3.5 text-[#7A6E58]" />
+                <div className="flex items-center gap-2 text-[#A1611D] font-sans uppercase tracking-widest text-xs font-bold">
+                  <Phone className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
                   <span>Telephone</span>
                 </div>
-                <p className="text-[#1B1917] text-sm font-medium">
-                  <a href="tel:+919035034425" className="hover:underline">
+                <p className="text-[#3A2D21] text-base sm:text-lg font-bold tracking-wide">
+                  <a href="tel:+919035034425" className="hover:text-[#A1611D] transition-colors">
                     +91-9035034425
                   </a>
                 </p>
-                <p className="text-[11px] text-[#1B1917]/60 font-light">
+                <p className="text-xs text-[#5A4A3B] font-semibold">
                   Prior appointment recommended for clinical consultations.
                 </p>
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[#1B1917] font-sans uppercase tracking-widest text-[11px] font-semibold">
-                  <Mail className="w-3.5 h-3.5 text-[#7A6E58]" />
+                <div className="flex items-center gap-2 text-[#A1611D] font-sans uppercase tracking-widest text-xs font-bold">
+                  <Mail className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
                   <span>Email</span>
                 </div>
-                <p className="text-[#1B1917] text-sm font-medium">
+                <p className="text-[#3A2D21] text-sm sm:text-base font-bold break-all">
                   <a
                     href="mailto:kevahesarghatta@kevaayurveda.com"
-                    className="hover:underline"
+                    className="hover:text-[#A1611D] transition-colors"
                   >
                     kevahesarghatta@kevaayurveda.com
                   </a>
                 </p>
-                <p className="text-[11px] text-[#1B1917]/60 font-light">
+                <p className="text-xs text-[#5A4A3B] font-semibold">
                   Direct inquiries to our specialized wellness clinic team.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-[#1B1917]/60">
-            <p>Highland Hotel &bull; KEVA Ayurveda, Yoga &amp; Naturopathy</p>
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans font-bold text-[#3A2D21]">
+            <p className="tracking-wide">
+              Highland Hotel &bull; KEVA Ayurveda, Yoga &amp; Naturopathy
+            </p>
             <div className="flex items-center gap-4">
               <a
                 href="tel:+919035034425"
-                className="bg-[#1B1917] text-[#FDFBF7] hover:bg-stone-800 px-6 py-2.5 rounded-sm uppercase tracking-[0.2em] font-medium transition-all shadow-xs"
+                className="bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3 rounded-sm uppercase tracking-[0.2em] font-bold transition-all shadow-sm active:scale-95"
               >
                 Get an Appointment
               </a>

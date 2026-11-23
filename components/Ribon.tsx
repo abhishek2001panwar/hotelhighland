@@ -1,21 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { 
-  Wifi, 
-  ConciergeBell, 
-  Briefcase, 
-  UtensilsCrossed, 
-  Flower2, 
-  ShoppingBag 
+import {
+  Wifi,
+  ConciergeBell,
+  Briefcase,
+  UtensilsCrossed,
+  Flower2,
+  ShoppingBag,
 } from "lucide-react";
 
 const amenities = [
   { id: "01", label: "High-Speed Wi-Fi", icon: Wifi },
   { id: "02", label: "24/7 Room Service", icon: ConciergeBell },
-  { id: "03", label: "Meeting & Event Facilities", icon: Briefcase },
-  { id: "04", label: "Cinnamon Fine Dining", icon: UtensilsCrossed },
-  { id: "05", label: "Ayurveda Wellness", icon: Flower2 },
+  { id: "03", label: "Meeting & Events", icon: Briefcase },
+  { id: "04", label: "Cinnamon Dining", icon: UtensilsCrossed },
+  { id: "05", label: "KEVA Ayurveda", icon: Flower2 },
   { id: "06", label: "Takeaway & Delivery", icon: ShoppingBag },
 ];
 
@@ -38,39 +38,28 @@ export default function AmenitiesRibbon() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#f4f1ea] border-y border-stone-300/60 py-6 md:py-10 px-0 md:px-12 lg:px-20 select-none overflow-hidden"
+      className="relative w-full bg-[#FDFBF7] border-y border-[#E6DFD3] py-6 md:py-9 px-0 md:px-12 lg:px-20 select-none overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-        
-        {/* Subtle Top Metadata */}
-        <div className="hidden md:flex items-center justify-between mb-8 pb-3 border-b border-stone-300/40">
-          <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-stone-500">
-            Highland Comforts &bull; Curated Services
-          </span>
-         
-        </div>
-
-        {/* 1. Mobile Marquee View (< md) */}
+        {/* 1. Mobile Seamless Marquee (< md) */}
         <div className="md:hidden relative w-full overflow-hidden">
-          {/* Edge Blur / Vignettes */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#f4f1ea] to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#f4f1ea] to-transparent z-10" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-[#FDFBF7] to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[#FDFBF7] to-transparent z-10" />
 
-          <div className="flex items-center gap-6 animate-marquee-smooth will-change-transform whitespace-nowrap">
+          <div className="flex items-center gap-8 animate-marquee-smooth will-change-transform whitespace-nowrap">
             {[0, 1].map((copyIndex) => (
-              <div key={copyIndex} className="flex items-center gap-6 shrink-0">
+              <div key={copyIndex} className="flex items-center gap-8 shrink-0">
                 {amenities.map((item) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={`${copyIndex}-${item.id}`}
-                      className="inline-flex items-center gap-2.5 px-3 py-1 text-stone-800"
+                      className="inline-flex items-center gap-2.5 text-[#3A2D21]"
                     >
-                      <Icon className="w-3.5 h-3.5 stroke-[1.6] text-orange-600 shrink-0" />
-                      <span className="font-serif text-[13px] font-normal tracking-tight">
+                      <Icon className="w-4 h-4 stroke-[1.5] text-[#A1611D] shrink-0" />
+                      <span className="font-sans text-xs font-medium tracking-wide text-[#3A2D21]/90">
                         {item.label}
                       </span>
-                      <span className="text-stone-400 font-mono text-[9px] ml-1.5">&bull;</span>
                     </div>
                   );
                 })}
@@ -79,33 +68,28 @@ export default function AmenitiesRibbon() {
           </div>
         </div>
 
-        {/* 2. Desktop Grid View (>= md) */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-8 items-start">
+        {/* 2. Desktop Apple-Style Minimal Strip (>= md) */}
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
           {amenities.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.id}
-                style={{ transitionDelay: `${idx * 70}ms` }}
-                className={`group flex flex-col justify-between h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                style={{ transitionDelay: `${idx * 60}ms` }}
+                className={`group flex flex-col items-center text-center gap-2.5 py-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   isInView
                     ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
+                    : "opacity-0 translate-y-3"
                 }`}
               >
-                <div className="flex items-center justify-between text-stone-400 group-hover:text-orange-600 transition-colors mb-4">
-                 
-                  <Icon className="w-4 h-4 stroke-[1.5] transition-transform duration-300 group-hover:scale-110" />
-                </div>
-
-                <p className="font-serif text-sm sm:text-[15px] font-normal text-stone-800 group-hover:text-stone-950 leading-snug">
+                <Icon className="w-5 h-5 stroke-[1.4] text-[#A1611D] transition-transform duration-300 group-hover:-translate-y-0.5" />
+                <span className="font-sans text-xs lg:text-[13px] font-medium tracking-wide text-[#3A2D21]/85 group-hover:text-[#3A2D21] transition-colors">
                   {item.label}
-                </p>
+                </span>
               </div>
             );
           })}
         </div>
-
       </div>
 
       <style jsx>{`
@@ -119,7 +103,7 @@ export default function AmenitiesRibbon() {
         }
         .animate-marquee-smooth {
           display: inline-flex;
-          animation: marqueeSmooth 22s linear infinite;
+          animation: marqueeSmooth 24s linear infinite;
         }
       `}</style>
     </section>

@@ -108,7 +108,7 @@ export default function Navbar() {
       {/* =========================================================
           FIXED HEADER BAR
       ========================================================== */}
-      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-6 md:px-8 xl:px-12 py-2 sm:py-2.5 bg-gradient-to-b from-black/95 via-black/80 to-transparent transition-all pointer-events-auto">
+      <header className="fixed top-0 left-0 w-full z-40 px-4 sm:px-6 md:px-8 xl:px-12 py-2 sm:py-1.5 bg-gradient-to-b from-black/90 via-black/80 to-transparent transition-all pointer-events-auto">
         <div className="w-full max-w-[1780px] mx-auto flex items-center justify-between text-white gap-4">
           
           {/* Brand Logo - Explicit container bounds so it NEVER forces horizontal overflow */}
@@ -117,7 +117,7 @@ export default function Navbar() {
             className="flex items-center select-none group shrink-0"
             aria-label="Highland Hotel Home"
           >
-            <div className="relative w-56 sm:w-72 md:w-80 lg:w-96 xl:w-[360px] 2xl:w-[400px] h-20 sm:h-24 md:h-28 lg:h-32 xl:h-[135px] transition-transform duration-300 group-hover:scale-[1.01]">
+            <div className="relative w-56 sm:w-72 md:w-80 lg:w-96 xl:w-[360px] 2xl:w-[400px] h-20 sm:h-24 md:h-28 lg:h-32 xl:h-[120px] transition-transform duration-300 group-hover:scale-[1.01]">
               <Image
                 src="/logo.webp"
                 alt="Highland Hotel Bengaluru Logo"

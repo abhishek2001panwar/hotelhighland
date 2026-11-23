@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -36,6 +36,13 @@ const test1 = localFont({
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
 
 export const metadata: Metadata = {
   title: "Highland Hotel Bengaluru | Where Luxury Meets Hospitality",
@@ -47,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${ttRamillas.variable} ${inter.variable} ${karla.variable} ${test.variable} ${test1.variable} h-full antialiased`}
+      className={`${ttRamillas.variable} ${inter.variable} ${karla.variable} ${montserrat.variable} ${test.variable} ${test1.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Analytics />

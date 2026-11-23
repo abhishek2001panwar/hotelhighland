@@ -18,8 +18,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
-const heroBg =
-  "/banquet.jpg"; // Full high-resolution 1920x1280 hero image for Utsava Banquet Hall
+const heroBg = "/banquet.jpg";
 
 const hallImages = [
   "/banquet/1.webp",
@@ -28,7 +27,7 @@ const hallImages = [
   "/banquet/4.webp",
   "/banquet/5.webp",
   "/banquet/6.webp",
-  "/banquet/7.webp",
+  // "/banquet/7.webp",
   "/banquet/8.webp",
 ];
 
@@ -91,17 +90,16 @@ export default function BanquetHallPage() {
     offset: ["start start", "end start"],
   });
 
-  // Toned down parallax offsets so the hero image remains perfectly proportioned without over-zooming
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <main className="min-h-screen bg-[#FDFBF7] text-[#1B1917] antialiased selection:bg-amber-600/20 selection:text-amber-950 overflow-x-hidden">
+    <main className="min-h-screen bg-[#FDFBF7] text-[#3A2D21] antialiased selection:bg-[#A1611D]/20 selection:text-[#3A2D21] overflow-x-hidden">
       <Navbar />
 
       {/* =========================================================
-          01 - HERO SECTION (CLEAN PROPORTIONS, NO OVER-ZOOM)
+          01 - HERO SECTION (ZERO BLACK/RED, BOLD ENQUIRIES, #A1611D CTA)
       ========================================================== */}
       <section
         ref={heroRef}
@@ -122,31 +120,39 @@ export default function BanquetHallPage() {
           />
         </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-stone-950/15 pointer-events-none z-10" />
+        {/* Warm Espresso Bronze Scrims (Zero Black) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(44, 34, 24, 0.88) 0%, rgba(44, 34, 24, 0.42) 45%, rgba(44, 34, 24, 0.18) 100%)",
+          }}
+        />
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="relative z-20 w-full max-w-8xl mx-auto px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 text-white"
+          className="relative z-20 w-full max-w-[1720px] mx-auto px-6 sm:px-12 lg:px-16 pb-12 sm:pb-16 text-[#FDFBF7]"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <p className="font-mono text-[10px] sm:text-[11px] tracking-[0.35em] uppercase text-amber-300 font-medium">
+          <div className="flex items-center gap-2.5 mb-4">
+            
+            <p className="font-sans text-[11px] sm:text-xs tracking-[0.32em] uppercase text-[#E5C99B] font-bold">
               Highland Hotel &bull; Celebrations &amp; Conventions
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8">
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.03] tracking-tight">
+              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold leading-[1.05] tracking-wide">
                 Utsava <br />
-                <span className="italic font-light text-stone-200">Banquet Hall</span>
+                <span className="italic font-light text-[#F4EFE6]">Banquet Hall</span>
               </h1>
             </div>
 
             <div className="lg:col-span-4 lg:text-right">
-              <p className="font-sans text-xs uppercase tracking-[0.24em] text-stone-300 font-light leading-relaxed">
-                Stay in our luxury meeting hall
+              <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.26em] text-[#F4EFE6] font-bold leading-relaxed">
+                Premier Convention &amp; Event Venue
               </p>
-              <div className="mt-3 flex items-center lg:justify-end gap-3 font-mono text-[11px] tracking-widest text-amber-200/90 uppercase">
+              <div className="mt-3 flex items-center lg:justify-end gap-3 font-sans text-xs tracking-[0.22em] text-[#E5C99B] font-bold uppercase">
                 <span>200 Seated</span>
                 <span>&bull;</span>
                 <span>600 Floating</span>
@@ -154,20 +160,21 @@ export default function BanquetHallPage() {
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-stone-300">
-            <div className="flex items-center gap-2">
-              <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="text-stone-300">For Any Enquiries Connect With Us:</span>
+          {/* Bold Enquiries & #A1611D Button */}
+          <div className="mt-10 pt-6 border-t border-[#FDFBF7]/20 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-sans text-[#F4EFE6]">
+            <div className="flex flex-wrap items-center gap-2 font-bold tracking-wide">
+              <Phone className="w-4 h-4 text-[#E5C99B] shrink-0" />
+              <span className="text-[#E5C99B]">For Any Enquiries Connect With Us:</span>
               <a
                 href="tel:+919035034418"
-                className="text-white hover:text-amber-300 transition-colors font-medium ml-1"
+                className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors ml-1"
               >
                 +91 90350 34418
               </a>
               <span>/</span>
               <a
                 href="tel:+917619231899"
-                className="text-white hover:text-amber-300 transition-colors font-medium"
+                className="text-[#FDFBF7] hover:text-[#E5C99B] transition-colors"
               >
                 +91 76192 31899
               </a>
@@ -175,42 +182,56 @@ export default function BanquetHallPage() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-white text-stone-900 hover:bg-amber-500 hover:text-white px-6 py-2.5 rounded-sm font-sans text-[11px] uppercase tracking-[0.2em] font-medium transition-all shadow-md active:scale-95"
+              className="inline-flex items-center gap-2 bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-7 py-3 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all shadow-md active:scale-95"
             >
               <span>Enquire Now</span>
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
+              <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
             </Link>
           </div>
         </motion.div>
       </section>
 
       {/* =========================================================
-          02 - OVERVIEW & NARRATIVE
+          02 - OVERVIEW & NARRATIVE (WIDE TRACKING & BOLD HIGHLIGHTS)
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-16 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           <div className="lg:col-span-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8C6D3B] block mb-2 font-semibold">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
               Welcome to Highland Hotel
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#1B1917] font-normal leading-[1.15]">
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#3A2D21] font-bold leading-[1.18] tracking-wide">
               Host your next meeting, launch or celebration
             </h2>
-            <div className="mt-5 w-12 h-[1px] bg-[#D8CFBF]" />
+            <div className="mt-5 w-12 h-[2px] bg-[#A1611D]" />
           </div>
 
-          <div className="lg:col-span-8 space-y-6 text-[#4A453E] font-sans text-sm sm:text-base font-light leading-relaxed">
-            <p className="font-serif text-xl sm:text-2xl text-[#1B1917] leading-snug font-normal">
-              Welcome to Hotel Highland, your premier destination for hosting unforgettable events.
+          <div className="lg:col-span-8 space-y-6 text-[#5A4A3B] font-sans text-sm sm:text-base font-normal leading-relaxed tracking-wide">
+            <p className="font-serif text-xl sm:text-2xl text-[#3A2D21] leading-snug font-bold tracking-wide">
+              Welcome to Hotel Highland, your premier destination for hosting unforgettable events in North Bangalore.
             </p>
             <p>
-              Our spacious banquet hall boasts a capacity of <strong>200 seated guests</strong> and{" "}
-              <strong>600 guests in a floating arrangement</strong>, making it the perfect venue for any occasion.
+              Our spacious{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                1,904 sq. ft. Utsava Banquet Hall
+              </strong>{" "}
+              boasts a capacity of{" "}
+              <strong className="font-bold text-[#3A2D21]">200 seated guests</strong> and{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                600 guests in a floating arrangement
+              </strong>
+              , making it the perfect venue for any occasion.
             </p>
             <p>
-              Whether you&apos;re planning a conference, wedding, sangeet ceremony, birthday party, anniversary celebration, or any other special event, our versatile space and exceptional service will ensure a memorable experience.
+              Whether you&apos;re planning a{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                corporate conference, wedding, sangeet ceremony, birthday party, or anniversary celebration
+              </strong>
+              , our versatile space,{" "}
+              <strong className="font-bold text-[#3A2D21]">1,400 sq. ft. dedicated dining area</strong>, and{" "}
+              <strong className="font-bold text-[#3A2D21]">60+ open car parks</strong> ensure a seamless and memorable experience.
             </p>
-            <p className="text-[#1B1917] font-normal pt-2">
+            <p className="text-[#3A2D21] font-bold pt-2 tracking-wide">
               Let Hotel Highland be the backdrop for your next event, where elegance and convenience come together seamlessly.
             </p>
           </div>
@@ -218,29 +239,29 @@ export default function BanquetHallPage() {
       </section>
 
       {/* =========================================================
-          03 - ARCHITECTURAL CAPACITY & VENUE METRICS
+          03 - ARCHITECTURAL CAPACITY & VENUE METRICS (BOLD & WIDE TRACKING)
       ========================================================== */}
-      <section className="bg-[#F4EFE6] py-16 sm:py-20 border-y border-[#E2DAD0] px-6 sm:px-12 lg:px-16">
+      <section className="bg-[#F4EFE6] py-16 sm:py-20 border-y border-[#DDD4C4] px-6 sm:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10">
             {metrics.map((item) => (
-              <div key={item.label} className="border-l border-[#D6CDBC] pl-5 sm:pl-6">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-serif text-4xl sm:text-5xl font-light text-[#1B1917] tracking-tight">
+              <div key={item.label} className="border-l-2 border-[#A1611D] pl-5 sm:pl-6">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-serif text-4xl sm:text-5xl font-bold text-[#3A2D21] tracking-wide">
                     {item.value}
                   </span>
                   {item.unit && (
-                    <span className="font-mono text-xs text-[#7A6E58] uppercase">
+                    <span className="font-sans text-xs font-bold text-[#A1611D] uppercase tracking-wider">
                       {item.unit}
                     </span>
                   )}
                 </div>
 
-                <p className="font-sans text-xs uppercase tracking-wider text-[#1B1917] font-medium mt-2">
+                <p className="font-sans text-xs uppercase tracking-[0.16em] text-[#3A2D21] font-bold mt-2">
                   {item.label}
                 </p>
 
-                <p className="font-sans text-[11px] text-[#7A6E58] font-light mt-0.5">
+                <p className="font-sans text-xs text-[#5A4A3B] font-semibold tracking-wide mt-0.5">
                   {item.sub}
                 </p>
               </div>
@@ -250,40 +271,44 @@ export default function BanquetHallPage() {
       </section>
 
       {/* =========================================================
-          04 - CONFERENCE & MEETINGS: SERVICES
+          04 - CONFERENCE & MEETINGS: SERVICES (WIDE TRACKING & BOLD TITLES)
       ========================================================== */}
       <section className="px-6 sm:px-12 lg:px-16 max-w-7xl mx-auto py-20 sm:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           <div className="lg:col-span-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8C6D3B] block mb-2 font-semibold">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] block mb-2.5 font-bold">
               Overview &bull; Conference &amp; Meetings
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#1B1917] font-normal leading-[1.1]">
+            <h2 className="font-serif text-3xl sm:text-5xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
               Services in <br />
-              <span className="italic font-light text-[#8C6D3B]">Highland</span>
+              <span className="italic font-normal text-[#A1611D]">Highland</span>
             </h2>
-            <p className="font-sans text-[#5F584C] text-xs sm:text-sm font-light leading-relaxed mt-5">
-              Comprehensive hospitality infrastructure supporting corporate seminars, banquet receptions, private dinners, and residential delegates.
+            <p className="font-sans text-[#5A4A3B] text-xs sm:text-sm font-medium leading-relaxed tracking-wide mt-5">
+              Comprehensive hospitality infrastructure supporting{" "}
+              <strong className="font-bold text-[#3A2D21]">
+                corporate seminars, banquet receptions, private dinners, and residential delegates
+              </strong>
+              .
             </p>
           </div>
 
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 border-t border-[#E5E0D5]">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 border-t border-[#DDD4C4]">
             {conferenceServices.map((service) => {
               const IconComponent = service.icon;
               return (
                 <div
                   key={service.title}
-                  className="flex items-start gap-4 py-6 border-b border-[#E5E0D5] sm:odd:pr-8 sm:even:pl-8 sm:even:border-l"
+                  className="flex items-start gap-4 py-6 border-b border-[#DDD4C4] sm:odd:pr-8 sm:even:pl-8 sm:even:border-l"
                 >
-                  <div className="w-11 h-11 rounded-lg bg-[#FAF7F0] border border-[#E5E0D5] flex items-center justify-center shrink-0">
-                    <IconComponent className="w-5 h-5 text-[#8C6D3B] stroke-[1.75]" />
+                  <div className="w-11 h-11 rounded-lg bg-[#F4EFE6] border border-[#DDD4C4] flex items-center justify-center shrink-0">
+                    <IconComponent className="w-5 h-5 text-[#A1611D] stroke-[2]" />
                   </div>
 
-                  <div className="space-y-1">
-                    <h3 className="font-serif text-base sm:text-lg text-[#1B1917] font-normal leading-snug">
+                  <div className="space-y-1.5">
+                    <h3 className="font-serif text-base sm:text-lg text-[#3A2D21] font-bold leading-snug tracking-wide">
                       {service.title}
                     </h3>
-                    <p className="font-sans text-xs text-[#5F584C] font-light leading-relaxed">
+                    <p className="font-sans text-xs sm:text-[13px] text-[#5A4A3B] font-medium leading-relaxed tracking-wide">
                       {service.desc}
                     </p>
                   </div>
@@ -295,26 +320,24 @@ export default function BanquetHallPage() {
       </section>
 
       {/* =========================================================
-          05 - CLEAN UNIFORM LIGHT GALLERY (EQUAL SMALL CARDS, NO TEXT, NO ENLARGEMENT)
+          05 - CLEAN UNIFORM LIGHT GALLERY
       ========================================================== */}
-      <section className="bg-[#FAF7F0] border-t border-[#EAE4D9] py-20 sm:py-28 px-6 sm:px-12 lg:px-16">
+      <section className="bg-[#F4EFE6] border-t border-[#DDD4C4] py-20 sm:py-28 px-6 sm:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="pb-8 mb-10 border-b border-[#E0D8CB]">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#8C6D3B] font-semibold block mb-2">
+          <div className="pb-8 mb-10 border-b border-[#DDD4C4]">
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold block mb-2">
               Venue Gallery
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#1B1917] font-normal">
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#3A2D21] font-bold tracking-wide">
               Utsava Hall Perspectives
             </h2>
           </div>
 
-          {/* Equal Sized Uniform Grid (4 Columns, 4:3 Aspect Ratio, Crisp Images) */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
             {hallImages.map((src, index) => (
               <div
                 key={index}
-                className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-[#ECE6DA] border border-[#E2D9CB] shadow-2xs"
+                className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-[#EAE1D0] border border-[#DDD4C4] shadow-2xs"
               >
                 <Image
                   src={src}
@@ -329,71 +352,79 @@ export default function BanquetHallPage() {
           </div>
         </div>
       </section>
+
       {/* =========================================================
-          06 - PRE-FOOTER INQUIRY & RESERVATION CTA
+          06 - PRE-FOOTER INQUIRY & RESERVATION CTA (#A1611D BUTTON)
       ========================================================== */}
-      <section className="relative bg-[#F4EFE6] border-t border-[#E5E0D5] py-20 sm:py-28 px-6 sm:px-12 lg:px-16 overflow-hidden">
-        {/* Subtle decorative architectural lines */}
-        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#8C6D3B]/30 to-transparent pointer-events-none" />
+      <section className="relative bg-[#FDFBF7] border-t border-[#DDD4C4] py-20 sm:py-28 px-6 sm:px-12 lg:px-16 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#A1611D]/40 to-transparent pointer-events-none" />
         <div className="max-w-5xl mx-auto text-center relative z-10">
           
-          {/* Eyebrow Label */}
-          <div className="inline-flex items-center gap-2 mb-4">
-           
-            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#8C6D3B] font-semibold">
+          <div className="inline-flex items-center gap-2.5 mb-4">
+            
+            <span className="font-sans text-xs uppercase tracking-[0.3em] text-[#A1611D] font-bold">
               Plan Your Gathering
             </span>
-           
+            
           </div>
 
-          {/* Heading */}
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#1B1917] font-normal leading-[1.1] tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#3A2D21] font-bold leading-[1.12] tracking-wide">
             Ready to host an unforgettable <br />
-            <span className="italic font-light text-[#7A6E58]">event at Utsava?</span>
+            <span className="italic font-normal text-[#A1611D]">event at Utsava?</span>
           </h2>
 
-          {/* Subtext */}
-          <p className="mt-5 text-[#5F584C] font-sans text-sm sm:text-base font-light max-w-2xl mx-auto leading-relaxed">
-            From customized banquet dining and audiovisual stage arrangements to dedicated event coordinators, our team ensures every celebration unfolds flawlessly.
+          <p className="mt-5 text-[#5A4A3B] font-sans text-sm sm:text-base font-medium max-w-2xl mx-auto leading-relaxed tracking-wide">
+            From{" "}
+            <strong className="font-bold text-[#3A2D21]">
+              customized banquet dining and audiovisual stage arrangements
+            </strong>{" "}
+            to{" "}
+            <strong className="font-bold text-[#3A2D21]">dedicated event coordinators</strong>, our team ensures every celebration unfolds flawlessly.
           </p>
 
-          {/* Action CTAs */}
+          {/* Action CTAs (#A1611D Primary Button) */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-5">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2.5 bg-[#1B1917] hover:bg-[#2C2723] text-[#FDFBF7] px-8 py-4 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-medium transition-all shadow-md active:scale-95"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#A1611D] hover:bg-[#865017] text-[#FDFBF7] px-8 py-4 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all shadow-md active:scale-95"
             >
               <span>Enquire Hall Availability</span>
-              <ArrowUpRight className="w-4 h-4 stroke-[2]" />
+              <ArrowUpRight className="w-4 h-4 stroke-[2.2]" />
             </Link>
 
             <a
               href="tel:+919035034418"
-              className="inline-flex items-center justify-center gap-2.5 bg-[#FAF7F0] hover:bg-white text-[#1B1917] border border-[#DDD4C4] px-7 py-4 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-medium transition-all shadow-2xs hover:shadow-sm"
+              className="inline-flex items-center justify-center gap-2.5 bg-[#F4EFE6] hover:bg-white text-[#3A2D21] border border-[#DDD4C4] hover:border-[#A1611D] px-7 py-4 rounded-sm font-sans text-xs uppercase tracking-[0.22em] font-bold transition-all shadow-2xs hover:shadow-sm"
             >
-              <Phone className="w-4 h-4 text-[#8C6D3B]" />
+              <Phone className="w-4 h-4 text-[#A1611D] stroke-[2.2]" />
               <span>Call +91 90350 34418</span>
             </a>
           </div>
 
           {/* Quick Perks / Assurance Row */}
-          <div className="mt-14 pt-10 border-t border-[#E0D8CB] grid grid-cols-1 sm:grid-cols-3 gap-6 text-left sm:text-center">
+          <div className="mt-14 pt-10 border-t border-[#DDD4C4] grid grid-cols-1 sm:grid-cols-3 gap-6 text-left sm:text-center">
             <div>
-              <p className="font-serif text-base text-[#1B1917]">Custom Banquet Menus</p>
-              <p className="font-sans text-xs text-[#7A6E58] font-light mt-1">
-                Multi-cuisine vegetarian & non-veg options
+              <p className="font-serif text-lg font-bold text-[#3A2D21] tracking-wide">
+                Custom Banquet Menus
+              </p>
+              <p className="font-sans text-xs text-[#5A4A3B] font-semibold tracking-wide mt-1">
+                Multi-cuisine vegetarian &amp; non-veg options
               </p>
             </div>
             <div>
-              <p className="font-serif text-base text-[#1B1917]">Dedicated Coordinator</p>
-              <p className="font-sans text-xs text-[#7A6E58] font-light mt-1">
+              <p className="font-serif text-lg font-bold text-[#3A2D21] tracking-wide">
+                Dedicated Coordinator
+              </p>
+              <p className="font-sans text-xs text-[#5A4A3B] font-semibold tracking-wide mt-1">
                 End-to-end liaison for hassle-free execution
               </p>
             </div>
             <div>
-              <p className="font-serif text-base text-[#1B1917]">AV & Stage Ready</p>
-              <p className="font-sans text-xs text-[#7A6E58] font-light mt-1">
-                Acoustics, podiums & projection systems
+              <p className="font-serif text-lg font-bold text-[#3A2D21] tracking-wide">
+                AV &amp; Stage Ready
+              </p>
+              <p className="font-sans text-xs text-[#5A4A3B] font-semibold tracking-wide mt-1">
+                Acoustics, podiums &amp; projection systems
               </p>
             </div>
           </div>
