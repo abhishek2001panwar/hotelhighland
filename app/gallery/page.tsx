@@ -150,9 +150,6 @@ export default function GallerySection() {
           </div>
         </div>
 
-        {/* =========================================================
-            "OUR HONORABLE VISITORS" (DUAL CAROUSELS)
-        ========================================================== */}
         <div className="pt-16 sm:pt-20">
           <div className="flex items-center justify-between mb-10">
             <div className="flex items-center gap-3">
