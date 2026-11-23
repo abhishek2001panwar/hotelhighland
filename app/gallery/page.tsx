@@ -51,11 +51,9 @@ const dignitaries: Dignitary[] = [
 
 // The 9 General Gallery Images
 const galleryImages = [
-  "/gallery/1.webp",
-  "/gallery/2.webp",
+ 
   "/gallery/3.webp",
-  "/gallery/4.webp",
-  "/gallery/5.webp",
+ 
 
  
   "/gallery/8.webp",
@@ -65,16 +63,14 @@ const galleryImages = [
  
   "/gallery/13.webp",
  
-  "/gallery/15.webp",
+ 
   "/gallery/16.webp",
   "/gallery/17.webp",
   "/gallery/18.webp",
   "/gallery/19.webp",
   "/gallery/20.webp",
-  "/gallery/21.webp",
-  "/gallery/22.webp",
-  "/gallery/23.webp",
-  "/gallery/24.webp",
+ 
+  
   "/gallery/25.webp",
   "/gallery/26.webp",
   "/gallery/27.webp",
@@ -83,7 +79,7 @@ const galleryImages = [
   "/gallery/30.webp",
   "/gallery/31.webp",
   "/gallery/32.webp",
-  "/gallery/33.webp",
+ 
 ];
 
 export default function GallerySection() {
