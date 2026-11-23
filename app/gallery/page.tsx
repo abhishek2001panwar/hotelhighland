@@ -71,7 +71,7 @@ const galleryImages = [
   "/gallery/20.webp",
  
   
-  "/gallery/25.webp",
+  
   "/gallery/26.webp",
   "/gallery/27.webp",
   "/gallery/28.webp",
